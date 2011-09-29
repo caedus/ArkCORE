@@ -345,11 +345,11 @@ void WorldSession::HandleWhoOpcode(WorldPacket & recv_data)
         if (itr->second->HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_DEVELOPER))
         {
             pname = "<Dev>";
-			pname.append(itr->second->GetName());
+            pname.append(itr->second->GetName());
         }
         else if (itr->second->isGameMaster())
         {
-			pname = "<GM>";
+            pname = "<GM>";
             pname.append(itr->second->GetName());
         }
 
