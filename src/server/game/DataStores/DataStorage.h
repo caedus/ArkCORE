@@ -133,6 +133,7 @@ extern DataStorage <ItemLimitCategoryEntry>       sItemLimitCategoryStore;
 extern DataStorage <ItemRandomPropertiesEntry>    sItemRandomPropertiesStore;
 extern DataStorage <ItemRandomSuffixEntry>        sItemRandomSuffixStore;
 extern DataStorage <ItemSetEntry>                 sItemSetStore;
+extern DataStorage <ItemReforgeEntry>             sItemReforgeStore;
 extern DataStorage <LFGDungeonEntry>              sLFGDungeonStore;
 extern DataStorage <LockEntry>                    sLockStore;
 extern DataStorage <MailTemplateEntry>            sMailTemplateStore;

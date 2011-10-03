@@ -132,13 +132,13 @@ DataStorage <ItemLimitCategoryEntry>       sItemLimitCategoryStore(ItemLimitCate
 DataStorage <ItemRandomPropertiesEntry>    sItemRandomPropertiesStore(ItemRandomPropertiesfmt);
 DataStorage <ItemRandomSuffixEntry>        sItemRandomSuffixStore(ItemRandomSuffixfmt);
 DataStorage <ItemSetEntry>                 sItemSetStore(ItemSetEntryfmt);
-
+DataStorage <ItemReforgeEntry>             sItemReforgeStore(ItemReforgefmt);
 DataStorage <LFGDungeonEntry>              sLFGDungeonStore(LFGDungeonEntryfmt);
 
-DataStorage <LockEntry> sLockStore(LockEntryfmt);
+DataStorage <LockEntry>                    sLockStore(LockEntryfmt);
 
-DataStorage <MailTemplateEntry> sMailTemplateStore(MailTemplateEntryfmt);
-DataStorage <MapEntry> sMapStore(MapEntryfmt);
+DataStorage <MailTemplateEntry>            sMailTemplateStore(MailTemplateEntryfmt);
+DataStorage <MapEntry>                     sMapStore(MapEntryfmt);
 
 // DBC used only for initialization sMapDifficultyMap at startup.
 DataStorage <MapDifficultyEntry> sMapDifficultyStore(MapDifficultyEntryfmt); // only for loading
@@ -423,7 +423,7 @@ void LoadDataStorages(const std::string& dataPath)
     LoadData(availableDbcLocales, bad_dbc_files,sItemDamageTwoHandStore,          storagesPath,"ItemDamageTwoHand.dbc");
     LoadData(availableDbcLocales, bad_dbc_files,sItemDamageTwoHandCasterStore,    storagesPath,"ItemDamageTwoHandCaster.dbc");
     LoadData(availableDbcLocales, bad_dbc_files,sItemDamageWandStore,             storagesPath,"ItemDamageWand.dbc");
-
+    LoadData(availableDbcLocales, bad_dbc_files, sItemReforgeStore,               storagesPath, "ItemReforge.dbc");
 
     LoadData(availableDbcLocales, bad_dbc_files, sLFGDungeonStore,             storagesPath, "LFGDungeons.dbc");
     LoadData(availableDbcLocales, bad_dbc_files, sLockStore,                   storagesPath, "Lock.dbc");

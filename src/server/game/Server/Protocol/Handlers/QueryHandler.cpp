@@ -215,12 +215,19 @@ void WorldSession::HandleCreatureQueryOpcode(WorldPacket & recv_data)
 
 void WorldSession::HandleGameObjectQueryOpcode(WorldPacket & recv_data)
 {
-    uint32 entryID;
-    recv_data >> entryID;
     uint64 guid;
     recv_data >> guid;
+    uint32 packetGuid, entryID;
+    uint8 unk1, unk2;
+    recv_data >> unk1;
+    recv_data >> unk2;
+    recv_data >> packetGuid;
+    recv_data >> entryID;
 
-    const GameObjectTemplate *info = sObjectMgr->GetGameObjectTemplate(entryID);
+    entryID = entryID / 256;
+    guid = packetGuid / 65536;
+
+    GameObjectTemplate const* info = sObjectMgr->GetGameObjectTemplate(entryID);
     if (info)
     {
         std::string Name;

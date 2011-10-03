@@ -517,7 +517,7 @@ struct AchievementCriteriaEntry
     //uint32 unk1;                                          // 15 only one value, still unknown
     //uint32 unk2;                                          // 16 all zeros
     //uint32 moreRequirement[3];                            // 17-19
-    //uint32 moreRequirementValue[3];                       // 20-22 
+    //uint32 moreRequirementValue[3];                       // 20-22
 };
 
 struct AreaTableEntry
@@ -547,7 +547,7 @@ struct AreaTableEntry
         if (zone == 4395) // Dalaran City
             return true;
         if (zone == 3703) // Shattrath City
-            return true;	    
+            return true;
         return (flags & AREA_FLAG_SANCTUARY);
     }
 };
@@ -1331,6 +1331,15 @@ struct ItemRandomSuffixEntry
                                                             // 2        m_internalName
     uint32    enchant_id[5];                                // 3-7      m_enchantment
     uint32    prefix[5];                                    // 8-12     m_allocationPct
+};
+
+struct ItemReforgeEntry
+{
+    uint32    ID;                                           // 0
+    uint32    oldstat;                                      // 1
+    float     oldstat_coef;                                 // 2
+    uint32    newstat;                                      // 2
+    float     newstat_coef;                                 // 3
 };
 
 #define MAX_ITEM_SET_ITEMS 10
@@ -2321,10 +2330,10 @@ struct WorldStateSounds
 struct WorldStateUI
 {
     uint32    ID;                                           // 0
-    uint32    map_id;                                       // 1        Can be -1 to show up everywhere. 
-    uint32    zone;                                         // 2        Can be zero for "everywhere". 
+    uint32    map_id;                                       // 1        Can be -1 to show up everywhere.
+    uint32    zone;                                         // 2        Can be zero for "everywhere".
     uint32    phaseMask;                                    // 3        Phase this WorldState is avaliable in
-    uint32    icon;                                         // 4        The icon that is used in the interface. 
+    uint32    icon;                                         // 4        The icon that is used in the interface.
     char*     textureFilename;                              // 5
     char*     text;                                         // 6-21     The worldstate text
     char*     description;                                  // 22-38    Text shown when hovering mouse on icon
