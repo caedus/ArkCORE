@@ -103,7 +103,7 @@ public:
 
         void OnCreatureCreate(Creature* creature)
         {
-            switch(creature->GetEntry())
+            switch (creature->GetEntry())
             {
                 case NPC_DRAKOS:
                     drakosGUID = creature->GetGUID();
@@ -174,7 +174,7 @@ public:
 
         void SetData(uint32 type, uint32 data)
         {
-            switch(type)
+            switch (type)
             {
                 case DATA_UROM_PLATAFORM:
                     platformUrom = data;
@@ -184,7 +184,7 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch(type)
+            switch (type)
             {
                 case DATA_UROM_PLATAFORM:              return platformUrom;
                 // used by condition system
@@ -196,7 +196,7 @@ public:
 
         uint64 GetData64(uint32 identifier)
         {
-            switch(identifier)
+            switch (identifier)
             {
                 case DATA_DRAKOS:                 return drakosGUID;
                 case DATA_VAROS:                  return varosGUID;

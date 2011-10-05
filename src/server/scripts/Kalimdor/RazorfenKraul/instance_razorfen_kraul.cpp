@@ -65,7 +65,7 @@ public:
 
         void OnGameObjectCreate(GameObject* go)
         {
-            switch(go->GetEntry())
+            switch (go->GetEntry())
             {
                 case 21099: DoorWardGUID = go->GetGUID(); break;
             }
@@ -74,7 +74,7 @@ public:
         void Update(uint32 /*diff*/)
         {
             if (WardKeeperDeath == WARD_KEEPERS_NR)
-                if(GameObject* pGo = instance->GetGameObject(DoorWardGUID))
+                if (GameObject* pGo = instance->GetGameObject(DoorWardGUID))
                 {
                     pGo->SetUInt32Value(GAMEOBJECT_FLAGS, 33);
                     pGo->SetGoState(GO_STATE_ACTIVE);
@@ -83,7 +83,7 @@ public:
 
         void SetData(uint32 type, uint32 /*data*/)
         {
-            switch(type)
+            switch (type)
             {
                 case EVENT_WARD_KEEPER: WardKeeperDeath++; break;
             }

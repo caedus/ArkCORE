@@ -75,7 +75,7 @@ public:
 
         void OnCreatureCreate(Creature* creature)
         {
-            switch(creature->GetEntry())
+            switch (creature->GetEntry())
             {
                 case 28684:    uiKrikthir = creature->GetGUID();        break;
                 case 28921:    uiHadronox = creature->GetGUID();        break;
@@ -109,7 +109,7 @@ public:
 
         uint64 GetData64(uint32 identifier)
         {
-            switch(identifier)
+            switch (identifier)
             {
                 case DATA_KRIKTHIR_THE_GATEWATCHER:     return uiKrikthir;
                 case DATA_HADRONOX:                     return uiHadronox;
@@ -124,7 +124,7 @@ public:
 
         void SetData(uint32 type, uint32 data)
         {
-            switch(type)
+            switch (type)
             {
             case DATA_KRIKTHIR_THE_GATEWATCHER_EVENT:
                 auiEncounter[0] = data;
@@ -153,7 +153,7 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch(type)
+            switch (type)
             {
                 case DATA_KRIKTHIR_THE_GATEWATCHER_EVENT:   return auiEncounter[0];
                 case DATA_HADRONOX_EVENT:                   return auiEncounter[1];

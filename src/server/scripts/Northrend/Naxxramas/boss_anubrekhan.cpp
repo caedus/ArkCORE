@@ -103,7 +103,7 @@ public:
             DoScriptText(SAY_SLAY, me);
         }
 
-        void JustDied(Unit* )
+        void JustDied(Unit*)
         {
             _JustDied();
 
@@ -153,7 +153,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_IMPALE:
                         //Cast Impale on a random target

@@ -64,7 +64,7 @@ public:
 
         if (player->GetQuestStatus(QUEST_CHILDREN_OF_URSOC) == QUEST_STATUS_INCOMPLETE || player->GetQuestStatus(QUEST_THE_BEAR_GODS_OFFSPRING) == QUEST_STATUS_INCOMPLETE)
         {
-            switch(creature->GetEntry())
+            switch (creature->GetEntry())
             {
                 case NPC_ORSONN:
                     if (!player->GetReqKillOrCastCurrentCount(QUEST_CHILDREN_OF_URSOC, NPC_ORSONN_CREDIT) || !player->GetReqKillOrCastCurrentCount(QUEST_THE_BEAR_GODS_OFFSPRING, NPC_ORSONN_CREDIT))
@@ -92,7 +92,7 @@ public:
     bool OnGossipSelect(Player* player, Creature* creature, uint32 /*uiSender*/, uint32 uiAction)
     {
         player->PlayerTalkClass->ClearMenus();
-        switch(uiAction)
+        switch (uiAction)
         {
             case GOSSIP_ACTION_INFO_DEF+1:
                 player->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM2, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 2);
@@ -347,7 +347,7 @@ public:
         {
             if (Creature* Emily = GetClosestCreatureWithEntry(me, NPC_EMILY, 50.0f))
             {
-                switch(Who->GetEntry())
+                switch (Who->GetEntry())
                 {
                     case NPC_HUNGRY_WORG:
                         DoScriptText(SAY_WORGHAGGRO2, Emily);
@@ -523,7 +523,7 @@ public:
                 {
                     if (m_uiTimer <= uiDiff)
                     {
-                        switch(m_uiPhase)
+                        switch (m_uiPhase)
                         {
                             case 1:
                                 me->SetUInt32Value(UNIT_NPC_EMOTESTATE, EMOTE_STATE_LOOT);
@@ -597,7 +597,7 @@ public:
             {
                 caster->ToPlayer()->KilledMonsterCredit(CREDIT_NPC, 0);
                 DoScriptText(RAND(RANDOM_SAY_1, RANDOM_SAY_2, RANDOM_SAY_3), caster);
-                if(me->IsStandState())
+                if (me->IsStandState())
                     me->GetMotionMaster()->MovePoint(1, me->GetPositionX()+7, me->GetPositionY()+7, me->GetPositionZ());
                 else
                 {

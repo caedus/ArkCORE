@@ -60,7 +60,7 @@ enum VmapDisableTypes
 namespace DisableMgr
 {
     void LoadDisables();
-    bool IsDisabledFor(DisableType type, uint32 entry, Unit const* unit, uint8 flags = 0);
+    bool IsDisabledfor (DisableType type, uint32 entry, Unit const* unit, uint8 flags = 0);
     void CheckQuestDisables();
 }
 

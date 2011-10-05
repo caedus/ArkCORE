@@ -241,7 +241,7 @@ class spell_dream_fog_sleep : public SpellScriptLoader
 
             void FilterTargets(std::list<Unit*>& unitList)
             {
-                unitList.remove_if(DreamFogTargetSelector());
+                unitList.remove_if (DreamFogTargetSelector());
             }
 
             void Register()
@@ -292,7 +292,7 @@ class spell_mark_of_nature : public SpellScriptLoader
 
             void FilterTargets(std::list<Unit*>& unitList)
             {
-                unitList.remove_if(MarkOfNatureTargetSelector());
+                unitList.remove_if (MarkOfNatureTargetSelector());
             }
 
             void HandleEffect(SpellEffIndex effIndex)

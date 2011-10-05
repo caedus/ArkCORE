@@ -193,7 +193,7 @@ public:
     void WriteConsole(LogLevel level, const std::string& msg) const;
     void WriteConsole(LogLevel level, const char* fmt, va_list& lst) const;
     void WriteConsole(LogLevel level, const char* fmt, ...) const                           ATTR_PRINTF(3, 4);
-    
+
     void Flush(const char* logName);
 
     void RegisterLogFile(const char* logName);
@@ -204,10 +204,10 @@ public:
     bool ToggleLogEnabled(const char* logName);
 
     const std::string& GetLogDirectory() const { return _dir; }
-    
+
     void SetRealmId(uint32 realmId) { _realmId = realmId; }
     uint32 GetRealmId() const { return _realmId; }
- 
+
     void ResetLogDb() { _logDb = false; }
     void SetLogDb();
     bool IsLogDb(LogLevel level) const { return _logDb && (level <= _logDbLevel); }
@@ -238,7 +238,7 @@ private:
 
     void _WriteConsole(LogLevel level, bool appendNewLine, const std::string& msg) const;
     void _WriteConsole(LogLevel level, bool appendNewLine, const char* fmt, va_list& lst) const;
-    
+
     LogFile* _GetLog(const char* logName)
     {
         LogsMap::iterator itr = _logsMap.find(logName);
@@ -280,24 +280,24 @@ private:
 
 #define sLogMgr ACE_Singleton<LogMgr, ACE_Thread_Mutex>::instance()
 
-#define LOG(...) do { sLogMgr->WriteLn(SERVER_LOG, LOGL_STRING, __VA_ARGS__); } while(0)
+#define LOG(...) do { sLogMgr->WriteLn(SERVER_LOG, LOGL_STRING, __VA_ARGS__); } while (0)
 
 #define BASIC_LOG(...)                                              \
     do {                                                            \
         if (sLogMgr->ShouldLog(SERVER_LOG, LOGL_WARNING))           \
             sLogMgr->WriteLn(SERVER_LOG, LOGL_WARNING, __VA_ARGS__);\
-    } while(0)
+    } while (0)
 
 #define DETAIL_LOG(...)                                             \
     do {                                                            \
         if (sLogMgr->ShouldLog(SERVER_LOG, LOGL_INFO))              \
             sLogMgr->WriteLn(SERVER_LOG, LOGL_INFO, __VA_ARGS__);   \
-    } while(0)
+    } while (0)
 
 #define DEBUG_LOG(...)                                              \
     do {                                                            \
         if (sLogMgr->ShouldLog(SERVER_LOG, LOGL_FULL))              \
             sLogMgr->WriteLn(SERVER_LOG, LOGL_FULL, __VA_ARGS__);   \
-    } while(0)
+    } while (0)
 
 #endif

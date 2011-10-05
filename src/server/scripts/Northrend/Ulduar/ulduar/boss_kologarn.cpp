@@ -274,7 +274,7 @@ class boss_kologarn : public CreatureScript
                             break;
                         case EVENT_STONE_SHOUT:
                             DoCast(SPELL_STONE_SHOUT);
-                            events.ScheduleEvent(EVENT_STONE_SHOUT, 2 * IN_MILLISECONDS); 
+                            events.ScheduleEvent(EVENT_STONE_SHOUT, 2 * IN_MILLISECONDS);
                             break;
                         case EVENT_ENRAGE:
                             DoCast(SPELL_BERSERK);
@@ -395,7 +395,7 @@ class spell_ulduar_stone_grip_cast_target : public SpellScriptLoader
             void FilterTargetsInitial(std::list<Unit*>& unitList)
             {
                 // Remove "main tank" and non-player targets
-                unitList.remove_if(StoneGripTargetSelector(GetCaster()->ToCreature(), GetCaster()->getVictim()));
+                unitList.remove_if (StoneGripTargetSelector(GetCaster()->ToCreature(), GetCaster()->getVictim()));
                 // Maximum affected targets per difficulty mode
                 uint32 maxTargets = 1;
                 if (GetSpellInfo()->Id == 63981)
@@ -605,7 +605,7 @@ class spell_kologarn_stone_shout : public SpellScriptLoader
 
             void FilterTargets(std::list<Unit*>& unitList)
             {
-                unitList.remove_if(PlayerOrPetCheck());
+                unitList.remove_if (PlayerOrPetCheck());
             }
 
             void Register()

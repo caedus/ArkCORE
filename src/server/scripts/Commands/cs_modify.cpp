@@ -92,7 +92,7 @@ public:
 			Unit *unit = handler->getSelectedUnit();
 			if (!unit)
 				return false;
-        
+
 			unit->SetMaxHealth(hpm);
 			unit->SetHealth(hp);
 			return true;
@@ -453,7 +453,7 @@ public:
         else if (target->ToCreature()->isPet())
         {
             Unit* owner = target->GetOwner();
-            if (owner && owner->GetTypeId() == TYPEID_PLAYER && ((Pet *)target)->IsPermanentPetFor(owner->ToPlayer()))
+            if (owner && owner->GetTypeId() == TYPEID_PLAYER && ((Pet *)target)->IsPermanentPetfor (owner->ToPlayer()))
             {
                 // check online security
                 if (handler->HasLowerSecurity(owner->ToPlayer(), 0))
@@ -737,7 +737,7 @@ public:
         uint32 num = 0;
 
         num = atoi((char*)args);
-        switch(num)
+        switch (num)
         {
         case 1:
             mId=14340;

@@ -646,7 +646,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
     {
         case CONDITION_SOURCE_TYPE_CREATURE_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Creature.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Creature.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `creature_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -663,7 +663,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_DISENCHANT_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Disenchant.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Disenchant.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `disenchant_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -680,7 +680,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_FISHING_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Fishing.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Fishing.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `fishing_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -697,7 +697,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_GAMEOBJECT_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Gameobject.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Gameobject.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `gameobject_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -714,7 +714,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_ITEM_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Item.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Item.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `item_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -731,7 +731,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_MAIL_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Mail.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Mail.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `mail_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -748,7 +748,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_MILLING_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Milling.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Milling.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `milling_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -765,7 +765,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_PICKPOCKETING_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Pickpocketing.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Pickpocketing.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `pickpocketing_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -782,7 +782,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_PROSPECTING_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Prospecting.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Prospecting.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `prospecting_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -799,7 +799,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_REFERENCE_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Reference.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Reference.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `reference_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -816,7 +816,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_SKINNING_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Skinning.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Skinning.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `skinning_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -833,7 +833,7 @@ bool ConditionMgr::isSourceTypeValid(Condition* cond)
         }
         case CONDITION_SOURCE_TYPE_SPELL_LOOT_TEMPLATE:
         {
-            if (!LootTemplates_Spell.HaveLootFor(cond->mSourceGroup))
+            if (!LootTemplates_Spell.HaveLootfor (cond->mSourceGroup))
             {
                 sLog->outErrorDb("SourceGroup %u in `condition` table, does not exist in `spell_loot_template`, ignoring.", cond->mSourceGroup);
                 return false;
@@ -1215,7 +1215,7 @@ bool ConditionMgr::isConditionTypeValid(Condition* cond)
                 return false;
             }
 
-            switch(cond->mConditionValue1)
+            switch (cond->mConditionValue1)
             {
                 case SPELL_TARGET_TYPE_GAMEOBJECT:
                 {

@@ -3,18 +3,13 @@
 # Server version:               5.6.2-m5
 # Server OS:                    Win32
 # HeidiSQL version:             6.0.0.3603
-# Date/time:                    2011-09-25 11:49:52
+# Date/time:                    2011-10-03 14:36:40
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
-# Dumping database structure for characters
-CREATE DATABASE IF NOT EXISTS `characters` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `characters`;
-
 
 # Dumping structure for table characters.account_data
 DROP TABLE IF EXISTS `account_data`;
@@ -221,7 +216,6 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `equipmentCache` longtext,
   `knownTitles` longtext,
   `achievementPoints` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `talentSpec` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `actionBars` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `grantableLevels` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `guildId` int(10) unsigned NOT NULL DEFAULT '0',

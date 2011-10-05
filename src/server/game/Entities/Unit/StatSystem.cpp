@@ -71,7 +71,7 @@ bool Player::UpdateStats(Stats stat)
             pet->UpdateStats(stat);
     }
 
-    switch(stat)
+    switch (stat)
     {
         case STAT_STRENGTH:
             UpdateShieldBlockValue();
@@ -295,7 +295,7 @@ void Player::UpdateMaxHealth()
 
 void Player::UpdateMaxPower(Powers power)
 {
-    if(power > POWER_RUNIC_POWER)
+    if (power > POWER_RUNIC_POWER)
     {
         // these powers don't currently have any modifiers
         SetMaxPower(power, GetCreatePowers(power));
@@ -468,7 +468,7 @@ void Player::UpdateAttackPowerAndDamage(bool ranged)
             for (AuraEffectList::const_iterator i = mRAPbyStat.begin(); i != mRAPbyStat.end(); ++i)
             {
                 int32 temp = CalculatePctN(int32(GetStat(Stats((*i)->GetMiscValue()))), ((*i)->GetAmount() / 100));
-                if(temp > 0)
+                if (temp > 0)
                     attPowerMod_pos += temp;
                 else
                     attPowerMod_neg -= temp;
@@ -481,7 +481,7 @@ void Player::UpdateAttackPowerAndDamage(bool ranged)
         for (AuraEffectList::const_iterator i = mAPbyStat.begin(); i != mAPbyStat.end(); ++i)
         {
             int32 temp = CalculatePctN(int32(GetStat(Stats((*i)->GetMiscValue()))), ((*i)->GetAmount() / 100));
-            if(temp > 0)
+            if (temp > 0)
                 attPowerMod_pos += temp;
             else
                 attPowerMod_neg -= temp;
@@ -492,7 +492,7 @@ void Player::UpdateAttackPowerAndDamage(bool ranged)
         {
             // always: ((*i)->GetModifier()->m_miscvalue == 1 == SPELL_SCHOOL_MASK_NORMAL)
             int32 temp = int32(GetArmor() / (*iter)->GetAmount());
-            if(temp > 0)
+            if (temp > 0)
                 attPowerMod_pos += temp;
             else
                 attPowerMod_neg -= temp;
@@ -536,7 +536,7 @@ void Player::CalculateMinMaxDamage(WeaponAttackType attType, bool normalized, bo
 {
     UnitMods unitMod;
 
-    switch(attType)
+    switch (attType)
     {
         case BASE_ATTACK:
         default:
@@ -648,7 +648,7 @@ void Player::UpdateCritPercentage(WeaponAttackType attType)
     uint16 index;
     CombatRating cr;
 
-    switch(attType)
+    switch (attType)
     {
         case OFF_ATTACK:
             modGroup = OFFHAND_CRIT_PERCENTAGE;
@@ -878,7 +878,7 @@ void Player::UpdateExpertise(WeaponAttackType attack)
     if (expertise < 0)
         expertise = 0;
 
-    switch(attack)
+    switch (attack)
     {
         case BASE_ATTACK: SetUInt32Value(PLAYER_EXPERTISE, expertise);         break;
         case OFF_ATTACK:  SetUInt32Value(PLAYER_OFFHAND_EXPERTISE, expertise); break;
@@ -962,7 +962,7 @@ void Player::_RemoveAllStatBonuses()
 
 void Player::UpdateMastery()
 {
-    if(HasAuraType(SPELL_AURA_MASTERY))
+    if (HasAuraType(SPELL_AURA_MASTERY))
     {
         SetInt32Value(PLAYER_FIELD_COMBAT_RATING_1 + CR_MASTERY, m_baseRatingValue[CR_MASTERY]);
         SetFloatValue(PLAYER_MASTERY, GetMasteryPoints());
@@ -1080,7 +1080,7 @@ void Creature::UpdateAttackPowerAndDamage(bool ranged)
 void Creature::UpdateDamagePhysical(WeaponAttackType attType)
 {
     UnitMods unitMod;
-    switch(attType)
+    switch (attType)
     {
         case BASE_ATTACK:
         default:
@@ -1116,7 +1116,7 @@ void Creature::UpdateDamagePhysical(WeaponAttackType attType)
     float mindamage = ((base_value + weapon_mindamage) * dmg_multiplier * base_pct + total_value) * total_pct;
     float maxdamage = ((base_value + weapon_maxdamage) * dmg_multiplier * base_pct + total_value) * total_pct;
 
-    switch(attType)
+    switch (attType)
     {
         case BASE_ATTACK:
         default:
@@ -1347,7 +1347,7 @@ void Guardian::UpdateMaxHealth()
     float stamina = GetStat(STAT_STAMINA) - GetCreateStat(STAT_STAMINA);
 
     float multiplicator;
-    switch(GetEntry())
+    switch (GetEntry())
     {
         case ENTRY_IMP:         multiplicator = 8.4f;   break;
         case ENTRY_VOIDWALKER:  multiplicator = 11.0f;  break;
@@ -1372,7 +1372,7 @@ void Guardian::UpdateMaxPower(Powers power)
     float addValue = (power == POWER_MANA) ? GetStat(STAT_INTELLECT) - GetCreateStat(STAT_INTELLECT) : 0.0f;
     float multiplicator = 15.0f;
 
-    switch(GetEntry())
+    switch (GetEntry())
     {
         case ENTRY_IMP:         multiplicator = 4.95f;  break;
         case ENTRY_VOIDWALKER:
@@ -1524,7 +1524,7 @@ void Guardian::UpdateDamagePhysical(WeaponAttackType attType)
     //  Pet's base damage changes depending on happiness
     if (isHunterPet() && attType == BASE_ATTACK)
     {
-        switch(ToPet()->GetHappinessState())
+        switch (ToPet()->GetHappinessState())
         {
             case HAPPY:
                 // 125% of normal damage

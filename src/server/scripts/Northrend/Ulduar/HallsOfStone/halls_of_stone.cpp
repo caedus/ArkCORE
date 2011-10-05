@@ -352,7 +352,7 @@ public:
 
         void WaypointReached(uint32 uiPointId)
         {
-            switch(uiPointId)
+            switch (uiPointId)
             {
                 case 7:
                     if (Creature* creature = GetClosestCreatureWithEntry(me, CREATURE_TRIBUNAL_OF_THE_AGES, 100.0f))
@@ -384,7 +384,7 @@ public:
 
          void SpawnDwarf(uint32 uiType)
          {
-           switch(uiType)
+           switch (uiType)
            {
                case 1:
                {
@@ -443,7 +443,7 @@ public:
         {
             if (uiPhaseTimer <= uiDiff)
             {
-                switch(uiStep)
+                switch (uiStep)
                 {
                     case 1:
                         if (pInstance)

@@ -292,7 +292,7 @@ void PlayerMenu::SendQuestGiverStatus(uint32 questStatus, uint64 npcGUID) const
 {
     WorldPacket data(SMSG_QUESTGIVER_STATUS, 11);
     data << uint64(npcGUID);
-    data << uint32(questStatus);
+    data << questStatus;
 
     _session->SendPacket(&data);
     sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Sent SMSG_QUESTGIVER_STATUS NPC Guid=%u, status=%u", GUID_LOPART(npcGUID), questStatus);
@@ -306,7 +306,7 @@ void PlayerMenu::SendQuestGiverQuestDetails(Quest const *quest, uint64 npcGUID, 
     std::string questEndText    = quest->GetEndText();
     std::string questTargetTextWindow = quest->GetQuestGiverPortraitText();
     std::string questTargetName  = quest->GetQuestGiverPortraitUnk();
-    std::string unk        = "";
+    std::string unk              = "";
 
     int32 locale = _session->GetSessionDbLocaleIndex();
     if (locale >= 0)
@@ -749,7 +749,7 @@ void PlayerMenu::SendQuestGiverRequestItems(Quest const *quest, uint64 npcGUID, 
     // Added in 4.0.1
     uint32 counter = 0;
     data << counter;
-    for(uint32 i = 0; i < counter; i++)
+    for (uint32 i = 0; i < counter; i++)
     {
         data << uint32(0);
         data << uint32(0);

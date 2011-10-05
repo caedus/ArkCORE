@@ -67,7 +67,6 @@ class DatabaseWorkerPool
 
         ~DatabaseWorkerPool()
         {
-            sLogMgr->WriteLn(SQLDRIVER_LOG, "~DatabaseWorkerPool for '%s'.", m_connectionInfo.database.c_str());
         }
 
         bool Open(const std::string& infoString, uint8 async_threads, uint8 synch_threads)

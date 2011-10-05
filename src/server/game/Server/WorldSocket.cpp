@@ -687,7 +687,7 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
 
     try
     {
-        switch(opcode)
+        switch (opcode)
         {
             case MSG_CHECK_CONNECTION:
                 sScriptMgr->OnPacketReceive(this, WorldPacket(*new_pct));
@@ -758,7 +758,8 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
 int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
 {
     uint8 Hash[20];
-    uint16 clientBuild, id, security;
+    uint16 clientBuild, security;
+    uint32 id;
     uint32 clientSeed;
     uint32 m_addonSize;
     std::string account;
@@ -994,11 +995,11 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
 
 int WorldSocket::HandlePing (WorldPacket& recvPacket)
 {
-    uint32 ping;
+    uint32 sequence;
     uint32 latency;
 
     // Get the ping packet content
-    recvPacket >> ping;
+    recvPacket >> sequence;
     recvPacket >> latency;
 
     if (m_LastPingTime == ACE_Time_Value::zero)
@@ -1053,9 +1054,9 @@ int WorldSocket::HandlePing (WorldPacket& recvPacket)
         }
     }
 
-    WorldPacket packet (SMSG_PONG, 4);
-    packet << ping;
-    return SendPacket (packet);
+    WorldPacket packet(SMSG_PONG, 4);
+    packet << sequence;
+    return SendPacket(packet);
 }
 
 void WorldSocket::_LogPacket(const WorldPacket& pct, bool isServer) const

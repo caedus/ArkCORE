@@ -70,7 +70,7 @@ public:
 
         void SetData(uint32 type, uint32 data)
         {
-            switch(type)
+            switch (type)
             {
                 case DATA_IKISSDOOREVENT:
                     if (data == DONE)

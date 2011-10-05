@@ -571,7 +571,7 @@ void Channel::List(Player* player)
             // PLAYER can't see MODERATOR, GAME MASTER, ADMINISTRATOR characters
             // MODERATOR, GAME MASTER, ADMINISTRATOR can see all
             if (plr && (!AccountMgr::IsPlayerAccount(player->GetSession()->GetSecurity()) || plr->GetSession()->GetSecurity() <= AccountTypes(gmLevelInWhoList)) &&
-                plr->IsVisibleGloballyFor(player))
+                plr->IsVisibleGloballyfor (player))
             {
                 data << uint64(i->first);
                 data << uint8(i->second.flags);             // flags seems to be changed...
@@ -1071,4 +1071,3 @@ void Channel::LeaveNotify(uint64 guid)
     else
         SendToAll(&data);
 }
-

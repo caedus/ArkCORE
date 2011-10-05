@@ -242,7 +242,7 @@ class WorldSession
         void SendPetNameInvalid(uint32 error, const std::string& name, DeclinedName *declinedName);
         void SendPartyResult(PartyOperation operation, const std::string& member, PartyResult res, uint32 val = 0);
         void SendAreaTriggerMessage(const char* Text, ...) ATTR_PRINTF(2, 3);
-        void SendSetPhaseShift(uint32 phaseShift);
+        void SendSetPhaseShift(uint32 phaseShift, uint32 MapID);
         void SendQueryTimeResponse();
 
         void SendAuthResponse(uint8 code, bool shortForm, uint32 queuePos = 0);
@@ -287,8 +287,6 @@ class WorldSession
 
         //void SendTestCreatureQueryOpcode(uint32 entry, uint64 guid, uint32 testvalue);
         void SendNameQueryOpcode(Player* p);
-        void SendNameQueryOpcodeFromDB(uint64 guid);
-        void SendNameQueryOpcodeFromDBCallBack(QueryResult result);
 
         void SendTrainerList(uint64 guid);
         void SendTrainerList(uint64 guid, const std::string& strTitle);
@@ -693,23 +691,7 @@ class WorldSession
         void HandleQuestPushResult(WorldPacket& recvPacket);
 
         bool processChatmessageFurtherAfterSecurityChecks(std::string&, uint32);
-        void HandleMessageChatOpcode(WorldPacket& recvPacket, uint32 type);
-        void HandleMessageChatSayOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatYellOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatChannelOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatWhisperOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatGuildOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatOfficerOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatAFKOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatDNDOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatEmoteOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatPartyOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatPartyGuideOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatRaidOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatRaidLeaderOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatRaidWarningOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatBattlegroundOpcode(WorldPacket& recvPacket);
-        void HandleMessageChatBattlegroundLeaderOpcode(WorldPacket& recvPacket);
+        void HandleMessageChatOpcode(WorldPacket& recvPacket);
         void SendPlayerNotFoundNotice(std::string name);
         void SendPlayerAmbiguousNotice(std::string name);
         void SendWrongFactionNotice();

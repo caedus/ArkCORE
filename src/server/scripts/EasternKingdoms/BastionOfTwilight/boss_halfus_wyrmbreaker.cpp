@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include "ScriptPCH.h"
 #include "bastion_of_twilight.h"
 #include <cstring>
@@ -47,13 +47,13 @@ class boss_halfus_wyrmbreaker : public CreatureScript
 
 			void EnterCombat()
 			{
-				if(pInstance)
+				if (pInstance)
 					pInstance->SetData(DATA_WYRMBREAKER_EVENT,IN_PROGRESS);
 			}
 
 			void JustDied()
 			{
-				if(!pInstance)
+				if (!pInstance)
 					return;
 
 				pInstance->SetData(DATA_WYRMBREAKER_EVENT,DONE);
@@ -64,33 +64,33 @@ class boss_halfus_wyrmbreaker : public CreatureScript
 				if (!UpdateVictim())
 					return;
 
-				if(!HealthAbovePct(50))
+				if (!HealthAbovePct(50))
 				{
-					if(uiFuriousRoarTimer <= uiDiff)
+					if (uiFuriousRoarTimer <= uiDiff)
 					{
 						DoCast(SPELL_FURIOUS_ROAR);
 						DoCast(SPELL_SHADOW_NOVA);
 					} else uiFuriousRoarTimer -= uiDiff;
 				}
 
-				if(me->HasAura(SPELL_MALEVOLENT_STRIKES))
+				if (me->HasAura(SPELL_MALEVOLENT_STRIKES))
 				{
-					if(uiMalevolentStrikeTimer <= uiDiff)
+					if (uiMalevolentStrikeTimer <= uiDiff)
 					{
 						DoCastVictim(SPELL_MALEVOLENT_STRIKES_DEBUFF);
-						uiMalevolentStrikeTimer = 155000; 
+						uiMalevolentStrikeTimer = 155000;
 					} else uiMalevolentStrikeTimer -= uiDiff;
 				}
 
-				if(me->HasAura(SPELL_SHADOW_WARPED))
+				if (me->HasAura(SPELL_SHADOW_WARPED))
 				{
-					if(uiShadowNovaTimer <= uiDiff)
+					if (uiShadowNovaTimer <= uiDiff)
 					{
 						DoCast(SPELL_SHADOW_NOVA);
 					} else uiShadowNovaTimer -= uiDiff;
 				}
 
-				if(uiBerserkTimer <= uiDiff)
+				if (uiBerserkTimer <= uiDiff)
 				{
 					me->AddAura(SPELL_BERSERK_HALFUS,me);
 					uiBerserkTimer = 360000;
@@ -99,9 +99,9 @@ class boss_halfus_wyrmbreaker : public CreatureScript
 				DoMeleeAttackIfReady();
 			}
         private:
-    
+
 			InstanceScript* pInstance;
-			
+
 			uint32 uiBerserkTimer;
 			uint32 uiFuriousRoarTimer;
 			uint32 uiMalevolentStrikeTimer;
@@ -120,7 +120,7 @@ class npc_proto_behemoth : public CreatureScript{
 		npc_proto_behemoth() : CreatureScript("npc_proto_behemoth") { }
 
 		struct npc_proto_behemothAI : public ScriptedAI {
-			npc_proto_behemothAI(Creature * pCreature) : ScriptedAI(pCreature) 
+			npc_proto_behemothAI(Creature * pCreature) : ScriptedAI(pCreature)
 			{
 				pInstance = (InstanceScript*)pCreature->GetInstanceScript();
 			}
@@ -144,11 +144,11 @@ class npc_proto_behemoth : public CreatureScript{
                 if (!UpdateVictim())
 					return;
 
-				if(me->HasAura(SPELL_DANCING_FLAMES))
+				if (me->HasAura(SPELL_DANCING_FLAMES))
 				{
-					if(uiFireballBaradgeTimer <= uiDiff)
+					if (uiFireballBaradgeTimer <= uiDiff)
 					{
-						if(Unit * Target = SelectTarget(SELECT_TARGET_RANDOM, 1, 50.0f, true))
+						if (Unit * Target = SelectTarget(SELECT_TARGET_RANDOM, 1, 50.0f, true))
 						{
 							DoCast(Target,SPELL_FIREBALL_BARADGE);
 						}
@@ -156,9 +156,9 @@ class npc_proto_behemoth : public CreatureScript{
 					} else uiFireballBaradgeTimer -= uiDiff;
 				}
 
-				if(uiFireballTimer <= uiDiff)
+				if (uiFireballTimer <= uiDiff)
 				{
-					if(Unit * Target = SelectTarget(SELECT_TARGET_RANDOM, 1, 50.0f, true))
+					if (Unit * Target = SelectTarget(SELECT_TARGET_RANDOM, 1, 50.0f, true))
 					{
 						DoCast(Target,SPELL_FIREBALL);
 					}
@@ -193,8 +193,8 @@ class npc_halfus_dragon : public CreatureScript{
 			}
 
 			void UpdateAI(const uint32 uiDiff)
-			{	
-				if(me->HasFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_NON_ATTACKABLE))
+			{
+				if (me->HasFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_NON_ATTACKABLE))
 				{
 					me->SetReactState(REACT_PASSIVE);
 				}
@@ -230,7 +230,7 @@ class npc_halfus_dragon : public CreatureScript{
 					case GOSSIP_ACTION_INFO_DEF+1:
 						if (Creature * Halfus = Unit::GetCreature(*pCreature,pInstance->GetData64(DATA_WYRMBREAKER)))
 						{
-							switch(pCreature->GetEntry())
+							switch (pCreature->GetEntry())
 							{
 								case NPC_SLATE_DRAKE:
 									pCreature->AddAura(SPELL_STONE_TOUCH,Halfus);
@@ -262,7 +262,7 @@ class npc_cyclon_winds : public CreatureScript
         struct npc_cyclon_windsAI : public ScriptedAI
         {
             npc_cyclon_windsAI(Creature * pCreature) : ScriptedAI(pCreature)
-            { 
+            {
                 pInstance = (InstanceScript*)pCreature->GetInstanceScript();
             }
 
@@ -274,9 +274,9 @@ class npc_cyclon_winds : public CreatureScript
 
             void MovementInForm(uint32 type, uint32 id)
             {
-                if(type == POINT_MOTION_TYPE)
+                if (type == POINT_MOTION_TYPE)
                 {
-                    switch(id)
+                    switch (id)
                     {
                         case POINT_CYCLON_WIND:
                             Creature * Halfus = ObjectAccessor::GetCreature(*me,pInstance->GetData64(NPC_CYCLON_WIND));

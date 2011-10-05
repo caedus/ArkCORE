@@ -193,11 +193,11 @@ class LootStore
         void ReportUnusedIds(LootIdSet const& ids_set) const;
         void ReportNotExistedId(uint32 id) const;
 
-        bool HaveLootFor(uint32 loot_id) const { return m_LootTemplates.find(loot_id) != m_LootTemplates.end(); }
-        bool HaveQuestLootFor(uint32 loot_id) const;
+        bool HaveLootfor (uint32 loot_id) const { return m_LootTemplates.find(loot_id) != m_LootTemplates.end(); }
+        bool HaveQuestLootfor (uint32 loot_id) const;
         bool HaveQuestLootForPlayer(uint32 loot_id, Player* player) const;
 
-        LootTemplate const* GetLootFor(uint32 loot_id) const;
+        LootTemplate const* GetLootfor (uint32 loot_id) const;
         void ResetConditions();
         LootTemplate* GetLootForConditionFill(uint32 loot_id);
 
@@ -337,12 +337,12 @@ struct Loot
     void AddItem(LootStoreItem const & item);
 
     LootItem* LootItemInSlot(uint32 lootslot, Player* player, QuestItem** qitem = NULL, QuestItem** ffaitem = NULL, QuestItem** conditem = NULL);
-    uint32 GetMaxSlotInLootFor(Player* player) const;
-    bool hasItemFor(Player* player) const;
+    uint32 GetMaxSlotInLootfor (Player* player) const;
+    bool hasItemfor (Player* player) const;
     bool hasOverThresholdItem() const;
 
     private:
-        void FillNotNormalLootFor(Player* player, bool presentAtLooting);
+        void FillNotNormalLootfor (Player* player, bool presentAtLooting);
         QuestItemList* FillFFALoot(Player* player);
         QuestItemList* FillQuestLoot(Player* player);
         QuestItemList* FillNonQuestNonFFAConditionalLoot(Player* player, bool presentAtLooting);

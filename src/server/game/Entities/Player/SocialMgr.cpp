@@ -212,7 +212,7 @@ void SocialMgr::GetFriendInfo(Player* player, uint32 friendGUID, FriendInfo &fri
     if (pFriend && pFriend->GetName() &&
         (!AccountMgr::IsPlayerAccount(security) ||
         ((pFriend->GetTeam() == team || allowTwoSideWhoList) && (pFriend->GetSession()->GetSecurity() <= gmLevelInWhoList))) &&
-        pFriend->IsVisibleGloballyFor(player))
+        pFriend->IsVisibleGloballyfor (player))
     {
         friendInfo.Status = FRIEND_STATUS_ONLINE;
         if (pFriend->isAFK())
@@ -291,7 +291,7 @@ void SocialMgr::BroadcastToFriendListers(Player* player, WorldPacket* packet)
             if (pFriend && pFriend->IsInWorld() &&
                 (!AccountMgr::IsPlayerAccount(pFriend->GetSession()->GetSecurity()) ||
                 ((pFriend->GetTeam() == team || allowTwoSideWhoList) && security <= gmLevelInWhoList)) &&
-                player->IsVisibleGloballyFor(pFriend))
+                player->IsVisibleGloballyfor (pFriend))
             {
                 pFriend->GetSession()->SendPacket(packet);
             }

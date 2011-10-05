@@ -77,7 +77,7 @@ struct ObjectPosSelector
 
     bool IsNonBalanced() const { return m_UsedPosLists[USED_POS_PLUS].empty() != m_UsedPosLists[USED_POS_MINUS].empty(); }
 
-    bool NextAngleFor(UsedPosList::value_type const& usedPos, float sign, UsedPosType uptype, float &angle)
+    bool NextAnglefor (UsedPosList::value_type const& usedPos, float sign, UsedPosType uptype, float &angle)
     {
         float angle_step  = GetAngle(usedPos.second);
 

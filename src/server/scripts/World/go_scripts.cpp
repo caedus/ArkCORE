@@ -313,7 +313,7 @@ public:
                 {
                     uint32 Spell = 0;
 
-                    switch(pFaction->faction)
+                    switch (pFaction->faction)
                     {
                         case 1011: Spell = SPELL_REP_LC; break;
                         case 935: Spell = SPELL_REP_SHAT; break;
@@ -430,7 +430,7 @@ public:
         float fX, fY, fZ;
         pGO->GetClosePoint(fX, fY, fZ, pGO->GetObjectSize(), INTERACTION_DISTANCE);
 
-        switch(pGO->GetEntry())
+        switch (pGO->GetEntry())
         {
             case GO_SHRINE_HAWK:
                 BirdEntry = NPC_HAWK_GUARD;
@@ -562,7 +562,7 @@ public:
     bool OnGossipSelect(Player* player, GameObject* pGO, uint32 /*uiSender*/, uint32 uiAction)
     {
         player->PlayerTalkClass->ClearMenus();
-        switch(uiAction)
+        switch (uiAction)
         {
             case GOSSIP_ACTION_INFO_DEF:
                 player->CastSpell(player, SPELL_CREATE_1_FLASK_OF_BEAST, false);
@@ -621,7 +621,7 @@ public:
     bool OnGossipSelect(Player* player, GameObject* pGO, uint32 /*uiSender*/, uint32 uiAction)
     {
         player->PlayerTalkClass->ClearMenus();
-        switch(uiAction)
+        switch (uiAction)
         {
             case GOSSIP_ACTION_INFO_DEF:
                 player->CastSpell(player, SPELL_CREATE_1_FLASK_OF_SORCERER, false);
@@ -671,7 +671,7 @@ public:
 
     bool OnGossipHello(Player* player, GameObject* pGO)
     {
-        switch(pGO->GetEntry())
+        switch (pGO->GetEntry())
         {
             case MATRIX_PUNCHOGRAPH_3005_A:
                 if (player->HasItemCount(ITEM_WHITE_PUNCH_CARD, 1))
@@ -849,7 +849,7 @@ public:
 
         pPrisoner->DisappearAndDie();
         player->KilledMonsterCredit(NPC_EBON_BLADE_PRISONER_HUMAN, 0);
-        switch(pPrisoner->GetEntry())
+        switch (pPrisoner->GetEntry())
         {
             case NPC_EBON_BLADE_PRISONER_HUMAN:
                 player->CastSpell(player, SPELL_SUMMON_BLADE_KNIGHT_H, true);

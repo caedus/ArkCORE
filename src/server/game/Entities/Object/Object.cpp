@@ -51,7 +51,7 @@
 
 uint32 GuidHigh2TypeId(uint32 guid_hi)
 {
-    switch(guid_hi)
+    switch (guid_hi)
     {
         case HIGHGUID_ITEM:         return TYPEID_ITEM;
         //case HIGHGUID_CONTAINER:    return TYPEID_CONTAINER; HIGHGUID_CONTAINER == HIGHGUID_ITEM currently
@@ -206,7 +206,7 @@ void Object::BuildCreateUpdateBlockForPlayer(UpdateData *data, Player *target) c
         // UPDATETYPE_CREATE_OBJECT2 for some gameobject types...
         if (isType(TYPEMASK_GAMEOBJECT))
         {
-            switch(((GameObject*)this)->GetGoType())
+            switch (((GameObject*)this)->GetGoType())
             {
                 case GAMEOBJECT_TYPE_TRAP:
                 case GAMEOBJECT_TYPE_DUEL_ARBITER:
@@ -1461,7 +1461,7 @@ void Position::GetSinCos(const float x, const float y, float &vsin, float &vcos)
     float dx = GetPositionX() - x;
     float dy = GetPositionY() - y;
 
-    if (dx < 0.001f && dy < 0.001f)
+    if (fabs(dx) < 0.001f && fabs(dy) < 0.001f)
     {
         float angle = (float)rand_norm()*static_cast<float>(2*M_PI);
         vcos = cos(angle);
@@ -1620,7 +1620,7 @@ bool WorldObject::canSeeOrDetect(WorldObject const* obj, bool ignoreStealth, boo
     if (!InSamePhase(obj))
         return false;
 
-    if (obj->isAlwaysVisibleFor(this))
+    if (obj->isAlwaysVisiblefor (this))
         return true;
 
     if (canSeeAlways(obj))
@@ -1667,7 +1667,7 @@ bool WorldObject::canSeeOrDetect(WorldObject const* obj, bool ignoreStealth, boo
         {
             if (const Player* objPlayer = obj->ToPlayer())
             {
-                if (thisPlayer->GetTeam() != objPlayer->GetTeam() || !thisPlayer->IsGroupVisibleFor(objPlayer))
+                if (thisPlayer->GetTeam() != objPlayer->GetTeam() || !thisPlayer->IsGroupVisiblefor (objPlayer))
                     return false;
             }
             else
@@ -1695,7 +1695,7 @@ bool WorldObject::canDetect(WorldObject const* obj, bool ignoreStealth) const
         if (Unit* controller = thisUnit->GetCharmerOrOwner())
             seer = controller;
 
-    if (obj->isAlwaysDetectableFor(seer))
+    if (obj->isAlwaysDetectablefor (seer))
         return true;
 
     if (!seer->canDetectInvisibilityOf(obj))
@@ -2265,7 +2265,7 @@ Pet* Player::SummonPet(uint32 entry, float x, float y, float z, float ang, PetTy
     // Only slot 100, as it's not hunter pet.
     SetMinion(pet, true, PET_SLOT_OTHER_PET);
 
-    switch(petType)
+    switch (petType)
     {
         case SUMMON_PET:
             // this enables pet details window (Shift+P)
@@ -2283,7 +2283,7 @@ Pet* Player::SummonPet(uint32 entry, float x, float y, float z, float ang, PetTy
 
     map->Add(pet->ToCreature());
 
-    switch(petType)
+    switch (petType)
     {
         case SUMMON_PET:
             pet->InitPetCreateSpells();

@@ -158,7 +158,7 @@ public:
 
         void OnCreatureCreate(Creature* creature)
         {
-            switch(creature->GetEntry())
+            switch (creature->GetEntry())
             {
             case NPC_EMPEROR: EmperorGUID = creature->GetGUID(); break;
             case NPC_PHALANX: PhalanxGUID = creature->GetGUID(); break;
@@ -180,7 +180,7 @@ public:
 
         void OnGameObjectCreate(GameObject* go)
         {
-            switch(go->GetEntry())
+            switch (go->GetEntry())
             {
             case GO_ARENA1: GoArena1GUID = go->GetGUID(); break;
             case GO_ARENA2: GoArena2GUID = go->GetGUID(); break;
@@ -216,7 +216,7 @@ public:
         {
             sLog->outDebug(LOG_FILTER_TSCR, "TSCR: Instance Blackrock Depths: SetData64 update (Type: %u Data " UI64FMTD ")", type, data);
 
-            switch(type)
+            switch (type)
             {
             case DATA_EVENSTARTER:
                 TombEventStarterGUID = data;
@@ -232,7 +232,7 @@ public:
         {
             sLog->outDebug(LOG_FILTER_TSCR, "TSCR: Instance Blackrock Depths: SetData update (Type: %u Data %u)", type, data);
 
-            switch(type)
+            switch (type)
             {
             case TYPE_RING_OF_LAW:
                 m_auiEncounter[0] = data;
@@ -277,7 +277,7 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch(type)
+            switch (type)
             {
             case TYPE_RING_OF_LAW:
                 return m_auiEncounter[0];
@@ -302,7 +302,7 @@ public:
 
         uint64 GetData64(uint32 data)
         {
-            switch(data)
+            switch (data)
             {
             case DATA_EMPEROR:
                 return EmperorGUID;

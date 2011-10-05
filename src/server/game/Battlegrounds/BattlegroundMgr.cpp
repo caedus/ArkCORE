@@ -226,7 +226,7 @@ void BattlegroundMgr::BuildBattlegroundStatusPacket(WorldPacket *data, Battlegro
             *data << uint8(arenatype); // teamsize (0 if not arena)
             *data << uint32(Time1); // port expiration time
 
-            if(bg->GetTypeID() != BATTLEGROUND_RB)
+            if (bg->GetTypeID() != BATTLEGROUND_RB)
                 *data << uint32(bg->GetMapId()); // mapid
             else *data << uint32(0);
 
@@ -389,10 +389,10 @@ void BattlegroundMgr::BuildPvpLogDataPacket(WorldPacket *data, Battleground *bg)
 
         *data << uint64(itr2->first);
         *data << uint32(itr2->second->KillingBlows);
-        switch(bg->GetTypeID(true))                             // battleground specific things
+        switch (bg->GetTypeID(true))                             // battleground specific things
         {
             case BATTLEGROUND_RB:
-                switch(bg->GetMapId())
+                switch (bg->GetMapId())
                 {
                     case 489:
                         data->put(extraFields, 2);                                                  // count of next fields
@@ -654,7 +654,7 @@ Battleground* BattlegroundMgr::CreateNewBattleground(BattlegroundTypeId bgTypeId
 
     Battleground *bg = NULL;
     // create a copy of the BG template
-    switch(bgTypeId)
+    switch (bgTypeId)
     {
         case BATTLEGROUND_AV:
             bg = new BattlegroundAV(*(BattlegroundAV*)bg_template);
@@ -791,7 +791,7 @@ void BattlegroundMgr::CreateInitialBattlegrounds()
         Field* fields = result->Fetch();
 
         uint32 bgTypeID_ = fields[0].GetUInt32();
-        if (DisableMgr::IsDisabledFor(DISABLE_TYPE_BATTLEGROUND, bgTypeID_, NULL))
+        if (DisableMgr::IsDisabledfor (DISABLE_TYPE_BATTLEGROUND, bgTypeID_, NULL))
             continue;
 
         // can be overwrite by values from DB
@@ -994,7 +994,7 @@ bool BattlegroundMgr::IsArenaType(BattlegroundTypeId bgTypeId)
 
 BattlegroundQueueTypeId BattlegroundMgr::BGQueueTypeId(BattlegroundTypeId bgTypeId, uint8 arenaType)
 {
-    switch(bgTypeId)
+    switch (bgTypeId)
     {
         case BATTLEGROUND_WS:
             return BATTLEGROUND_QUEUE_WS;
@@ -1016,7 +1016,7 @@ BattlegroundQueueTypeId BattlegroundMgr::BGQueueTypeId(BattlegroundTypeId bgType
         case BATTLEGROUND_BE:
         case BATTLEGROUND_DS:
         case BATTLEGROUND_RV:
-            switch(arenaType)
+            switch (arenaType)
             {
                 case ARENA_TYPE_2v2:
                     return BATTLEGROUND_QUEUE_2v2;
@@ -1034,7 +1034,7 @@ BattlegroundQueueTypeId BattlegroundMgr::BGQueueTypeId(BattlegroundTypeId bgType
 
 BattlegroundTypeId BattlegroundMgr::BGTemplateId(BattlegroundQueueTypeId bgQueueTypeId)
 {
-    switch(bgQueueTypeId)
+    switch (bgQueueTypeId)
     {
         case BATTLEGROUND_QUEUE_WS:
             return BATTLEGROUND_WS;
@@ -1061,7 +1061,7 @@ BattlegroundTypeId BattlegroundMgr::BGTemplateId(BattlegroundQueueTypeId bgQueue
 
 uint8 BattlegroundMgr::BGArenaType(BattlegroundQueueTypeId bgQueueTypeId)
 {
-    switch(bgQueueTypeId)
+    switch (bgQueueTypeId)
     {
         case BATTLEGROUND_QUEUE_2v2:
             return ARENA_TYPE_2v2;

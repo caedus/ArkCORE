@@ -412,7 +412,7 @@ void WorldSession::SendBindPoint(Creature *npc)
     // send spell for homebinding (3286)
     npc->CastSpell(_player, bindspell, true);
 
-    WorldPacket data(SMSG_TRAINER_BUY_RESULT, (8+4));
+    WorldPacket data(SMSG_TRAINER_BUY_RESULT, 8 + 4 + 2);
     data << uint64(npc->GetGUID());
     data << uint32(bindspell);
     SendPacket(&data);

@@ -74,7 +74,7 @@ public:
 
         void OnCreatureCreate(Creature* creature)
         {
-            switch(creature->GetEntry())
+            switch (creature->GetEntry())
             {
                 case NPC_BJARNGRIM:
                     m_uiGeneralBjarngrimGUID = creature->GetGUID();
@@ -93,7 +93,7 @@ public:
 
         void OnGameObjectCreate(GameObject* go)
         {
-            switch(go->GetEntry())
+            switch (go->GetEntry())
             {
                 case GO_BJARNGRIM_DOOR:
                     m_uiBjarngrimDoorGUID = go->GetGUID();
@@ -131,7 +131,7 @@ public:
 
         void SetData(uint32 uiType, uint32 uiData)
         {
-            switch(uiType)
+            switch (uiType)
             {
                 case TYPE_BJARNGRIM:
                     if (uiData == DONE)
@@ -171,7 +171,7 @@ public:
 
         uint32 GetData(uint32 uiType)
         {
-            switch(uiType)
+            switch (uiType)
             {
                 case TYPE_BJARNGRIM:
                     return m_auiEncounter[0];
@@ -187,7 +187,7 @@ public:
 
         uint64 GetData64(uint32 uiData)
         {
-            switch(uiData)
+            switch (uiData)
             {
                 case DATA_BJARNGRIM:
                     return m_uiGeneralBjarngrimGUID;

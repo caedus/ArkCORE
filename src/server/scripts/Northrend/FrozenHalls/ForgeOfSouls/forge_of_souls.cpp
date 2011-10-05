@@ -177,7 +177,7 @@ public:
 
         void DoAction(const int32 actionId)
         {
-            switch(actionId)
+            switch (actionId)
             {
                 case ACTION_INTRO:
                 {
@@ -197,7 +197,7 @@ public:
                     return;
 
                 events.Update(diff);
-                switch(events.ExecuteEvent())
+                switch (events.ExecuteEvent())
                 {
                     case EVENT_INTRO_1:
                         DoScriptText(SAY_SYLVANAS_INTRO_1, me);
@@ -258,7 +258,7 @@ public:
     bool OnGossipSelect(Player* player, Creature* creature, uint32 /*uiSender*/, uint32 uiAction)
     {
         player->PlayerTalkClass->ClearMenus();
-        switch(uiAction)
+        switch (uiAction)
         {
             case GOSSIP_ACTION_INFO_DEF+1:
                 player->CLOSE_GOSSIP_MENU();
@@ -303,7 +303,7 @@ public:
 
         void DoAction(const int32 actionId)
         {
-            switch(actionId)
+            switch (actionId)
             {
                 case ACTION_INTRO:
                 {
@@ -323,7 +323,7 @@ public:
                     return;
 
                 events.Update(diff);
-                switch(events.ExecuteEvent())
+                switch (events.ExecuteEvent())
                 {
                     case EVENT_INTRO_1:
                         DoScriptText(SAY_JAINA_INTRO_1, me);
@@ -395,7 +395,7 @@ public:
     bool OnGossipSelect(Player* player, Creature* creature, uint32 /*uiSender*/, uint32 uiAction)
     {
         player->PlayerTalkClass->ClearMenus();
-        switch(uiAction)
+        switch (uiAction)
         {
             case GOSSIP_ACTION_INFO_DEF+1:
                 player->CLOSE_GOSSIP_MENU();
@@ -450,7 +450,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_SPITE:
                         DoCastVictim(SPELL_SPITE);
@@ -506,7 +506,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_VEIL_OF_SHADOWS:
                         DoCastVictim(SPELL_VEIL_OF_SHADOWS);
@@ -564,7 +564,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_SHROUD_OF_RUNES:
                         DoCast(me, SPELL_SHROUD_OF_RUNES);
@@ -621,7 +621,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_FROST_NOVA:
                         DoCast(me, SPELL_FROST_NOVA);
@@ -681,7 +681,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_BONE_VOLLEY:
                         DoCastAOE(SPELL_BONE_VOLLEY);
@@ -747,7 +747,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_RAISE_DEAD:
                         DoCast(me, SPELL_RAISE_DEAD);
@@ -820,7 +820,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_RAISE_DEAD:
                         DoCast(me, SPELL_RAISE_DEAD);
@@ -887,7 +887,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_SOUL_STRIKE:
                         DoCast(me->getVictim(), SPELL_SOUL_STRIKE);

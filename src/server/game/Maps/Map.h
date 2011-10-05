@@ -47,7 +47,6 @@ class WorldObject;
 class TempSummon;
 class Player;
 class CreatureGroup;
-class CreatureFormation;
 struct ScriptInfo;
 struct ScriptAction;
 struct Position;
@@ -238,8 +237,7 @@ typedef UNORDERED_MAP<Creature*, CreatureMover> CreatureMoveList;
 #define DEFAULT_HEIGHT_SEARCH     10.0f                     // default search distance to find height at nearby locations
 #define MIN_UNLOAD_DELAY      1                             // immediate unload
 
-typedef std::map<uint32/*leaderDBGUID*/, CreatureFormation*>    CreatureFormationHolderType;
-typedef std::map<uint32/*groupId*/, CreatureGroup*>    CreatureGroupHolderType;
+typedef std::map<uint32/*leaderDBGUID*/, CreatureGroup*>        CreatureGroupHolderType;
 
 class Map : public GridRefManager<NGridType>
 {
@@ -386,7 +384,7 @@ class Map : public GridRefManager<NGridType>
         virtual void DelayedUpdate(const uint32 diff);
 
         void UpdateObjectVisibility(WorldObject* obj, Cell cell, CellPair cellpair);
-        void UpdateObjectsVisibilityFor(Player* player, Cell cell, CellPair cellpair);
+        void UpdateObjectsVisibilityfor (Player* player, Cell cell, CellPair cellpair);
 
         void resetMarkedCells() { marked_cells.reset(); }
         bool isCellMarked(uint32 pCellId) { return marked_cells.test(pCellId); }
@@ -425,7 +423,6 @@ class Map : public GridRefManager<NGridType>
         template<class NOTIFIER> void VisitFirstFound(const float &x, const float &y, float radius, NOTIFIER &notifier);
         template<class NOTIFIER> void VisitWorld(const float &x, const float &y, float radius, NOTIFIER &notifier);
         template<class NOTIFIER> void VisitGrid(const float &x, const float &y, float radius, NOTIFIER &notifier);
-        CreatureFormationHolderType CreatureFormationHolder;
         CreatureGroupHolderType CreatureGroupHolder;
 
         void UpdateIteratorBack(Player* player);

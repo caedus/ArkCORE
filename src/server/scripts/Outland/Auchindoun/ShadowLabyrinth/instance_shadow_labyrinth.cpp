@@ -78,7 +78,7 @@ public:
 
         void OnGameObjectCreate(GameObject* go)
         {
-            switch(go->GetEntry())
+            switch (go->GetEntry())
             {
                 case REFECTORY_DOOR:
                     m_uiRefectoryDoorGUID = go->GetGUID();
@@ -95,7 +95,7 @@ public:
 
         void OnCreatureCreate(Creature* creature)
         {
-            switch(creature->GetEntry())
+            switch (creature->GetEntry())
             {
                 case 18732:
                     m_uiGrandmasterVorpil = creature->GetGUID();
@@ -112,7 +112,7 @@ public:
 
         void SetData(uint32 type, uint32 uiData)
         {
-            switch(type)
+            switch (type)
             {
                 case TYPE_HELLMAW:
                     m_auiEncounter[0] = uiData;
@@ -175,7 +175,7 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch(type)
+            switch (type)
             {
                 case TYPE_HELLMAW: return m_auiEncounter[0];
                 case TYPE_OVERSEER: return m_auiEncounter[1];

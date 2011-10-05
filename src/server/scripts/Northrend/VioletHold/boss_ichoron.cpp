@@ -161,7 +161,7 @@ public:
             if (!me->isAlive())
                 return;
 
-            switch(param)
+            switch (param)
             {
                 case ACTION_WATER_ELEMENT_HIT:
                     me->ModifyHealth(int32(me->CountPctFromMaxHealth(1)));

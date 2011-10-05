@@ -47,7 +47,6 @@
 #include "CellImpl.h"
 #include "OutdoorPvPMgr.h"
 #include "GameEventMgr.h"
-#include "CreatureFormations.h"
 #include "CreatureGroups.h"
 #include "Vehicle.h"
 #include "SpellAuraEffects.h"
@@ -147,7 +146,7 @@ m_PlayerDamageReq(0), m_lootMoney(0), m_lootRecipient(0), m_lootRecipientGroup(0
 m_respawnDelay(300), m_corpseDelay(60), m_respawnradius(0.0f), m_reactState(REACT_AGGRESSIVE),
 m_defaultMovementType(IDLE_MOTION_TYPE), m_DBTableGuid(0), m_equipmentId(0), m_AlreadyCallAssistance(false),
 m_AlreadySearchedAssistance(false), m_regenHealth(true), m_AI_locked(false), m_meleeDamageSchoolMask(SPELL_SCHOOL_MASK_NORMAL),
-m_creatureInfo(NULL), m_creatureData(NULL), m_formation(NULL), m_group(NULL)
+m_creatureInfo(NULL), m_creatureData(NULL), m_formation(NULL)
 {
     m_regenTimer = CREATURE_REGEN_INTERVAL;
     m_valuesCount = UNIT_END;
@@ -187,7 +186,6 @@ void Creature::AddToWorld()
         sObjectAccessor->AddObject(this);
         Unit::AddToWorld();
         SearchFormation();
-        SearchGroup();
         AIM_Initialize();
         if (IsVehicle())
             GetVehicleKit()->Install();
@@ -201,7 +199,7 @@ void Creature::RemoveFromWorld()
         if (m_zoneScript)
             m_zoneScript->OnCreatureRemove(this);
         if (m_formation)
-            sFormationMgr->RemoveCreatureFromFormation(m_formation, this);
+            FormationMgr::RemoveCreatureFromGroup(m_formation, this);
         Unit::RemoveFromWorld();
         sObjectAccessor->RemoveObject(this);
     }
@@ -226,36 +224,15 @@ void Creature::SearchFormation()
     if (!lowguid)
         return;
 
-    CreatureFormationDataType::iterator frmdata = CreatureFormationDataMap.find(lowguid);
-    if (frmdata != CreatureFormationDataMap.end())
-        sFormationMgr->AddCreatureToFormation(frmdata->second->formationId, this);
-}
-
-void Creature::SearchGroup()
-{
-    if (isSummon())
-        return;
-
-    uint32 lowguid = GetDBTableGUIDLow();
-    if (!lowguid)
-        return;
-
-    CreatureGroupDataType::iterator grpdata = CreatureGroupDataMap.find(lowguid);
-    if (grpdata != CreatureGroupDataMap.end())
-        sCreatureGroupMgr->AddCreatureToGroup(grpdata->second, this);
+    CreatureGroupInfoType::iterator frmdata = CreatureGroupMap.find(lowguid);
+    if (frmdata != CreatureGroupMap.end())
+        FormationMgr::AddCreatureToGroup(frmdata->second->leaderGUID, this);
 }
 
 void Creature::RemoveCorpse(bool setSpawnTime)
 {
     if (getDeathState() != CORPSE)
         return;
-
-    if (GetGroup() && GetGroup()->IsAllowedToRespawn(this))
-    {
-        Respawn();
-        return;
-    }
-
 
     m_corpseRemoveTime = time(NULL);
     setDeathState(DEAD);
@@ -460,7 +437,7 @@ void Creature::Update(uint32 diff)
             m_vehicleKit->Reset();
     }
 
-    switch(m_deathState)
+    switch (m_deathState)
     {
         case JUST_ALIVED:
             // Must not be called, see Creature::setDeathState JUST_ALIVED -> ALIVE promoting.
@@ -738,7 +715,7 @@ void Creature::Motion_Initialize()
         i_motionMaster.Initialize();
     else if (m_formation->getLeader() == this)
     {
-        m_formation->Reset(false);
+        m_formation->FormationReset(false);
         i_motionMaster.Initialize();
     }
     else if (m_formation->isFormed())
@@ -846,7 +823,7 @@ bool Creature::isCanTrainingOf(Player* pPlayer, bool msg) const
         return false;
     }
 
-    switch(GetCreatureInfo()->trainer_type)
+    switch (GetCreatureInfo()->trainer_type)
     {
         case TRAINER_TYPE_CLASS:
             if (pPlayer->getClass() != GetCreatureInfo()->trainer_class)
@@ -854,7 +831,7 @@ bool Creature::isCanTrainingOf(Player* pPlayer, bool msg) const
                 if (msg)
                 {
                     pPlayer->PlayerTalkClass->ClearMenus();
-                    switch(GetCreatureInfo()->trainer_class)
+                    switch (GetCreatureInfo()->trainer_class)
                     {
                         case CLASS_DRUID:  pPlayer->PlayerTalkClass->SendGossipMenu(4913, GetGUID()); break;
                         case CLASS_HUNTER: pPlayer->PlayerTalkClass->SendGossipMenu(10090, GetGUID()); break;
@@ -884,7 +861,7 @@ bool Creature::isCanTrainingOf(Player* pPlayer, bool msg) const
                 if (msg)
                 {
                     pPlayer->PlayerTalkClass->ClearMenus();
-                    switch(GetCreatureInfo()->trainer_class)
+                    switch (GetCreatureInfo()->trainer_class)
                     {
                         case RACE_DWARF:        pPlayer->PlayerTalkClass->SendGossipMenu(5865, GetGUID()); break;
                         case RACE_GNOME:        pPlayer->PlayerTalkClass->SendGossipMenu(4881, GetGUID()); break;
@@ -930,7 +907,7 @@ bool Creature::isCanInteractWithBattleMaster(Player* pPlayer, bool msg) const
     if (!pPlayer->GetBGAccessByLevel(bgTypeId))
     {
         pPlayer->PlayerTalkClass->ClearMenus();
-        switch(bgTypeId)
+        switch (bgTypeId)
         {
             case BATTLEGROUND_AV:  pPlayer->PlayerTalkClass->SendGossipMenu(7616, GetGUID()); break;
             case BATTLEGROUND_WS:  pPlayer->PlayerTalkClass->SendGossipMenu(7599, GetGUID()); break;
@@ -1448,6 +1425,10 @@ bool Creature::canStartAttack(Unit const* who, bool force) const
     if (HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PASSIVE))
         return false;
 
+    // Do not attack non-combat pets
+    if (who->GetTypeId() == TYPEID_UNIT && who->GetCreatureType() == CREATURE_TYPE_NON_COMBAT_PET)
+        return false;
+
     if (!canFly() && (GetDistanceZ(who) > CREATURE_Z_ATTACK_RANGE + m_CombatDistance))
         //|| who->IsControlledByPlayer() && who->IsFlying()))
         // we cannot check flying for other creatures, too much map/vmap calculation
@@ -1518,7 +1499,7 @@ void Creature::setDeathState(DeathState s)
 
     if (s == JUST_DIED)
     {
-        if(GetCreatureInfo()->flags_extra)
+        if (GetCreatureInfo()->flags_extra)
         {
             m_corpseRemoveTime = time(NULL) + 10;
             m_respawnTime = time(NULL) + m_respawnDelay + 10;
@@ -1538,7 +1519,7 @@ void Creature::setDeathState(DeathState s)
         setActive(false);
 
         if (!isPet() && GetCreatureInfo()->SkinLootId)
-            if (LootTemplates_Skinning.HaveLootFor(GetCreatureInfo()->SkinLootId))
+            if (LootTemplates_Skinning.HaveLootfor (GetCreatureInfo()->SkinLootId))
                 if (hasLootRecipient())
                     SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_SKINNABLE);
 
@@ -1550,7 +1531,7 @@ void Creature::setDeathState(DeathState s)
 
         //Dismiss group if is leader
         if (m_formation && m_formation->getLeader() == this)
-            m_formation->Reset(true);
+            m_formation->FormationReset(true);
 
         if (ZoneScript* zoneScript = GetZoneScript())
             zoneScript->OnCreatureDeath(this);
@@ -2040,7 +2021,7 @@ bool Creature::canCreatureAttack(Unit const *pVictim, bool force) const
     if (!IsValidAttackTarget(pVictim))
         return false;
 
-    if (!pVictim->isInAccessiblePlaceFor(this))
+    if (!pVictim->isInAccessiblePlacefor (this))
         return false;
 
     if (IsAIEnabled && !AI()->CanAIAttack(pVictim))

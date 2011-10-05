@@ -223,7 +223,12 @@ Battleground::~Battleground()
     sBattlegroundMgr->RemoveBattleground(GetInstanceID(), GetTypeID());
     // unload map
     if (m_Map)
+    {
         m_Map->SetUnload();
+        //unlink to prevent crash, always unlink all pointer reference before destruction
+        m_Map->SetBG(NULL);
+        m_Map = NULL;
+    }
     // remove from bg free slot queue
     RemoveFromBGFreeSlotQueue();
 
@@ -253,7 +258,7 @@ void Battleground::Update(uint32 diff)
         return;
     }
 
-    switch(GetStatus())
+    switch (GetStatus())
     {
         case STATUS_WAIT_JOIN:
             if (GetPlayersSize())
@@ -814,6 +819,9 @@ void Battleground::EndBattleground(uint32 winner)
                     plr->GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_WIN_RATED_ARENA, member->PersonalRating);
 
                 winner_arena_team->MemberWon(plr, loser_matchmaker_rating, winner_matchmaker_change);
+
+                plr->ModifyCurrency(CURRENCY_TYPE_CONQUEST_POINTS, sWorld->getIntConfig(CONFIG_ARENA_CONQUEST_POINTS_REWARD) * PLAYER_CURRENCY_PRECISION);
+                plr->UpdateMaxWeekRating(CP_SOURCE_ARENA, winner_arena_team->GetSlot());
             }
             else
             {
@@ -835,7 +843,10 @@ void Battleground::EndBattleground(uint32 winner)
             {
                 UpdatePlayerScore(plr, SCORE_BONUS_HONOR, GetBonusHonorFromKill(winner_kills));
                 if (!plr->GetRandomWinner())
+                {
+                    plr->ModifyCurrency(CURRENCY_TYPE_CONQUEST_POINTS, 25 * PLAYER_CURRENCY_PRECISION);
                     plr->SetRandomWinner(true);
+                }
             }
 
             plr->GetAchievementMgr().UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_WIN_BG, 1);
@@ -887,7 +898,7 @@ uint32 Battleground::GetBonusHonorFromKill(uint32 kills) const
 
 uint32 Battleground::GetBattlemasterEntry() const
 {
-    switch(GetTypeID(true))
+    switch (GetTypeID(true))
     {
         case BATTLEGROUND_AV: return 15972;
         case BATTLEGROUND_WS: return 14623;

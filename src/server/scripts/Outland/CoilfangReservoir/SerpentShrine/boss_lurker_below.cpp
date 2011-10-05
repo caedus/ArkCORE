@@ -420,7 +420,7 @@ public:
         {
             if (!who || me->getVictim()) return;
 
-            if (who->isInAccessiblePlaceFor(me) && me->IsValidAttackTarget(who) && me->IsWithinDistInMap(who, 45))
+            if (who->isInAccessiblePlacefor (me) && me->IsValidAttackTarget(who) && me->IsWithinDistInMap(who, 45))
             {
                 AttackStart(who);
             }

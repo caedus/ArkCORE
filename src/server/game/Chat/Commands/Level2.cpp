@@ -376,7 +376,7 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
         PSendSysMessage(LANG_PINFO_BAN, banTime > 0 ? secsToTimeString(banTime - time(NULL), true).c_str() : "permanently", bannedby.c_str(), banreason.c_str());
 
     std::string race_s, Class_s;
-    switch(race)
+    switch (race)
     {
         case RACE_HUMAN:            race_s = "Human";       break;
         case RACE_ORC:              race_s = "Orc";         break;
@@ -391,7 +391,7 @@ bool ChatHandler::HandlePInfoCommand(const char* args)
         case RACE_WORGEN:           race_s = "Worgen";      break;
         case RACE_GOBLIN:           race_s = "Goblin";      break;
     }
-    switch(Class)
+    switch (Class)
     {
         case CLASS_WARRIOR:         Class_s = "Warrior";        break;
         case CLASS_PALADIN:         Class_s = "Paladin";        break;

@@ -99,7 +99,7 @@ InstanceSave* InstanceSaveManager::AddInstanceSave(uint32 mapId, uint32 instance
         // initialize reset time
         // for normal instances if no creatures are killed the instance will reset in two hours
         if (entry->map_type == MAP_RAID || difficulty > DUNGEON_DIFFICULTY_NORMAL)
-            resetTime = GetResetTimeFor(mapId, difficulty);
+            resetTime = GetResetTimefor (mapId, difficulty);
         else
         {
             resetTime = time(NULL) + 2 * HOUR;
@@ -360,7 +360,7 @@ void InstanceSaveManager::LoadResetTimes()
             if (oldresettime != newresettime)
                 CharacterDatabase.DirectPExecute("UPDATE instance_reset SET resettime = '%u' WHERE mapid = '%u' AND difficulty = '%u'", uint32(newresettime), mapid, difficulty);
 
-            SetResetTimeFor(mapid, difficulty, newresettime);
+            SetResetTimefor (mapid, difficulty, newresettime);
         } while (result->NextRow());
     }
 
@@ -382,7 +382,7 @@ void InstanceSaveManager::LoadResetTimes()
         if (period < DAY)
             period = DAY;
 
-        time_t t = GetResetTimeFor(mapid, difficulty);
+        time_t t = GetResetTimefor (mapid, difficulty);
         if (!t)
         {
             // initialize the reset time
@@ -399,7 +399,7 @@ void InstanceSaveManager::LoadResetTimes()
             CharacterDatabase.DirectPExecute("UPDATE instance_reset SET resettime = '"UI64FMTD"' WHERE mapid = '%u' AND difficulty= '%u'", (uint64)t, mapid, difficulty);
         }
 
-        SetResetTimeFor(mapid, difficulty, t);
+        SetResetTimefor (mapid, difficulty, t);
 
         // schedule the global reset/warning
         uint8 type;
@@ -472,7 +472,7 @@ void InstanceSaveManager::Update()
         else
         {
             // global reset/warning for a certain map
-            time_t resetTime = GetResetTimeFor(event.mapid, event.difficulty);
+            time_t resetTime = GetResetTimefor (event.mapid, event.difficulty);
             _ResetOrWarnAll(event.mapid, event.difficulty, event.type != 4, resetTime);
             if (event.type != 4)
             {
@@ -578,7 +578,7 @@ void InstanceSaveManager::_ResetOrWarnAll(uint32 mapid, Difficulty difficulty, b
 
         uint64 next_reset = ((resetTime + MINUTE) / DAY * DAY) + period + diff;
 
-        SetResetTimeFor(mapid, difficulty, next_reset);
+        SetResetTimefor (mapid, difficulty, next_reset);
         ScheduleReset(true, time_t(next_reset-3600), InstResetEvent(1, mapid, difficulty, 0));
 
         // update it in the DB

@@ -60,7 +60,7 @@ public:
         {
            if (pInstance)
             {
-                switch(fm_Type)
+                switch (fm_Type)
                 {
                 case 1:
                     pInstance->SetData(EVENT_FORGE_1, me->isAlive() ? NOT_STARTED : DONE);
@@ -80,7 +80,7 @@ public:
             if (fm_Type == 0) fm_Type = GetForgeMasterType();
             if (pInstance)
             {
-                switch(fm_Type)
+                switch (fm_Type)
                 {
                 case 1:
                     pInstance->SetData(EVENT_FORGE_1, DONE);
@@ -100,7 +100,7 @@ public:
             if (fm_Type == 0) fm_Type = GetForgeMasterType();
             if (pInstance)
             {
-                switch(fm_Type)
+                switch (fm_Type)
                 {
                 case 1:
                     pInstance->SetData(EVENT_FORGE_1, IN_PROGRESS);

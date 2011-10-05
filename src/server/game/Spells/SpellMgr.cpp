@@ -1833,7 +1833,7 @@ void SpellMgr::LoadSpellProcs()
         baseProcEntry.cooldown        = uint32(cooldown);
         baseProcEntry.charges         = fields[14].GetUInt32();
 
-        while(true)
+        while (true)
         {
             if (mSpellProcMap.find(spellId) != mSpellProcMap.end())
             {
@@ -2987,6 +2987,9 @@ void SpellMgr::LoadDbcDataCorrections()
             case 36350: //They Must Burn Bomb Aura (self)
                 spellEffect->EffectTriggerSpell = 36325; // They Must Burn Bomb Drop (DND)
                 break;
+            case 2643: // Multi-Shot no-target Effect 0 fix.
+                spellEffect->EffectImplicitTargetA = TARGET_DEST_TARGET_ENEMY;
+                break;
             case 49838: // Stop Time
                 spellInfo->AttributesEx3 |= SPELL_ATTR3_NO_INITIAL_AGGRO;
                 break;
@@ -3025,6 +3028,13 @@ void SpellMgr::LoadDbcDataCorrections()
                 // Target entry seems to be wrong for this spell :/
                 spellEffect->EffectImplicitTargetA = TARGET_UNIT_CASTER_AREA_PARTY;
                 spellEffect->EffectRadiusIndex = 45;
+                break;
+            case 61607: // Mark of Blood
+                spellInfo->AttributesEx |= SPELL_ATTR1_NO_THREAT;
+                break;
+            case 64844: // Divine Hymn 
+            case 64904: // Hymn of Hope
+                spellInfo->AttributesEx &= ~SPELL_ATTR0_NEGATIVE_1;
                 break;
             case 44978: case 45001: case 45002: // Wild Magic
             case 45004: case 45006: case 45010: // Wild Magic
@@ -3147,6 +3157,10 @@ void SpellMgr::LoadDbcDataCorrections()
                 // with this spell atrribute aura can be stacked several times
                 spellInfo->Attributes &= ~SPELL_ATTR0_NOT_SHAPESHIFT;
                 break;
+            case 8145: // Tremor Totem (instant pulse)
+            case 6474: // Earthbind Totem (instant pulse)
+                spellInfo->AttributesEx5 |= SPELL_ATTR5_START_PERIODIC_AT_APPLY;
+                break;
             case 30421: // Nether Portal - Perseverence
                 spellEffect->EffectBasePoints += 30000;
                 break;
@@ -3184,10 +3198,6 @@ void SpellMgr::LoadDbcDataCorrections()
                 break;
             case 63675: // Improved Devouring Plague
                 spellInfo->AttributesEx3 |= SPELL_ATTR3_NO_DONE_BONUS;
-                break;
-            case 8145: // Tremor Totem (instant pulse)
-            case 6474: // Earthbind Totem (instant pulse)
-                spellInfo->AttributesEx5 |= SPELL_ATTR5_START_PERIODIC_AT_APPLY;
                 break;
             case 53241: // Marked for Death (Rank 1)
             case 53243: // Marked for Death (Rank 2)
@@ -3379,6 +3389,10 @@ void SpellMgr::LoadDbcDataCorrections()
                 spellEffect->EffectImplicitTargetA = TARGET_DEST_TARGET_ANY;
                 spellEffect->EffectImplicitTargetB = TARGET_UNIT_TARGET_ANY;
                 spellEffect->Effect = 0;
+                break;
+            case 86150: // Guardian of Ancient Kings
+                spellEffect->EffectTriggerSpell = 86698;
+                spellEffect->EffectImplicitTargetA = TARGET_UNIT_CASTER;
                 break;
             default:
                 break;

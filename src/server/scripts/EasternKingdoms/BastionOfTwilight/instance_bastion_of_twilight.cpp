@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include "ScriptPCH.h"
 #include "bastion_of_twilight.h"
 
@@ -43,7 +43,7 @@ public:
         {
              for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
                  uiEncounter[i] = NOT_STARTED;
- 
+
              uiWyrmbreaker = 0;
              uiValiona = 0;
              uiTheralion = 0;
@@ -59,7 +59,7 @@ public:
 			 uiProtoBehemoth = 0 ;
 			 uiTimeWarden = 0;
              uiCyclonWinds = 0;
-             if(instance->IsHeroic())
+             if (instance->IsHeroic())
                  uiSinestra = 0;
              uiAscendantCouncilPhase = 1;
 
@@ -70,7 +70,7 @@ public:
             for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
                 if (uiEncounter[i] == IN_PROGRESS)
                     return true;
- 
+
              return false;
         }
 
@@ -84,27 +84,27 @@ public:
                     uiTeamInInstance = pPlayer->GetTeam();
             }
 
-			switch(pCreature->GetEntry())
+			switch (pCreature->GetEntry())
             {
 				case BOSS_WYRMBREAKER:
 					uiWyrmbreaker = pCreature->GetGUID();
-					if(Creature * SlateDrake = instance->GetCreature(GetData64(NPC_SLATE_DRAKE)))
+					if (Creature * SlateDrake = instance->GetCreature(GetData64(NPC_SLATE_DRAKE)))
 					{
-						if(!SlateDrake->HasAura(SPELL_UNRESPONSIVE_DRAKE))
+						if (!SlateDrake->HasAura(SPELL_UNRESPONSIVE_DRAKE))
 						{
 							SlateDrake->AddAura(SPELL_MALEVOLENT_STRIKES,pCreature);
 						}
 					}
-					if(Creature * StormRider = instance->GetCreature(GetData64(NPC_STORM_RIDER)))
+					if (Creature * StormRider = instance->GetCreature(GetData64(NPC_STORM_RIDER)))
 					{
-						if(!StormRider->HasAura(SPELL_UNRESPONSIVE_DRAKE))
+						if (!StormRider->HasAura(SPELL_UNRESPONSIVE_DRAKE))
 						{
 							StormRider->AddAura(SPELL_SHADOW_WARPED,pCreature);
 						}
 					}
-					if(Creature * NetherScion = instance->GetCreature(GetData64(NPC_NETHER_SCION)))
+					if (Creature * NetherScion = instance->GetCreature(GetData64(NPC_NETHER_SCION)))
 					{
-						if(!NetherScion->HasAura(SPELL_UNRESPONSIVE_DRAKE))
+						if (!NetherScion->HasAura(SPELL_UNRESPONSIVE_DRAKE))
 						{
 							NetherScion->AddAura(SPELL_FRENZIED_ASSAULT,pCreature);
 						}
@@ -138,7 +138,7 @@ public:
                     uiSinestra = pCreature->GetGUID();
                     break;
 				case NPC_SLATE_DRAKE:
-					if(uiRandomDragons[0] == RANDOM_DRAGON_SLATE_DRAKE || uiRandomDragons[1] == RANDOM_DRAGON_SLATE_DRAKE)
+					if (uiRandomDragons[0] == RANDOM_DRAGON_SLATE_DRAKE || uiRandomDragons[1] == RANDOM_DRAGON_SLATE_DRAKE)
 					{
 						pCreature->AddAura(SPELL_UNRESPONSIVE_DRAKE,pCreature);
                         pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
@@ -148,7 +148,7 @@ public:
 					pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
 					break;
 				case NPC_STORM_RIDER:
-					if(uiRandomDragons[0] == RANDOM_DRAGON_STORM_RIDER || uiRandomDragons[1] == RANDOM_DRAGON_STORM_RIDER)
+					if (uiRandomDragons[0] == RANDOM_DRAGON_STORM_RIDER || uiRandomDragons[1] == RANDOM_DRAGON_STORM_RIDER)
 					{
 						pCreature->AddAura(SPELL_UNRESPONSIVE_DRAKE,pCreature);
                         pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
@@ -158,7 +158,7 @@ public:
 					pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
 					break;
 				case NPC_NETHER_SCION:
-					if(uiRandomDragons[0] == RANDOM_DRAGON_NETHER_SCION || uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
+					if (uiRandomDragons[0] == RANDOM_DRAGON_NETHER_SCION || uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
 					{
 						pCreature->AddAura(SPELL_UNRESPONSIVE_DRAKE,pCreature);
                         pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
@@ -174,9 +174,9 @@ public:
 					pCreature->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
 				case NPC_PROTO_BEHEMOTH:
 					uiProtoBehemoth = pCreature->GetGUID();
-					if(Unit * TimeWarden = instance->GetCreature(GetData64(NPC_TIME_WARDEN)))
+					if (Unit * TimeWarden = instance->GetCreature(GetData64(NPC_TIME_WARDEN)))
 					{
-						if(!TimeWarden->HasAura(SPELL_UNRESPONSIVE_DRAKE))
+						if (!TimeWarden->HasAura(SPELL_UNRESPONSIVE_DRAKE))
 						{
 							TimeWarden->AddAura(SPELL_DANCING_FLAMES,pCreature);
 						}
@@ -189,7 +189,7 @@ public:
 		}
         void SetData64(uint32 id, uint64 data)
         {
-            switch(id)
+            switch (id)
             {
                 case DATA_HB_VALIONA_THERALION:
                     uiValionaTheralionHealth = data ;
@@ -198,7 +198,7 @@ public:
         }
 		uint64 GetData64(uint32 identifier)
 		{
-			switch(identifier)
+			switch (identifier)
 				{
 					case DATA_WYRMBREAKER:                  return uiWyrmbreaker;
 					case DATA_VALIONA:						return uiValiona;
@@ -224,7 +224,7 @@ public:
 
 		void SetData(uint32 type, uint32 data)
 		{
-			switch(type)
+			switch (type)
 			{
 				case DATA_WYRMBREAKER_EVENT:
 					uiEncounter[0] = data;
@@ -249,7 +249,7 @@ public:
 
 		uint32 GetData(uint32 type)
         {
-            switch(type)
+            switch (type)
             {
                 case DATA_WYRMBREAKER_EVENT:                return uiEncounter[0];
                 case DATA_VALIONA_THERALION_EVENT:			return uiEncounter[1];
@@ -275,7 +275,7 @@ public:
             OUT_SAVE_INST_DATA_COMPLETE;
             return str_data;
         }
-		
+
 		void Load(const char* in)
         {
             if (!in)
@@ -288,7 +288,7 @@ public:
 
             char dataHead1, dataHead2;
             uint16 data0, data1, data2, data3, data4;
-			uint8 data5, data6, data7; 
+			uint8 data5, data6, data7;
 			uint64 data8;
 
             std::istringstream loadStream(in);
@@ -329,7 +329,7 @@ public:
 								if (uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
 								{
 									uiRandomNumber = rand() % 10 + 1;
-									if(uiRandomNumber <= 5)
+									if (uiRandomNumber <= 5)
 									{
 										uiRandomDragons[1] = RANDOM_DRAGON_STORM_RIDER;
 									}
@@ -341,7 +341,7 @@ public:
 								break;
 						}
 					}
-					if(!data7 == NULL)
+					if (!data7 == NULL)
 					{
 						uiRandomDragons[2] = data7;
 					}
@@ -356,7 +356,7 @@ public:
                     else uiHalfusNormalTimer = 604800000;
 				}
 
-            } 
+            }
             else OUT_LOAD_INST_DATA_FAIL;
 
             OUT_LOAD_INST_DATA_COMPLETE;
@@ -367,9 +367,9 @@ public:
             Creature * pCreature = instance->GetCreature(guid);
             uint16 talkid;
             uint16 wayid;
-            if(finalphase)
+            if (finalphase)
             {
-                switch(pCreature->GetEntry())
+                switch (pCreature->GetEntry())
                 {
                 case BOSS_FELUDIUS:
                     talkid = SAY_PHASE3_FELUDIUS;
@@ -379,12 +379,12 @@ public:
                 pCreature->AI()->Talk(talkid);
                 pCreature->UpdateWaypointID(wayid);
             }
-            if(active)
+            if (active)
             {
                 pCreature->RemoveAura(pCreature->GetAura(8611,guid));
             }
             else
-            {              
+            {
                 pCreature->AddAura(8611,pCreature);
             }
         }
@@ -392,14 +392,14 @@ public:
         void ShiftPhase()
         {
             uiAscendantCouncilPhase++;
-            if(uiAscendantCouncilPhase == 2)
+            if (uiAscendantCouncilPhase == 2)
             {
                 ChangeState(GetData64(DATA_FELUDIUS),false,false);
                 ChangeState(GetData64(DATA_IGNACIOUS),false,false);
                 ChangeState(GetData64(DATA_ARION),true,false);
                 ChangeState(GetData64(DATA_TERRASTRA),true,false);
             }
-            else if(uiAscendantCouncilPhase == 3)
+            else if (uiAscendantCouncilPhase == 3)
             {
 
             }
@@ -407,7 +407,7 @@ public:
 
 		void Update(uint32 diff)
 		{
-			if(uiHalfusNormalTimer <= diff)
+			if (uiHalfusNormalTimer <= diff)
 			{
 				uiRandomDragons[0] = rand() % 3 +1;
 				switch (uiRandomDragons[0])
@@ -417,10 +417,10 @@ public:
 						break;
 					case RANDOM_DRAGON_NETHER_SCION:
 						uiRandomDragons[1] = rand() % 1 + 2;
-						if(uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
+						if (uiRandomDragons[1] == RANDOM_DRAGON_NETHER_SCION)
 						{
 							uiRandomNumber = rand() % 10 + 1;
-							if(uiRandomNumber <= 5)
+							if (uiRandomNumber <= 5)
 							{
 								uiRandomDragons[1] = RANDOM_DRAGON_STORM_RIDER;
 							} else uiRandomDragons[1] = RANDOM_DRAGON_SLATE_DRAKE;

@@ -335,7 +335,7 @@ void BattlegroundIC::UpdatePlayerScore(Player* Source, uint32 type, uint32 value
     if (itr == m_PlayerScores.end())                         // player not found...
         return;
 
-    switch(type)
+    switch (type)
     {
         case SCORE_BASES_ASSAULTED:
             ((BattlegroundICScore*)itr->second)->BasesAssaulted += value;
@@ -645,7 +645,7 @@ void BattlegroundIC::HandleCapturedNodes(ICNodePoint* nodePoint, bool recapture)
             sLog->outError("Isle of Conquest: Failed to spawn spirit guide! point: %u, team: %u, ", nodePoint->nodeType, nodePoint->faction);
     }
 
-    switch(nodePoint->gameobject_type)
+    switch (nodePoint->gameobject_type)
     {
     case BG_IC_GO_HANGAR_BANNER:
         // all the players on the stopped transport should be teleported out
@@ -836,7 +836,7 @@ void BattlegroundIC::DestroyGate(Player* player, GameObject* go)
 
     uint32 lang_entry = 0;
 
-    switch(go->GetEntry())
+    switch (go->GetEntry())
     {
         case GO_HORDE_GATE_1:
             lang_entry = LANG_BG_IC_NORTH_GATE_DESTROYED;

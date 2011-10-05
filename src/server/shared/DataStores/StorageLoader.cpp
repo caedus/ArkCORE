@@ -437,8 +437,8 @@ char* StorageLoader::AutoProduceStringsArrayHolders(const char* format, char* da
     {
         uint32 stringFieldNum = 0;
 
-        for(uint32 x = 0; x < fieldCount; x++)
-            switch(format[x])
+        for (uint32 x = 0; x < fieldCount; x++)
+            switch (format[x])
             {
                 case FT_FLOAT:
                 case FT_IND:

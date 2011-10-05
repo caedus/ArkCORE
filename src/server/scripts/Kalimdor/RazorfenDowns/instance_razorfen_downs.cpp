@@ -104,7 +104,7 @@ public:
 
         void OnGameObjectCreate(GameObject* go)
         {
-            switch(go->GetEntry())
+            switch (go->GetEntry())
             {
                 case GO_GONG:
                     uiGongGUID = go->GetGUID();
@@ -122,7 +122,7 @@ public:
             {
                 uiGongWaves = uiData;
 
-                switch(uiGongWaves)
+                switch (uiGongWaves)
                 {
                     case 9:
                     case 14:
@@ -143,7 +143,7 @@ public:
                         uint32 uiCreature = 0;
                         uint8 uiSummonTimes = 0;
 
-                        switch(uiGongWaves)
+                        switch (uiGongWaves)
                         {
                             case 1:
                                 uiCreature = CREATURE_TOMB_FIEND;
@@ -190,7 +190,7 @@ public:
 
         uint32 GetData(uint32 uiType)
         {
-            switch(uiType)
+            switch (uiType)
             {
                 case DATA_GONG_WAVES:
                     return uiGongWaves;
@@ -201,7 +201,7 @@ public:
 
         uint64 GetData64(uint32 uiType)
         {
-            switch(uiType)
+            switch (uiType)
             {
                 case DATA_GONG: return uiGongGUID;
             }

@@ -204,6 +204,10 @@ bool LoginQueryHolder::Initialize()
     stmt->setUInt32(0, lowGuid);
     res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOADCURRENCY, stmt);
 
+    stmt = CharacterDatabase.GetPreparedStatement(CHAR_LOAD_PLAYER_CP_WEEK_CAP);
+    stmt->setUInt32(0, lowGuid);
+    res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_CP_WEEK_CAP, stmt);
+
     return res;
 }
 
@@ -1572,6 +1576,8 @@ void WorldSession::HandleCharCustomize(WorldPacket& recv_data)
     data << uint8(hairColor);
     data << uint8(facialHair);
     SendPacket(&data);
+
+    sWorld->ReloadSingleCharacterNameData(GUID_LOPART(guid));
 }
 
 void WorldSession::HandleEquipmentSetSave(WorldPacket &recv_data)
@@ -2044,7 +2050,7 @@ uint64 WorldSession::GetRealGUID(uint8 packetGuid, uint8 byte, std::string Error
         else
             number = byte;
 
-        if(number % 2 == 0)
+        if (number % 2 == 0)
         {
            if (i == 0)
                 ++packetGuid;

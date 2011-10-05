@@ -449,7 +449,7 @@ class BattlegroundSA : public Battleground
         uint32 GetGateIDFromDestroyEventID(uint32 id)
         {
             uint32 i = 0;
-            switch(id)
+            switch (id)
             {
                 case 19046: i = BG_SA_GREEN_GATE;   break; //Green gate destroyed
                 case 19045: i = BG_SA_BLUE_GATE;    break; //blue gate
@@ -464,7 +464,7 @@ class BattlegroundSA : public Battleground
         uint32 GetWorldStateFromGateID(uint32 id)
         {
             uint32 uws = 0;
-            switch(id)
+            switch (id)
             {
                 case BG_SA_GREEN_GATE:   uws = BG_SA_GREEN_GATEWS;   break;
                 case BG_SA_YELLOW_GATE:  uws = BG_SA_YELLOW_GATEWS;  break;

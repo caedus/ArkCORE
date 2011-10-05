@@ -181,7 +181,7 @@ public:
 
         void SpellHitTarget(Unit* target, const SpellInfo* spell)
         {
-            switch(spell->Id)
+            switch (spell->Id)
             {
             case SPELL_SHADOW_BLADES:
             case SPELL_SHADOW_NOVA:
@@ -197,7 +197,7 @@ public:
 
         void HandleTouchedSpells(Unit* target, uint32 TouchedType)
         {
-            switch(TouchedType)
+            switch (TouchedType)
             {
             case SPELL_FLAME_TOUCHED:
                 if (!target->HasAura(SPELL_DARK_FLAME))
@@ -475,7 +475,7 @@ public:
 
         void SpellHitTarget(Unit* target, const SpellInfo* spell)
         {
-            switch(spell->Id)
+            switch (spell->Id)
             {
 
             case SPELL_BLAZE:
@@ -492,7 +492,7 @@ public:
 
         void HandleTouchedSpells(Unit* target, uint32 TouchedType)
         {
-            switch(TouchedType)
+            switch (TouchedType)
             {
             case SPELL_FLAME_TOUCHED:
                 if (!target->HasAura(SPELL_DARK_FLAME))
@@ -700,7 +700,7 @@ public:
 
         void SpellHitTarget(Unit* target, const SpellInfo* spell)
         {
-            switch(spell->Id)
+            switch (spell->Id)
             {
 
             case SPELL_SHADOW_FURY:

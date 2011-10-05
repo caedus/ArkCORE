@@ -414,7 +414,7 @@ struct GameObjectTemplate
     // helpers
     bool IsDespawnAtAction() const
     {
-        switch(type)
+        switch (type)
         {
             case GAMEOBJECT_TYPE_CHEST:  return chest.consumable;
             case GAMEOBJECT_TYPE_GOOBER: return goober.consumable;
@@ -424,7 +424,7 @@ struct GameObjectTemplate
 
     uint32 GetLockId() const
     {
-        switch(type)
+        switch (type)
         {
             case GAMEOBJECT_TYPE_DOOR:       return door.lockId;
             case GAMEOBJECT_TYPE_BUTTON:     return button.lockId;
@@ -443,7 +443,7 @@ struct GameObjectTemplate
 
     bool GetDespawnPossibility() const                      // despawn at targeting of cast?
     {
-        switch(type)
+        switch (type)
         {
             case GAMEOBJECT_TYPE_DOOR:       return door.noDamageImmune;
             case GAMEOBJECT_TYPE_BUTTON:     return button.noDamageImmune;
@@ -457,7 +457,7 @@ struct GameObjectTemplate
 
     uint32 GetCharges() const                               // despawn at uses amount
     {
-        switch(type)
+        switch (type)
         {
             //case GAMEOBJECT_TYPE_TRAP:        return trap.charges;
             case GAMEOBJECT_TYPE_GUARDPOST:   return guardpost.charges;
@@ -468,7 +468,7 @@ struct GameObjectTemplate
 
     uint32 GetLinkedGameObjectEntry() const
     {
-        switch(type)
+        switch (type)
         {
             case GAMEOBJECT_TYPE_CHEST:       return chest.linkedTrapId;
             case GAMEOBJECT_TYPE_SPELL_FOCUS: return spellFocus.linkedTrapId;
@@ -480,7 +480,7 @@ struct GameObjectTemplate
     uint32 GetAutoCloseTime() const
     {
         uint32 autoCloseTime = 0;
-        switch(type)
+        switch (type)
         {
             case GAMEOBJECT_TYPE_DOOR:          autoCloseTime = door.autoCloseTime; break;
             case GAMEOBJECT_TYPE_BUTTON:        autoCloseTime = button.autoCloseTime; break;
@@ -495,7 +495,7 @@ struct GameObjectTemplate
 
     uint32 GetLootId() const
     {
-        switch(type)
+        switch (type)
         {
             case GAMEOBJECT_TYPE_CHEST:       return chest.lootId;
             case GAMEOBJECT_TYPE_FISHINGHOLE: return fishinghole.lootId;
@@ -505,7 +505,7 @@ struct GameObjectTemplate
 
     uint32 GetGossipMenuId() const
     {
-        switch(type)
+        switch (type)
         {
             case GAMEOBJECT_TYPE_QUESTGIVER:    return questgiver.gossipID;
             case GAMEOBJECT_TYPE_GOOBER:        return goober.gossipID;
@@ -515,7 +515,7 @@ struct GameObjectTemplate
 
     uint32 GetEventScriptId() const
     {
-        switch(type)
+        switch (type)
         {
             case GAMEOBJECT_TYPE_GOOBER:        return goober.eventId;
             case GAMEOBJECT_TYPE_CHEST:         return chest.eventId;
@@ -757,7 +757,7 @@ class GameObject : public WorldObject, public GridObject<GameObject>
 
         void TriggeringLinkedGameObject(uint32 trapEntry, Unit* target);
 
-        bool isAlwaysVisibleFor(WorldObject const* seer) const;
+        bool isAlwaysVisiblefor (WorldObject const* seer) const;
         bool isVisibleForInState(WorldObject const* seer) const;
 
         uint8 getLevelForTarget(WorldObject const* target) const

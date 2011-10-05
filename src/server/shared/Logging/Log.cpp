@@ -25,7 +25,7 @@
 
 Log::Log()
 {
-    _DebugLogMask = DebugLogFilters(sConfig->GetIntDefault("Log.Debug.Mask", LOG_FILTER_NONE));
+    _DebugLogMask = DebugLogFilters(ConfigMgr::GetIntDefault("Log.Debug.Mask", LOG_FILTER_NONE));
 }
 
 Log::~Log() { }

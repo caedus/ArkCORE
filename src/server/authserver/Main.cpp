@@ -78,7 +78,7 @@ extern int main(int argc, char **argv)
     // Command line parsing to get the configuration file name
     char const *cfg_file = _AUTHSERVER_CONFIG;
     int c = 1;
-    while(c < argc)
+    while (c < argc)
     {
         if (strcmp(argv[c], "-c") == 0)
         {
@@ -94,7 +94,7 @@ extern int main(int argc, char **argv)
         ++c;
     }
 
-    if (!sConfig->SetSource(cfg_file))
+    if (!ConfigMgr::Load(cfg_file))
     {
         sLogMgr->WriteLn(SERVER_LOG, LOGL_ERROR, "Invalid or missing configuration file : %s", cfg_file);
         sLogMgr->WriteLn(SERVER_LOG, LOGL_ERROR, "Verify that the file exists and has \'[authserver]\' written in the top of the file!");
@@ -116,7 +116,7 @@ extern int main(int argc, char **argv)
     sLogMgr->WriteLn(SERVER_LOG, LOGL_WARNING, "Max allowed open files is %d", ACE::max_handles());
 
     // authserver PID file creation
-    std::string pidfile = sConfig->GetStringDefault("PidFile", "");
+    std::string pidfile = ConfigMgr::GetStringDefault("PidFile", "");
     if (!pidfile.empty())
     {
         uint32 pid = CreatePIDFile(pidfile);
@@ -138,7 +138,7 @@ extern int main(int argc, char **argv)
     sLogMgr->SetRealmId(0);
 
     // Get the list of realms for the server
-    sRealmList->Initialize(sConfig->GetIntDefault("RealmsStateUpdateDelay", 20));
+    sRealmList->Initialize(ConfigMgr::GetIntDefault("RealmsStateUpdateDelay", 20));
     if (sRealmList->size() == 0)
     {
         sLogMgr->WriteLn(SERVER_LOG, LOGL_ERROR, "No valid realms specified.");
@@ -148,8 +148,8 @@ extern int main(int argc, char **argv)
     // Launch the listening network socket
     RealmAcceptor acceptor;
 
-    uint16 rmport = sConfig->GetIntDefault("RealmServerPort", 3724);
-    std::string bind_ip = sConfig->GetStringDefault("BindIP", "0.0.0.0");
+    uint16 rmport = ConfigMgr::GetIntDefault("RealmServerPort", 3724);
+    std::string bind_ip = ConfigMgr::GetStringDefault("BindIP", "0.0.0.0");
 
     ACE_INET_Addr bind_addr(rmport, bind_ip.c_str());
 
@@ -172,7 +172,7 @@ extern int main(int argc, char **argv)
     {
         HANDLE hProcess = GetCurrentProcess();
 
-        uint32 Aff = sConfig->GetIntDefault("UseProcessors", 0);
+        uint32 Aff = ConfigMgr::GetIntDefault("UseProcessors", 0);
         if (Aff > 0)
         {
             ULONG_PTR appAff;
@@ -192,7 +192,7 @@ extern int main(int argc, char **argv)
             sLogMgr->WriteLn(SERVER_LOG, LOGL_STRING, std::string());
         }
 
-        bool Prio = sConfig->GetBoolDefault("ProcessPriority", false);
+        bool Prio = ConfigMgr::GetBoolDefault("ProcessPriority", false);
 
         if (Prio)
         {
@@ -208,7 +208,7 @@ extern int main(int argc, char **argv)
     sLog->outString("%s (authserver-daemon) ready...", _FULLVERSION);
 
     // maximum counter for next ping
-    uint32 numLoops = (sConfig->GetIntDefault("MaxPingTime", 30) * (MINUTE * 1000000 / 100000));
+    uint32 numLoops = (ConfigMgr::GetIntDefault("MaxPingTime", 30) * (MINUTE * 1000000 / 100000));
     uint32 loopCounter = 0;
 
     // possibly enable db logging; avoid massive startup spam by doing it here.
@@ -243,21 +243,21 @@ bool StartDB()
 {
     MySQL::Library_Init();
 
-    std::string dbstring = sConfig->GetStringDefault("LoginDatabaseInfo", "");
+    std::string dbstring = ConfigMgr::GetStringDefault("LoginDatabaseInfo", "");
     if (dbstring.empty())
     {
         sLogMgr->WriteLn(SERVER_LOG, LOGL_ERROR, "Database not specified");
         return false;
     }
 
-    uint8 worker_threads = sConfig->GetIntDefault("LoginDatabase.WorkerThreads", 1);
+    uint8 worker_threads = ConfigMgr::GetIntDefault("LoginDatabase.WorkerThreads", 1);
     if (worker_threads < 1 || worker_threads > 32)
     {
         sLogMgr->WriteLn(SERVER_LOG, LOGL_ERROR, "Improper value specified for LoginDatabase.WorkerThreads, defaulting to 1.");
         worker_threads = 1;
     }
 
-    uint8 synch_threads = sConfig->GetIntDefault("LoginDatabase.SynchThreads", 1);
+    uint8 synch_threads = ConfigMgr::GetIntDefault("LoginDatabase.SynchThreads", 1);
     if (synch_threads < 1 || synch_threads > 32)
     {
         sLogMgr->WriteLn(SERVER_LOG, LOGL_ERROR, "Improper value specified for LoginDatabase.SynchThreads, defaulting to 1.");

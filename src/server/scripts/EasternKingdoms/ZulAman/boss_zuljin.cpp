@@ -337,7 +337,7 @@ class boss_zuljin : public CreatureScript
 
             void EnterPhase(uint32 NextPhase)
             {
-                switch(NextPhase)
+                switch (NextPhase)
                 {
                 case 0:
                     break;

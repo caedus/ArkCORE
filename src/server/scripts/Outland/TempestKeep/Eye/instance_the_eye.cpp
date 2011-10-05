@@ -81,7 +81,7 @@ class instance_the_eye : public InstanceMapScript
 
             void OnCreatureCreate(Creature* creature)
             {
-                switch(creature->GetEntry())
+                switch (creature->GetEntry())
                 {
                 case 20064:
                     ThaladredTheDarkener = creature->GetGUID();
@@ -109,7 +109,7 @@ class instance_the_eye : public InstanceMapScript
 
             uint64 GetData64(uint32 identifier)
             {
-                switch(identifier)
+                switch (identifier)
                 {
                 case DATA_THALADREDTHEDARKENER:         return ThaladredTheDarkener;
                 case DATA_LORDSANGUINAR:                return LordSanguinar;
@@ -124,7 +124,7 @@ class instance_the_eye : public InstanceMapScript
 
             void SetData(uint32 type, uint32 data)
             {
-                switch(type)
+                switch (type)
                 {
                 case DATA_ALAREVENT:
                     AlarEventPhase = data;
@@ -147,7 +147,7 @@ class instance_the_eye : public InstanceMapScript
 
             uint32 GetData(uint32 type)
             {
-                switch(type)
+                switch (type)
                 {
                 case DATA_ALAREVENT:                        return AlarEventPhase;
                 case DATA_HIGHASTROMANCERSOLARIANEVENT:     return m_auiEncounter[1];

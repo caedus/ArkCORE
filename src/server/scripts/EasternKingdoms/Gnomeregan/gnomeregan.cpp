@@ -270,7 +270,7 @@ public:
                 if (me->getFaction() != GetPlayerForEscort()->getFaction())
                     me->setFaction(GetPlayerForEscort()->getFaction());
 
-            switch(uiPoint)
+            switch (uiPoint)
             {
                 case 3:
                     SetEscortPaused(true);
@@ -309,7 +309,7 @@ public:
 
         void SetData(uint32 uiI, uint32 uiValue)
         {
-            switch(uiI)
+            switch (uiI)
             {
                 case 1:
                     SetEscortPaused(true);
@@ -320,7 +320,7 @@ public:
                     if (!pInstance)
                         return;
 
-                    switch(uiValue)
+                    switch (uiValue)
                     {
                         case 1:
                             pInstance->SetData(TYPE_EVENT, IN_PROGRESS);
@@ -336,7 +336,7 @@ public:
 
         void Summon(uint8 uiCase)
         {
-            switch(uiCase)
+            switch (uiCase)
             {
                 case 1:
                     me->SummonCreature(NPC_CAVERNDEEP_AMBUSHER, SpawnPosition[0], TEMPSUMMON_CORPSE_TIMED_DESPAWN, 1800000);
@@ -414,7 +414,7 @@ public:
             {
                 if (uiTimer <= uiDiff)
                 {
-                    switch(uiPhase)
+                    switch (uiPhase)
                     {
                         case 1:
                             DoScriptText(SAY_BLASTMASTER_1, me);

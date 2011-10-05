@@ -32,7 +32,7 @@
 
 MailSender::MailSender(Object* sender, MailStationery stationery) : m_stationery(stationery)
 {
-    switch(sender->GetTypeId())
+    switch (sender->GetTypeId())
     {
         case TYPEID_UNIT:
             m_messageType = MAIL_CREATURE;
@@ -96,7 +96,7 @@ void MailDraft::prepareItems(Player* receiver, SQLTransaction& trans)
     // can be empty
     mailLoot.FillLoot(m_mailTemplateId, LootTemplates_Mail, receiver, true, true);
 
-    uint32 max_slot = mailLoot.GetMaxSlotInLootFor(receiver);
+    uint32 max_slot = mailLoot.GetMaxSlotInLootfor (receiver);
     for (uint32 i = 0; m_items.size() < MAX_MAIL_ITEMS && i < max_slot; ++i)
     {
         if (LootItem* lootitem = mailLoot.LootItemInSlot(i, receiver))

@@ -122,7 +122,7 @@ void Map::LoadVMap(int gx, int gy)
 {
                                                             // x and y are swapped !!
     int vmapLoadResult = VMAP::VMapFactory::createOrGetVMapManager()->loadMap((sWorld->GetDataPath()+ "vmaps").c_str(),  GetId(), gx, gy);
-    switch(vmapLoadResult)
+    switch (vmapLoadResult)
     {
         case VMAP::VMAP_LOAD_RESULT_OK:
             sLog->outDetail("VMAP loaded name:%s, id:%d, x:%d, y:%d (vmap rep.: x:%d, y:%d)", GetMapName(), GetId(), gx, gy, gx, gy);
@@ -1873,7 +1873,7 @@ void Map::UpdateObjectVisibility(WorldObject* obj, Cell cell, CellPair cellpair)
     cell.Visit(cellpair, player_notifier, *this, *obj, obj->GetVisibilityRange());
 }
 
-void Map::UpdateObjectsVisibilityFor(Player* player, Cell cell, CellPair cellpair)
+void Map::UpdateObjectsVisibilityfor (Player* player, Cell cell, CellPair cellpair)
 {
     Trillium::VisibleNotifier notifier(*player);
 
@@ -2023,7 +2023,7 @@ void Map::RemoveAllObjectsInRemoveList()
         bool on = itr->second;
         i_objectsToSwitch.erase(itr);
 
-        switch(obj->GetTypeId())
+        switch (obj->GetTypeId())
         {
             case TYPEID_UNIT:
                 if (!obj->ToCreature()->isPet())
@@ -2047,7 +2047,7 @@ void Map::RemoveAllObjectsInRemoveList()
             continue;
         }
 
-        switch(obj->GetTypeId())
+        switch (obj->GetTypeId())
         {
             case TYPEID_CORPSE:
             {
@@ -2595,6 +2595,12 @@ BattlegroundMap::BattlegroundMap(uint32 id, time_t expiry, uint32 InstanceId, Ma
 
 BattlegroundMap::~BattlegroundMap()
 {
+    if (m_bg)
+    {
+        //unlink to prevent crash, always unlink all pointer reference before destruction
+        m_bg->SetBgMap(NULL);
+        m_bg = NULL;
+    }
 }
 
 void BattlegroundMap::InitVisibilityDistance()

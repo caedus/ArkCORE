@@ -80,7 +80,7 @@ public:
 
         void OnCreatureCreate(Creature* creature)
         {
-            switch(creature->GetEntry())
+            switch (creature->GetEntry())
             {
                 case 18835: KigglerTheCrazed = creature->GetGUID(); break;
                 case 18836: BlindeyeTheSeer = creature->GetGUID();  break;
@@ -92,7 +92,7 @@ public:
 
         void OnGameObjectCreate(GameObject* go)
         {
-            switch(go->GetEntry())
+            switch (go->GetEntry())
             {
                 case 184468:
                     MaulgarDoor = go->GetGUID();
@@ -113,7 +113,7 @@ public:
 
         uint64 GetData64(uint32 identifier)
         {
-            switch(identifier)
+            switch (identifier)
             {
                 case DATA_MAULGAREVENT_TANK:    return MaulgarEvent_Tank;
                 case DATA_KIGGLERTHECRAZED:     return KigglerTheCrazed;
@@ -129,7 +129,7 @@ public:
 
         void SetData(uint32 type, uint32 data)
         {
-            switch(type)
+            switch (type)
             {
                 case DATA_MAULGAREVENT:
                     if (data == DONE) HandleGameObject(MaulgarDoor, true);
@@ -146,7 +146,7 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch(type)
+            switch (type)
             {
                 case DATA_MAULGAREVENT: return m_auiEncounter[0];
                 case DATA_GRUULEVENT:   return m_auiEncounter[1];

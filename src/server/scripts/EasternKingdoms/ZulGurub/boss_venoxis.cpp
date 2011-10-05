@@ -181,7 +181,7 @@ class boss_venoxis : public CreatureScript
 
                 while (uint32 eventId = events.ExecuteEvent())
                 {
-                    switch(eventId)
+                    switch (eventId)
                     {
                         // thrash is available in all phases
                         case EVENT_THRASH:

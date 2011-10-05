@@ -571,7 +571,7 @@ m_caster((info->AttributesEx6 & SPELL_ATTR6_CAST_BY_CHARMER && caster->GetCharme
 Spell::~Spell()
 {
     // unload scripts
-    while(!m_loadedScripts.empty())
+    while (!m_loadedScripts.empty())
     {
         std::list<SpellScript *>::iterator itr = m_loadedScripts.begin();
         (*itr)->_Unload();
@@ -850,6 +850,8 @@ void Spell::SelectEffectTypeImplicitTargets(uint8 effIndex)
             if (targetMask & TARGET_FLAG_UNIT_MASK)
                 if (Guardian* pet = m_caster->GetGuardianPet())
                     AddUnitTarget(pet, 1 << effIndex, false);
+            break;
+        default:
             break;
     }
 }
@@ -1839,7 +1841,7 @@ void Spell::SearchChainTarget(std::list<Unit*> &TagUnitMap, float max_range, uin
                 break;
 
             // Check if (*next) is a valid chain target. If not, don't add to TagUnitMap, and repeat loop.
-            // If you want to add any conditions to exclude a target from TagUnitMap, add condition in this while() loop.
+            // If you want to add any conditions to exclude a target from TagUnitMap, add condition in this while () loop.
             while ((m_spellInfo->DmgClass == SPELL_DAMAGE_CLASS_MELEE
                 && !m_caster->isInFrontInMap(*next, max_range))
                 || !m_caster->canSeeOrDetect(*next)
@@ -2935,7 +2937,7 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
         return;
     }
 
-    if (DisableMgr::IsDisabledFor(DISABLE_TYPE_SPELL, m_spellInfo->Id, m_caster))
+    if (DisableMgr::IsDisabledfor (DISABLE_TYPE_SPELL, m_spellInfo->Id, m_caster))
     {
         SendCastResult(SPELL_FAILED_SPELL_UNAVAILABLE);
         finish(false);
@@ -2985,7 +2987,7 @@ void Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
 
     // don't allow channeled spells / spells with cast time to be casted while moving
     // (even if they are interrupted on moving, spells with almost immediate effect get to have their effect processed before movement interrupter kicks in)
-    if ((m_spellInfo->IsChanneled() || m_casttime) && m_caster->GetTypeId() == TYPEID_PLAYER && m_caster->isMoving() && m_spellInfo->InterruptFlags & SPELL_INTERRUPT_FLAG_MOVEMENT)
+    if ((m_spellInfo->IsChanneled() || m_casttime) && m_caster->GetTypeId() == TYPEID_PLAYER && m_caster->isMoving() && m_spellInfo->InterruptFlags & SPELL_INTERRUPT_FLAG_MOVEMENT && !m_caster->CanCastWhileWalking(m_spellInfo))
     {
         SendCastResult(SPELL_FAILED_MOVING);
         finish(false);
@@ -3430,7 +3432,7 @@ void Spell::_handle_immediate_phase()
             }
         }
         // Proc damage for spells which have only dest targets (2484 should proc 51486 for example)
-        m_originalCaster->ProcDamageAndSpell(0, procAttacker, 0, m_procEx | PROC_EX_NORMAL_HIT, 0, BASE_ATTACK, m_spellInfo, m_triggeredByAuraSpell);
+        m_originalCaster->ProcDamageAndSpell(NULL, procAttacker, 0, m_procEx | PROC_EX_NORMAL_HIT, 0, BASE_ATTACK, m_spellInfo, m_triggeredByAuraSpell);
     }
 }
 
@@ -3446,6 +3448,10 @@ void Spell::_handle_finish_phase()
         if (m_comboPointGain)
             m_caster->m_movedPlayer->GainSpellComboPoints(m_comboPointGain);
     }
+
+    if (m_caster->m_extraAttacks && GetSpellInfo()->HasEffect(SPELL_EFFECT_ADD_EXTRA_ATTACKS))
+        m_caster->HandleProcExtraAttackfor (m_caster->getVictim());
+
     // TODO: trigger proc phase finish here
 }
 
@@ -3489,7 +3495,7 @@ void Spell::update(uint32 difftime)
         (m_spellInfo->Effects[EFFECT_0].Effect != SPELL_EFFECT_STUCK || !m_caster->HasUnitMovementFlag(MOVEMENTFLAG_FALLING)))
     {
         // don't cancel for melee, autorepeat, triggered and instant spells
-        if (!IsNextMeleeSwingSpell() && !IsAutoRepeat() && !IsTriggered())
+        if (!IsNextMeleeSwingSpell() && !IsAutoRepeat() && !IsTriggered() && !m_caster->CanCastWhileWalking(m_spellInfo))
             cancel();
     }
 
@@ -4489,7 +4495,10 @@ SpellCastResult Spell::CheckCast(bool strict)
     }
 
     if (m_spellInfo->AttributesEx7 & SPELL_ATTR7_IS_CHEAT_SPELL && !m_caster->HasFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_ALLOW_CHEAT_SPELLS))
-        return SPELL_FAILED_SPELL_UNAVAILABLE;
+    {
+        m_customError = SPELL_CUSTOM_ERROR_GM_ONLY;
+        return SPELL_FAILED_CUSTOM_ERROR;
+    }
 
     // Check global cooldown
     if (strict && !(_triggeredCastFlags & TRIGGERED_IGNORE_GCD) && HasGlobalCooldown())
@@ -4538,7 +4547,12 @@ SpellCastResult Spell::CheckCast(bool strict)
         }
     }
 
-    bool reqCombat=true;
+    Unit::AuraEffectList const& blockSpells = m_caster->GetAuraEffectsByType(SPELL_AURA_BLOCK_SPELL_FAMILY);
+    for (Unit::AuraEffectList::const_iterator blockItr = blockSpells.begin(); blockItr != blockSpells.end(); ++blockItr)
+        if ((*blockItr)->GetMiscValue() == m_spellInfo->SpellFamilyName)
+            return SPELL_FAILED_SPELL_UNAVAILABLE;
+
+    bool reqCombat = true;
     Unit::AuraEffectList const& stateAuras = m_caster->GetAuraEffectsByType(SPELL_AURA_ABILITY_IGNORE_AURASTATE);
     for (Unit::AuraEffectList::const_iterator j = stateAuras.begin(); j != stateAuras.end(); ++j)
     {
@@ -4578,7 +4592,8 @@ SpellCastResult Spell::CheckCast(bool strict)
     {
         // skip stuck spell to allow use it in falling case and apply spell limitations at movement
         if ((!m_caster->HasUnitMovementFlag(MOVEMENTFLAG_FALLING) || m_spellInfo->Effects[0].Effect != SPELL_EFFECT_STUCK) &&
-            (IsAutoRepeat() || (m_spellInfo->AuraInterruptFlags & AURA_INTERRUPT_FLAG_NOT_SEATED) != 0))
+            (IsAutoRepeat() || (m_spellInfo->AuraInterruptFlags & AURA_INTERRUPT_FLAG_NOT_SEATED) != 0) &&
+            !m_caster->CanCastWhileWalking(m_spellInfo))
             return SPELL_FAILED_MOVING;
     }
 
@@ -4615,8 +4630,7 @@ SpellCastResult Spell::CheckCast(bool strict)
     // those spells may have incorrect target entries or not filled at all (for example 15332)
     // such spells when learned are not targeting anyone using targeting system, they should apply directly to caster instead
     // also, such casts shouldn't be sent to client
-    // Fix selfdamage for pets with cast. Thanks LiHO
-    if (!((m_spellInfo->Attributes & SPELL_ATTR0_PASSIVE) && !m_targets.GetUnitTarget() || m_targets.GetUnitTarget() == m_caster) || m_caster->isSummon())
+    if (!((m_spellInfo->Attributes & SPELL_ATTR0_PASSIVE) && (!m_targets.GetUnitTarget() || m_targets.GetUnitTarget() == m_caster)))
     {
         // Check explicit target for m_originalCaster - todo: get rid of such workarounds
         SpellCastResult castResult = m_spellInfo->CheckExplicitTarget(m_originalCaster ? m_originalCaster : m_caster, m_targets.GetObjectTarget(), m_targets.GetItemTarget());
@@ -5086,12 +5100,12 @@ SpellCastResult Spell::CheckCast(bool strict)
             // RETURN HERE
             case SPELL_EFFECT_SUMMON_RAF_FRIEND:
             {
-                if(m_caster->GetTypeId() != TYPEID_PLAYER)
+                if (m_caster->GetTypeId() != TYPEID_PLAYER)
                     return SPELL_FAILED_BAD_TARGETS;
 
                 Player* playerCaster = m_caster->ToPlayer();
                     //
-                if(!(playerCaster->GetSelection()))
+                if (!(playerCaster->GetSelection()))
                     return SPELL_FAILED_BAD_TARGETS;
 
                 Player* target = ObjectAccessor::FindPlayer(playerCaster->GetSelection());
@@ -5795,41 +5809,6 @@ SpellCastResult Spell::CheckItems()
                     return SPELL_FAILED_ITEM_NOT_READY;         //0x54
             }
         }
-
-        // check totem-item requirements (items presence in inventory)
-        uint32 totems = 2;
-        for (int i = 0; i < 2 ; ++i)
-        {
-            if (m_spellInfo->Totem[i] != 0)
-            {
-                if (p_caster->HasItemCount(m_spellInfo->Totem[i], 1))
-                {
-                    totems -= 1;
-                    continue;
-                }
-            }else
-                totems -= 1;
-        }
-        if (totems != 0)
-            return SPELL_FAILED_TOTEMS;                         //0x7C
-
-        // Check items for TotemCategory  (items presence in inventory)
-        uint32 TotemCategory = 2;
-        for (int i= 0; i < 2; ++i)
-        {
-            if (m_spellInfo->TotemCategory[i] != 0)
-            {
-                if (p_caster->HasItemTotemCategory(m_spellInfo->TotemCategory[i]))
-                {
-                    TotemCategory -= 1;
-                    continue;
-                }
-            }
-            else
-                TotemCategory -= 1;
-        }
-        if (TotemCategory != 0)
-            return SPELL_FAILED_TOTEM_CATEGORY;                 //0x7B
     }
 
     // special checks for spell effects
@@ -5990,7 +5969,7 @@ SpellCastResult Spell::CheckItems()
                 if (m_targets.GetItemTarget()->GetCount() < 5)
                     return SPELL_FAILED_NEED_MORE_ITEMS;
 
-                if (!LootTemplates_Prospecting.HaveLootFor(m_targets.GetItemTargetEntry()))
+                if (!LootTemplates_Prospecting.HaveLootfor (m_targets.GetItemTargetEntry()))
                     return SPELL_FAILED_CANT_BE_PROSPECTED;
 
                 break;
@@ -6013,7 +5992,7 @@ SpellCastResult Spell::CheckItems()
                 if (m_targets.GetItemTarget()->GetCount() < 5)
                     return SPELL_FAILED_NEED_MORE_ITEMS;
 
-                if (!LootTemplates_Milling.HaveLootFor(m_targets.GetItemTargetEntry()))
+                if (!LootTemplates_Milling.HaveLootfor (m_targets.GetItemTargetEntry()))
                     return SPELL_FAILED_CANT_BE_MILLED;
 
                 break;

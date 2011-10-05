@@ -552,7 +552,7 @@ void WorldSession::HandleGetMailList(WorldPacket & recv_data)
     uint32 mailsCount = 0;                                 // real send to client mails amount
     uint32 realCount  = 0;                                 // real mails amount
 
-    WorldPacket data(SMSG_MAIL_LIST_RESULT, (200));         // guess size
+    WorldPacket data(SMSG_MAIL_LIST_RESULT, 200);           // guess size
     data << uint32(0);                                      // real mail's count
     data << uint8(0);                                       // mail's count
     time_t cur_time = time(NULL);
@@ -584,7 +584,7 @@ void WorldSession::HandleGetMailList(WorldPacket & recv_data)
         data << uint32((*itr)->messageID);                 // Message ID
         data << uint8((*itr)->messageType);                // Message Type
 
-        switch((*itr)->messageType)
+        switch ((*itr)->messageType)
         {
             case MAIL_NORMAL:                               // sender guid
                 data << uint64(MAKE_NEW_GUID((*itr)->sender, 0, HIGHGUID_PLAYER));
@@ -757,7 +757,7 @@ void WorldSession::HandleQueryNextMailTime(WorldPacket & /*recv_data*/)
             else
                 data << uint32(m->sender); // creature entry
 
-            switch(m->messageType)
+            switch (m->messageType)
             {
                 case MAIL_AUCTION:
                     data << uint32(2);

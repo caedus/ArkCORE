@@ -64,7 +64,7 @@ void OutdoorPvPMgr::InitOutdoorPvP()
 
         typeId = fields[0].GetUInt32();
 
-        if (DisableMgr::IsDisabledFor(DISABLE_TYPE_OUTDOORPVP, typeId, NULL))
+        if (DisableMgr::IsDisabledfor (DISABLE_TYPE_OUTDOORPVP, typeId, NULL))
             continue;
 
         if (typeId >= MAX_OUTDOORPVP_TYPES)

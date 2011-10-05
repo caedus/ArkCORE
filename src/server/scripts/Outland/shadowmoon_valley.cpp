@@ -767,7 +767,7 @@ public:
                 return 0;
             }
 
-            switch(Step)
+            switch (Step)
             {
             case 0: return 0; break;
             case 1: me->GetMotionMaster()->MovePoint(0, -5104.41f, 595.297f, 85.6838f); return 9000; break;
@@ -946,7 +946,7 @@ public:
             if (!player)
                 return;
 
-            switch(uiPointId)
+            switch (uiPointId)
             {
                 case 13:
                     DoScriptText(SAY_WIL_PROGRESS1, me, player);
@@ -1211,7 +1211,7 @@ public:
 
             AnimationTimer = TorlothAnim[AnimationCount].Timer;
 
-            switch(AnimationCount)
+            switch (AnimationCount)
             {
             case 0:
                 me->SetUInt32Value(UNIT_FIELD_BYTES_1, 8);
@@ -1291,7 +1291,7 @@ public:
         void JustDied(Unit* slayer)
         {
             if (slayer)
-                switch(slayer->GetTypeId())
+                switch (slayer->GetTypeId())
                 {
                     case TYPEID_UNIT:
                         if (Unit* owner = slayer->GetOwner())
@@ -1745,7 +1745,7 @@ public:
             uint32 entry = 0;
             uint32 credit = 0;
 
-            switch(me->GetEntry()) {
+            switch (me->GetEntry()) {
               case ENTRY_ENRAGED_FIRE_SPIRIT:
                 entry  = ENTRY_FIERY_SOUL;
                 //credit = SPELL_FIERY_SOUL_CAPTURED_CREDIT;

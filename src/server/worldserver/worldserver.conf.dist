@@ -1176,11 +1176,18 @@ StartHeroicPlayerLevel = 55
 StartPlayerMoney = 0
 
 #
-#    MaxHonorPoints
-#        Description: Maximum honor points a character can have.
-#        Default:     75000
+#    MaxConquestPoints
+#        Description: Maximum conquest points a character can have.
+#        Default:     400000
 
-MaxHonorPoints = 75000
+MaxConquestPoints = 400000
+
+#
+#    StartConquestPoints
+#        Description: Amount of conquest that new players will start with
+#        Default:     0
+
+StartConquestPoints = 0
 
 #
 #    StartHonorPoints
@@ -1190,18 +1197,18 @@ MaxHonorPoints = 75000
 StartHonorPoints = 0
 
 #
-#    MaxArenaPoints
-#        Description: Maximum arena points a character can have.
+#    MaxJusticePoints
+#        Description: Maximum justice points a character can have.
 #        Default:     10000
 
-MaxArenaPoints = 10000
+MaxJusticePoints = 400000
 
 #
-#    StartArenaPoints
-#        Description: Amount of arena points that characters has after creation.
+#    StartJusticePoints
+#        Description: Amount of justice points that characters has after creation.
 #        Default:     0
 
-StartArenaPoints = 0
+StartJusticePoints = 0
 
 #
 #    RecruitAFriend.MaxLevel
@@ -2559,6 +2566,13 @@ Arena.ArenaStartPersonalRating = 0
 #        Default:     1500
 
 Arena.ArenaStartMatchmakerRating = 1500
+
+#
+#    Arena.ConquestPointsReward
+#        Description:
+#        Default:     180
+
+Arena.ConquestPointsReward = 180
 
 #
 ###################################################################################################

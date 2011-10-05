@@ -496,7 +496,7 @@ class spell_auriaya_strenght_of_the_pack : public SpellScriptLoader
 
             void FilterTargets(std::list<Unit*>& unitList)
             {
-                unitList.remove_if(SanctumSentryCheck());
+                unitList.remove_if (SanctumSentryCheck());
             }
 
             void Register()
@@ -522,7 +522,7 @@ class spell_auriaya_sentinel_blast : public SpellScriptLoader
 
             void FilterTargets(std::list<Unit*>& unitList)
             {
-                unitList.remove_if(PlayerOrPetCheck());
+                unitList.remove_if (PlayerOrPetCheck());
             }
 
             void Register()

@@ -153,7 +153,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_CURSE:
                         DoCastAOE(SPELL_CURSE_PLAGUEBRINGER);
@@ -182,7 +182,7 @@ public:
                         return;
                     case EVENT_WAVE:
                         DoScriptText(SAY_SUMMON, me);
-                        switch(balconyCount)
+                        switch (balconyCount)
                         {
                             case 0: SummonUndead(MOB_CHAMPION, RAID_MODE(2, 4)); break;
                             case 1: SummonUndead(MOB_CHAMPION, RAID_MODE(1, 2));

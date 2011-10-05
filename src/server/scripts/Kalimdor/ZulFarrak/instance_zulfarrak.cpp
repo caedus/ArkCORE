@@ -162,7 +162,7 @@ public:
 
         void OnGameObjectCreate(GameObject* go)
         {
-            switch(go->GetEntry())
+            switch (go->GetEntry())
             {
                 case GO_END_DOOR:
                     EndDoorGUID = go->GetGUID();
@@ -172,7 +172,7 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch(type)
+            switch (type)
             {
                 case EVENT_PYRAMID:
                     return PyramidPhase;
@@ -182,7 +182,7 @@ public:
 
         uint64 GetData64(uint32 data)
         {
-            switch(data)
+            switch (data)
             {
                 case ENTRY_ZUMRAH:
                     return ZumrahGUID;
@@ -204,7 +204,7 @@ public:
 
         void SetData(uint32 type, uint32 data)
         {
-            switch(type)
+            switch (type)
             {
                 case EVENT_PYRAMID:
                     PyramidPhase=data;
@@ -326,7 +326,7 @@ public:
         }
 
         bool IsWaveAllDead(){
-            for(std::list<uint64>::iterator itr = addsAtBase.begin(); itr != addsAtBase.end(); ++itr)
+            for (std::list<uint64>::iterator itr = addsAtBase.begin(); itr != addsAtBase.end(); ++itr)
             {
                 if (Creature* add = instance->GetCreature((*itr)))
                 {
@@ -334,7 +334,7 @@ public:
                         return false;
                 }
             }
-            for(std::list<uint64>::iterator itr = movedadds.begin(); itr != movedadds.end(); ++itr)
+            for (std::list<uint64>::iterator itr = movedadds.begin(); itr != movedadds.end(); ++itr)
             {
                 if (Creature* add = instance->GetCreature(((*itr))))
                 {

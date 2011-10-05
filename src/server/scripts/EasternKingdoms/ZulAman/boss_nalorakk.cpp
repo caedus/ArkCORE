@@ -202,7 +202,7 @@ class boss_nalorakk : public CreatureScript
                     {
                         if (!inMove)
                         {
-                            switch(MovePhase)
+                            switch (MovePhase)
                             {
                                 case 0:
                                     if (me->IsWithinDistInMap(who, 50))
@@ -310,7 +310,7 @@ class boss_nalorakk : public CreatureScript
                     if (MovePhase != id)
                         return;
 
-                    switch(MovePhase)
+                    switch (MovePhase)
                     {
                         case 2:
                             me->SetOrientation(3.1415f*2);

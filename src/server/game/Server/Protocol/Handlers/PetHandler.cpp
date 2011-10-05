@@ -150,10 +150,10 @@ void WorldSession::HandlePetActionHelper(Unit *pet, uint64 guid1, uint16 spellid
         return;
     }
 
-    switch(flag)
+    switch (flag)
     {
         case ACT_COMMAND:                                   //0x07
-            switch(spellid)
+            switch (spellid)
             {
                 case COMMAND_STAY:                          //flat=1792  //STAY
                     pet->AttackStop();
@@ -270,7 +270,7 @@ void WorldSession::HandlePetActionHelper(Unit *pet, uint64 guid1, uint16 spellid
             }
             break;
         case ACT_REACTION:                                  // 0x6
-            switch(spellid)
+            switch (spellid)
             {
                 case REACT_PASSIVE:                         //passive
                     pet->AttackStop();

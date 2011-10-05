@@ -258,14 +258,17 @@ struct LfgPlayerBoot
 class LFGMgr
 {
     friend class ACE_Singleton<LFGMgr, ACE_Null_Mutex>;
-    public:
+
+    private:
         LFGMgr();
         ~LFGMgr();
+
+    public:
         void Update(uint32 diff);
 
         // Reward
         void LoadRewards();
-        void RewardDungeonDoneFor(const uint32 dungeonId, Player* player);
+        void RewardDungeonDonefor (const uint32 dungeonId, Player* player);
         LfgReward const* GetRandomDungeonReward(uint32 dungeon, uint8 level);
 
         // Queue

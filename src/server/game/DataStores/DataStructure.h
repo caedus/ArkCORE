@@ -507,11 +507,11 @@ struct AchievementCriteriaEntry
 
     DBCString name;                                         // 9        m_description_lang
     uint32  completionFlag;                                 // 10       m_flags
-    uint32  timedCriteriaStartType;                         // 11       m_timer_start_event Only appears with timed achievements, seems to be the type of starting a timed Achievement, only type 1 and some of type 6 need manual starting
+    uint32  timedType;                                      // 11       m_timer_start_event Only appears with timed achievements, seems to be the type of starting a timed Achievement, only type 1 and some of type 6 need manual starting
                                                             //              1: ByEventId(?) (serverside IDs),    2: ByQuestId,   5: ByCastSpellId(?)
                                                             //              6: BySpellIdTarget(some of these are unknown spells, some not, some maybe spells)
                                                             //              7: ByKillNpcId,  9: ByUseItemId
-    uint32  timedCriteriaMiscId;                            // 12       m_timer_asset_id Alway appears with timed events, used internally to start the achievement, store
+    uint32  timerStartEvent;                                // 12       m_timer_asset_id Alway appears with timed events, used internally to start the achievement, store
     uint32  timeLimit;                                      // 13       m_timer_time time limit in seconds
     uint32  showOrder;                                      // 14       m_ui_order  also used in achievement shift-links as index in state bitmask
     //uint32 unk1;                                          // 15 only one value, still unknown
@@ -645,10 +645,10 @@ struct BattlemasterListEntry
     uint32 HolidayWorldStateId;                             // 13 new 3.1
     uint32 minLevel;                                        // 14, min level (sync with PvPDifficulty.dbc content)
     uint32 maxLevel;                                        // 15, max level (sync with PvPDifficulty.dbc content)
-    //uint32 maxGroupSizeRated;                             // 16 4.0.1
-    //uint32 unk;                                           // 17 - 4.0.6.13596
-    //uint32 maxPlayers;                                    // 18 4.0.1
-    //uint32 unk1;                                          // 19 4.0.3, value 2 for Rated Battlegrounds
+    uint32 maxGroupSizeRated;                               // 16 4.0.1
+    uint32 maxPlayers;                                      // 17 4.0.1
+    uint32 minPlayers;                                      // 18 4.0.6
+    uint32 rated;                                           // 19 4.0.3 value 2 for Rated Battlegrounds
 };
 
 #define MAX_OUTFIT_ITEMS 24
@@ -921,7 +921,7 @@ struct FactionEntry
     // helpers
     bool CanHaveReputation() const
     {
-        return reputationListID >=0;
+        return reputationListID >= 0;
     }
 };
 
@@ -1458,6 +1458,26 @@ struct MapDifficultyEntry
     uint32      resetTime;                                  // 4,       m_raidDuration in secs, 0 if no fixed reset time
     uint32      maxPlayers;                                 // 5,       m_maxPlayers some heroic versions have 0 when expected same amount as in normal version
     //DBCString       difficultyString;                     // 6        m_difficultystring
+};
+
+struct MountCapabilityEntry
+{
+    uint32  id;                                             // 0 index
+    uint32  flag;                                           // 1 some flag
+    uint32  reqSkillLevel;                                  // 2 skill level of riding required
+    //uint32 unk;                                           // 3 unk
+    //uint32 empty;                                         // 4 empty
+    uint32  reqSpell;                                       // 5 spell that has to be known to you
+    uint32  spell;                                          // 6 spell to cast to apply mount speed effects
+    uint32  map;                                            // 7 map where this is applicable
+};
+
+#define MAX_MOUNT_TYPE_COLUMN 17
+struct MountTypeEntry
+{
+    uint32  id;                                             // 0 index
+    uint32  capabilities[MAX_MOUNT_TYPE_COLUMN];            // 1-17 capability ids from MountCapability.dbc
+    //uint32  empty[7];                                     // 18-24 empty. maybe continues capabilities
 };
 
 struct MovieEntry
@@ -2085,23 +2105,22 @@ struct TalentEntry
 struct TalentTabEntry
 {
     uint32  TalentTabID;                                    // 0
-    //DBCString name;                                           // 1        m_name_lang
+    //DBCString name;                                       // 1        m_name_lang
     //unit32  spellicon;                                    // 2        m_spellIconID
     uint32  ClassMask;                                      // 3        m_classMask
     uint32  petTalentMask;                                  // 4        m_petTalentMask
     uint32  tabpage;                                        // 5        m_orderIndex
-    //DBCString internalname;                                   // 6        m_backgroundFile
-    //DBCString description;                                    // 7
-    //uint32 rolesMask;                                     // 8 4.0.0
-    //uint32 spellIds[2];                                   // 9-10 passive mastery bonus spells?
+    //DBCString internalname;                               // 6        m_backgroundFile
+    //DBCString description;                                // 7
+    //uint32 rolesMask;                                     // 8        4.0.0
+    uint32 masterySpells[2];                                // 9-10     passive mastery bonus spells?
 };
 
 struct TalentTreePrimarySpellsEntry
 {
-    uint32 ID;          // 0
-    uint32 TalentTab;   // 1
-    uint32 Spell;       // 2
-    //uint32 unk;       // 3    useless and unused (Instant 0)
+    uint32 Id;                                              // 0
+    uint32 TalentTab;                                     // 1
+    uint32 Spell;                                         // 2
 };
 
 struct TaxiNodesEntry
@@ -2114,8 +2133,8 @@ struct TaxiNodesEntry
     DBCString name;                                         // 5        m_Name_lang
     uint32    MountCreatureID[2];                           // 6-7      m_MountCreatureID[2]
     //uint32  Unk0                                          // 8        4.2.0(Unknown)
-    //uint32  Unk1                                          // 9        4.2.0(Unknown)
-    //uint32  Unk2                                          // 10       4.2.0(Unknown)
+    //float  Unk1                                          // 9        4.2.0(Unknown)
+    //float  Unk2                                          // 10       4.2.0(Unknown)
 };
 
 struct TaxiPathEntry

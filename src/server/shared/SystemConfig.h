@@ -27,7 +27,7 @@
 #include "Define.h"
 #include "revision.h"
 
-#define _PACKAGENAME "ArkCORE"
+#define _PACKAGENAME "ArkCore based on Trillium"
 
 #if TRILLIUM_ENDIAN == TRILLIUM_BIGENDIAN
 # define _ENDIAN_STRING "big-endian"

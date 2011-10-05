@@ -316,17 +316,17 @@ void LogMgr::Initialize()
 {
     Clear();
 
-    _dir = sConfig->GetStringDefault("Log.Directory", "");
+    _dir = ConfigMgr::GetStringDefault("Log.Directory", "");
     appendPathSeparator(_dir);
     // Colors
-    _InitColors(sConfig->GetStringDefault("Log.Console.Colors", ""));
-    _logConsoleLevel = LogLevel(sConfig->GetIntDefault("Log.Console.Level", LOGL_WARNING));
+    _InitColors(ConfigMgr::GetStringDefault("Log.Console.Colors", ""));
+    _logConsoleLevel = LogLevel(ConfigMgr::GetIntDefault("Log.Console.Level", LOGL_WARNING));
     // Chars dump
-    _dumpCharacters = sConfig->GetBoolDefault("Log.Char.Dump", false);
-    _dumpCharactersSeparate = sConfig->GetBoolDefault("Log.Char.Dump.Separate", false);
+    _dumpCharacters = ConfigMgr::GetBoolDefault("Log.Char.Dump", false);
+    _dumpCharactersSeparate = ConfigMgr::GetBoolDefault("Log.Char.Dump.Separate", false);
     if (_dumpCharactersSeparate)
     {
-        _dumpCharactersDir = sConfig->GetStringDefault("Log.Char.Dump.Directory", "");
+        _dumpCharactersDir = ConfigMgr::GetStringDefault("Log.Char.Dump.Directory", "");
         appendPathSeparator(_dumpCharactersDir);
     }
     // Initialize all common logs here
@@ -339,17 +339,17 @@ void LogMgr::Initialize()
     RegisterLogFile(SQLDEVELOPER_LOG);
     RegisterLogFile(SOCKET_LOG);
     // GM
-    _logGmPerAccount = sConfig->GetBoolDefault("Log.GM.PerAccount", false);
+    _logGmPerAccount = ConfigMgr::GetBoolDefault("Log.GM.PerAccount", false);
     if (!_logGmPerAccount)
         RegisterLogFile(GM_LOG);
     else
     {
         std::string setting("Log.");
         setting.append(GM_LOG);
-        if (sConfig->GetBoolDefault(std::string(setting + ".Enabled").c_str(), false))
+        if (ConfigMgr::GetBoolDefault(std::string(setting + ".Enabled").c_str(), false))
         {
-            _gmFilePath = sConfig->GetStringDefault(std::string(setting + ".File").c_str(), "");
-            _gmTimestampFmt = sConfig->GetStringDefault(std::string(setting + ".TimestampFmt").c_str(), "%Y-%m-%d %H:%M:%S");
+            _gmFilePath = ConfigMgr::GetStringDefault(std::string(setting + ".File").c_str(), "");
+            _gmTimestampFmt = ConfigMgr::GetStringDefault(std::string(setting + ".TimestampFmt").c_str(), "%Y-%m-%d %H:%M:%S");
         }
     }
 }
@@ -365,15 +365,15 @@ void LogMgr::RegisterLogFile(const char* logName)
     std::string setting("Log.");
     setting.append(logName);
 
-    bool enabled = sConfig->GetBoolDefault(std::string(setting + ".Enabled").c_str(), false);
-    std::string fileName = sConfig->GetStringDefault(std::string(setting + ".File").c_str(), "");
-    LogLevel level = LogLevel(sConfig->GetIntDefault(std::string(setting + ".Level").c_str(), LOGL_WARNING));
-    std::string timeStampFmt = sConfig->GetStringDefault(std::string(setting + ".TimestampFmt").c_str(), "%Y-%m-%d %H:%M:%S");
-    bool dateSplit = sConfig->GetBoolDefault(std::string(setting + ".SplitDate").c_str(), true);
-    bool isAppend = sConfig->GetBoolDefault(std::string(setting + ".Append").c_str(), true);
-    bool consoleFlag = sConfig->GetBoolDefault(std::string(setting + ".Console").c_str(), false);
-    bool dbFlag = sConfig->GetBoolDefault(std::string(setting + ".DB").c_str(), false);
-    uint32 flushBytes = sConfig->GetIntDefault(std::string(setting + ".FlushBytes").c_str(), 0);
+    bool enabled = ConfigMgr::GetBoolDefault(std::string(setting + ".Enabled").c_str(), false);
+    std::string fileName = ConfigMgr::GetStringDefault(std::string(setting + ".File").c_str(), "");
+    LogLevel level = LogLevel(ConfigMgr::GetIntDefault(std::string(setting + ".Level").c_str(), LOGL_WARNING));
+    std::string timeStampFmt = ConfigMgr::GetStringDefault(std::string(setting + ".TimestampFmt").c_str(), "%Y-%m-%d %H:%M:%S");
+    bool dateSplit = ConfigMgr::GetBoolDefault(std::string(setting + ".SplitDate").c_str(), true);
+    bool isAppend = ConfigMgr::GetBoolDefault(std::string(setting + ".Append").c_str(), true);
+    bool consoleFlag = ConfigMgr::GetBoolDefault(std::string(setting + ".Console").c_str(), false);
+    bool dbFlag = ConfigMgr::GetBoolDefault(std::string(setting + ".DB").c_str(), false);
+    uint32 flushBytes = ConfigMgr::GetIntDefault(std::string(setting + ".FlushBytes").c_str(), 0);
     // Check if there is already PhysicalLog for given file path
     PhysicalLogFile* log = NULL;
     for (PhysicalLogs::iterator itr = _physicalLogs.begin(); itr != _physicalLogs.end(); ++itr)
@@ -647,8 +647,8 @@ bool LogMgr::ToggleLogEnabled(const char* logName)
 // Misc
 void LogMgr::SetLogDb()
 {
-    _logDb = sConfig->GetBoolDefault("Log.DB.Enable", false);
-    _logDbLevel = LogLevel(sConfig->GetIntDefault("Log.DB.Level", LOGL_WARNING));
+    _logDb = ConfigMgr::GetBoolDefault("Log.DB.Enable", false);
+    _logDbLevel = LogLevel(ConfigMgr::GetIntDefault("Log.DB.Level", LOGL_WARNING));
 }
 
 void LogMgr::WriteCharacterDump(uint32 accountId, uint32 guid, const char* name, const char* data)

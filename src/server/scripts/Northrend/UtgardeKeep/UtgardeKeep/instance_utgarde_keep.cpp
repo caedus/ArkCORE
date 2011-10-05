@@ -121,7 +121,7 @@ public:
 
         void OnCreatureCreate(Creature* creature)
         {
-            switch(creature->GetEntry())
+            switch (creature->GetEntry())
             {
                 case 23953:    Keleseth = creature->GetGUID();             break;
                 case 24201:    Dalronn = creature->GetGUID();              break;
@@ -132,7 +132,7 @@ public:
 
         void OnGameObjectCreate(GameObject* go)
         {
-            switch(go->GetEntry())
+            switch (go->GetEntry())
             {
             //door and object id
             case ENTRY_BELLOW_1: forge_bellow[0] = go->GetGUID();
@@ -162,7 +162,7 @@ public:
 
         uint64 GetData64(uint32 identifier)
         {
-            switch(identifier)
+            switch (identifier)
             {
                 case DATA_PRINCEKELESETH:         return Keleseth;
                 case DATA_DALRONN:                return Dalronn;
@@ -175,7 +175,7 @@ public:
 
         void SetData(uint32 type, uint32 data)
         {
-            switch(type)
+            switch (type)
             {
             case DATA_PRINCEKELESETH_EVENT:
                 m_auiEncounter[0] = data;
@@ -243,7 +243,7 @@ public:
 
         uint32 GetData(uint32 type)
         {
-            switch(type)
+            switch (type)
             {
                 case DATA_PRINCEKELESETH_EVENT:     return m_auiEncounter[0];
                 case DATA_SKARVALD_DALRONN_EVENT:   return m_auiEncounter[1];

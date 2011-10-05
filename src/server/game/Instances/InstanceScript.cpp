@@ -441,7 +441,7 @@ void InstanceScript::UpdateEncounterState(EncounterCreditType type, uint32 credi
                     for (Map::PlayerList::const_iterator i = players.begin(); i != players.end(); ++i)
                         if (Player* player = i->getSource())
                             if (!source || player->IsAtGroupRewardDistance(source))
-                                sLFGMgr->RewardDungeonDoneFor(dungeonId, player);
+                                sLFGMgr->RewardDungeonDonefor (dungeonId, player);
             }
             return;
         }

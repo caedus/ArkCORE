@@ -740,7 +740,7 @@ public:
             {
                 if (IntroTimer <= diff)
                 {
-                    switch(IntroPhase)
+                    switch (IntroPhase)
                     {
                         case 1:
                             //DoScriptText(SAY_WP_1_LUR_START, me);
@@ -1022,7 +1022,7 @@ public:
             if (!player)
                 return;
 
-            switch(uiPointId)
+            switch (uiPointId)
             {
                 case 3:
                     SetEscortPaused(true);
@@ -1862,7 +1862,7 @@ public:
             if (!player)
                 return;
 
-            switch(i)
+            switch (i)
             {
             case 10:
                 me->HandleEmoteCommand(EMOTE_ONESHOT_EXCLAMATION);
@@ -1963,7 +1963,7 @@ public:
             if (!player)
                 return;
 
-            switch(i)
+            switch (i)
             {
                 case 29:
                     if (player)
@@ -2283,7 +2283,7 @@ public:
                 std::list<Creature*> orbList;
                 GetCreatureListWithEntryInGrid(orbList, me, NPC_TRANSITUS_SHIELD_DUMMY, 32.0f);
 
-                switch(me->GetEntry())
+                switch (me->GetEntry())
                 {
                     case NPC_WARMAGE_HOLLISTER:
                     {
@@ -2441,10 +2441,10 @@ public:
         {
             if (uiEventTimer && uiEventTimer <= uiDiff)
             {
-                switch(uiEventPhase)
+                switch (uiEventPhase)
                 {
                     case 1:
-                        switch(me->GetEntry())
+                        switch (me->GetEntry())
                         {
                             case NPC_SALTY_JOHN_THORPE:
                                 me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0);
@@ -2465,7 +2465,7 @@ public:
                         }
                         break;
                     case 2:
-                        switch(me->GetEntry())
+                        switch (me->GetEntry())
                         {
                             case NPC_SALTY_JOHN_THORPE:
                                 DoScriptText(SAY_HIDDEN_CULTIST_4, me);
@@ -2511,7 +2511,7 @@ public:
         uint32 uiGossipText = 0;
         const char* charGossipItem;
 
-        switch(creature->GetEntry())
+        switch (creature->GetEntry())
         {
             case NPC_TOM_HEGGER:
                 uiGossipText = GOSSIP_TEXT_TOM_HEGGER;

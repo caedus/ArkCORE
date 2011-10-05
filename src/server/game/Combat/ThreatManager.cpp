@@ -188,7 +188,7 @@ void HostileReference::updateOnlineStatus()
         )
     {
         Creature* creature = getSourceUnit()->ToCreature();
-        online = getTarget()->isInAccessiblePlaceFor(creature);
+        online = getTarget()->isInAccessiblePlacefor (creature);
         if (!online)
         {
             if (creature->IsWithinCombatRange(getTarget(), creature->m_CombatDistance))
@@ -522,7 +522,7 @@ void ThreatManager::processThreatEvent(ThreatRefStatusChangeEvent* threatRefStat
 
     HostileReference* hostilRef = threatRefStatusChangeEvent->getReference();
 
-    switch(threatRefStatusChangeEvent->getType())
+    switch (threatRefStatusChangeEvent->getType())
     {
         case UEV_THREAT_REF_THREAT_CHANGE:
             if ((getCurrentVictim() == hostilRef && threatRefStatusChangeEvent->getFValue()<0.0f) ||

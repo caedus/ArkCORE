@@ -1305,7 +1305,7 @@ MovementStatusElements MovementStopAscendSequence[] = {
 
 MovementStatusElements* GetMovementStatusElementsSequence(Opcodes opcode)
 {
-    switch(opcode)
+    switch (opcode)
     {
     case SMSG_PLAYER_MOVE:
         return PlayerMoveSequence;

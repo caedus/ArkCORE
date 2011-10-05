@@ -166,7 +166,7 @@ public:
                 } else uiResurrectTimer -= uiDiff;
             }
 
-            switch(uiPhase)
+            switch (uiPhase)
             {
                 case PHASE_UNDEAD:
                 case PHASE_SKELETON:
@@ -186,7 +186,7 @@ public:
                         DoCastVictim(SPELL_OBLITERATE);
                         uiObliterateTimer = urand(17000, 19000);
                     } else uiObliterateTimer -= uiDiff;
-                    switch(uiPhase)
+                    switch (uiPhase)
                     {
                         case PHASE_UNDEAD:
                         {
@@ -270,7 +270,7 @@ public:
                 me->SetHealth(0);
                 me->AddUnitState(UNIT_STAT_ROOT | UNIT_STAT_STUNNED);
                 RemoveSummons();
-                switch(uiPhase)
+                switch (uiPhase)
                 {
                     case PHASE_UNDEAD:
                         me->SetDisplayId(MODEL_SKELETON);

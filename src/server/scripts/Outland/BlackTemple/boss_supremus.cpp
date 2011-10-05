@@ -196,7 +196,7 @@ public:
 
             while (uint32 eventId = events.ExecuteEvent())
             {
-                switch(eventId)
+                switch (eventId)
                 {
                     case EVENT_BERSERK:
                         DoCast(me, SPELL_BERSERK, true);

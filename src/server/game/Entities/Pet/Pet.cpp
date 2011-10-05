@@ -210,7 +210,7 @@ bool Pet::LoadPetFromDB(Player* owner, uint32 petentry, uint32 petnumber, bool c
         return true;
     }
 
-    m_charmInfo->SetPetNumber(pet_number, IsPermanentPetFor(owner));
+    m_charmInfo->SetPetNumber(pet_number, IsPermanentPetfor (owner));
 
     SetDisplayId(fields[3].GetUInt32());
     SetNativeDisplayId(fields[3].GetUInt32());
@@ -490,7 +490,7 @@ void Pet::Update(uint32 diff)
     if (m_loading)
         return;
 
-    switch(m_deathState)
+    switch (m_deathState)
     {
         case CORPSE:
         {
@@ -987,6 +987,12 @@ bool Guardian::InitStatsForLevel(uint8 petlevel)
                     SetBaseWeaponDamage(BASE_ATTACK, MINDAMAGE, float(petlevel - (petlevel / 4)));
                     SetBaseWeaponDamage(BASE_ATTACK, MAXDAMAGE, float(petlevel + (petlevel / 4)));
                     break;
+                }
+                case 28017: // Bloodworms
+                {
+                    SetCreateHealth(4 * petlevel);
+                    SetBaseWeaponDamage(BASE_ATTACK, MINDAMAGE, float(petlevel - 30 - (petlevel / 4)) + m_owner->GetTotalAttackPowerValue(BASE_ATTACK) * 0.006f);
+                    SetBaseWeaponDamage(BASE_ATTACK, MAXDAMAGE, float(petlevel - 30 + (petlevel / 4)) + m_owner->GetTotalAttackPowerValue(BASE_ATTACK) * 0.006f);
                 }
             }
             break;
@@ -1760,7 +1766,7 @@ void Pet::ToggleAutocast(SpellInfo const* spellInfo, bool apply)
     }
 }
 
-bool Pet::IsPermanentPetFor(Player* owner)
+bool Pet::IsPermanentPetfor (Player* owner)
 {
     switch (getPetType())
     {
@@ -1834,7 +1840,7 @@ void Pet::CastPetAuras(bool current)
     if (!owner || owner->GetTypeId() != TYPEID_PLAYER)
         return;
 
-    if (!IsPermanentPetFor(owner->ToPlayer()))
+    if (!IsPermanentPetfor (owner->ToPlayer()))
         return;
 
     for (PetAuraSet::const_iterator itr = owner->m_petAuras.begin(); itr != owner->m_petAuras.end();)

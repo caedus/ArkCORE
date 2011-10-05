@@ -381,7 +381,7 @@ public:
 
             if (pInstance) {
                 pInstance->SetData(DATA_ARTHAS_EVENT, NOT_STARTED);
-                switch(pInstance->GetData(DATA_ARTHAS_EVENT))
+                switch (pInstance->GetData(DATA_ARTHAS_EVENT))
                 {
                     case NOT_STARTED:
                         bStepping = true;
@@ -452,7 +452,7 @@ public:
 
         void WaypointReached(uint32 uiPointId)
         {
-            switch(uiPointId)
+            switch (uiPointId)
             {
                 case 0:
                 case 1:
@@ -579,7 +579,7 @@ public:
             {
                 if (uiPhaseTimer <= diff)
                 {
-                    switch(uiStep)
+                    switch (uiStep)
                     {
                         //After reset
                         case 0:

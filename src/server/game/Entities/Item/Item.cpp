@@ -176,10 +176,10 @@ bool ItemCanGoIntoBag(ItemTemplate const *pProto, ItemTemplate const *pBagProto)
     if (!pProto || !pBagProto)
         return false;
 
-    switch(pBagProto->Class)
+    switch (pBagProto->Class)
     {
         case ITEM_CLASS_CONTAINER:
-            switch(pBagProto->SubClass)
+            switch (pBagProto->SubClass)
             {
                 case ITEM_SUBCLASS_CONTAINER:
                     return true;
@@ -219,7 +219,7 @@ bool ItemCanGoIntoBag(ItemTemplate const *pProto, ItemTemplate const *pBagProto)
                     return false;
             }
         case ITEM_CLASS_QUIVER:
-            switch(pBagProto->SubClass)
+            switch (pBagProto->SubClass)
             {
                 case ITEM_SUBCLASS_QUIVER:
                     if (!(pProto->BagFamily & BAG_FAMILY_MASK_ARROWS))
@@ -308,7 +308,7 @@ ItemDamageEntry const * ItemTemplate::FindItemDamageEntry() const
 
         ItemDamageEntry const* id = NULL;
 
-        switch(InventoryType)
+        switch (InventoryType)
         {
             case INVTYPE_WEAPON:
             case INVTYPE_WEAPONMAINHAND:
@@ -330,7 +330,7 @@ ItemDamageEntry const * ItemTemplate::FindItemDamageEntry() const
             case INVTYPE_RANGED:
             case INVTYPE_THROWN:
             case INVTYPE_RANGEDRIGHT:
-                switch(SubClass)
+                switch (SubClass)
                 {
                     case ITEM_SUBCLASS_WEAPON_BOW:
                     case ITEM_SUBCLASS_WEAPON_GUN:
@@ -1235,7 +1235,7 @@ bool ItemRequiredTarget::IsFitToRequirements(Unit* pUnitTarget) const
     if (pUnitTarget->GetEntry() != m_uiTargetEntry)
         return false;
 
-    switch(m_uiType)
+    switch (m_uiType)
     {
         case ITEM_TARGET_TYPE_CREATURE:
             return pUnitTarget->isAlive();

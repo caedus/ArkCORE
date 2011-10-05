@@ -237,7 +237,7 @@ public:
 
         void EnterPhase(PhaseFelmyst NextPhase)
         {
-            switch(NextPhase)
+            switch (NextPhase)
             {
             case PHASE_GROUND:
                 me->CastStop(SPELL_FOG_BREATH);
@@ -265,7 +265,7 @@ public:
 
         void HandleFlightSequence()
         {
-            switch(uiFlightCount)
+            switch (uiFlightCount)
             {
             case 0:
                 //me->AttackStop();
@@ -414,7 +414,7 @@ public:
 
             if (phase == PHASE_GROUND)
             {
-                switch(events.ExecuteEvent())
+                switch (events.ExecuteEvent())
                 {
                     case EVENT_BERSERK:
                         DoScriptText(YELL_BERSERK, me);
@@ -449,7 +449,7 @@ public:
 
             if (phase == PHASE_FLIGHT)
             {
-                switch(events.ExecuteEvent())
+                switch (events.ExecuteEvent())
                 {
                     case EVENT_BERSERK:
                         DoScriptText(YELL_BERSERK, me);

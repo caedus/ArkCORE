@@ -266,7 +266,7 @@ void CheckQuestDisables()
     sLog->outString();
 }
 
-bool IsDisabledFor(DisableType type, uint32 entry, Unit const* unit, uint8 flags)
+bool IsDisabledfor (DisableType type, uint32 entry, Unit const* unit, uint8 flags)
 {
     ASSERT(type < MAX_DISABLE_TYPES);
     if (m_DisableMap[type].empty())

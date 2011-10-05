@@ -576,6 +576,8 @@ class Battleground
         void RewardXPAtKill(Player* killer, Player* victim);
         bool CanAwardArenaPoints() const { return m_LevelMin >= BG_AWARD_ARENA_POINTS_MIN_LEVEL; }
 
+        virtual uint64 GetFlagPickerGUID(int32 /*team*/ = -1) const { return 0; }
+
         // Arena team ids by team
         uint32 m_ArenaTeamIds[BG_TEAMS_COUNT];
 

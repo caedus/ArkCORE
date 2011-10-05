@@ -397,7 +397,7 @@ public:
             {
                 while (uint32 eventId = events.GetEvent())
                 {
-                    switch(eventId)
+                    switch (eventId)
                     {
                         case EVENT_WASTE:
                             DoSummon(NPC_WASTE, Pos[RAND(0, 3, 6, 9)]);
@@ -492,7 +492,7 @@ public:
 
                 if (uint32 eventId = events.GetEvent())
                 {
-                    switch(eventId)
+                    switch (eventId)
                     {
                         case EVENT_BOLT:
                             DoCastVictim(RAID_MODE(SPELL_FROST_BOLT, H_SPELL_FROST_BOLT));
@@ -541,7 +541,7 @@ public:
 
                                     if (Unit* target = SelectTarget(SELECT_TARGET_TOPAGGRO, 0, NotCharmedTargetSelector()))
                                     {
-                                        switch(player->getClass())
+                                        switch (player->getClass())
                                         {
                                             case CLASS_DRUID:
                                                 if (urand(0, 1))

@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include "bastion_of_twilight.h"
 #include "SpellScript.h"
 #include "SpellAuras.h"
@@ -32,7 +32,7 @@ class boss_theralion : public CreatureScript
     public:
         boss_theralion() : CreatureScript("boss_theralion") {}
 
-        struct boss_theralionAI : public BossAI 
+        struct boss_theralionAI : public BossAI
         {
             boss_theralionAI(Creature * pCreature) : BossAI(pCreature,DATA_THERALION), summons(me)
             {
@@ -60,7 +60,7 @@ class boss_theralion : public CreatureScript
 
             uint32 GeData(uint32 id)
             {
-                switch(id)
+                switch (id)
                 {
                     case DATA_PHASE:            return uiPhase;
                     case DATA_ENGULFING_COUNT:  return uiEngulfingMagicCount;
@@ -74,7 +74,7 @@ class boss_theralion : public CreatureScript
 
             void JustSummoned(Creature * pCreature)
             {
-                if(pCreature->GetEntry() == NPC_THERALION_FLIGHT_TARGET_STALKER)
+                if (pCreature->GetEntry() == NPC_THERALION_FLIGHT_TARGET_STALKER)
                 {
                     DoCast(pCreature,SPELL_TWILIGHT_BLAST);
                 }
@@ -87,7 +87,7 @@ class boss_theralion : public CreatureScript
 
             void DoAction(const uint32 action)
             {
-                switch(action)
+                switch (action)
                 {
                     case ACTION_THERALION_AIRBORNE:
                         me->GetMotionMaster()->MoveTakeoff(POINT_THERALION_TAKEOFF,Positions[0],1.0f);
@@ -99,15 +99,13 @@ class boss_theralion : public CreatureScript
             {
                 if (type == POINT_MOTION_TYPE)
                 {
-                    switch(id)
+                    switch (id)
                     {
                         case POINT_THERALION_TAKEOFF:
-                            me->SetFlying(true);
-                            me->SetSpeed(MOVE_FLIGHT, 1.0f);
-                            me->GetMotionMaster()->MovePoint(POINT_THERALION_PLACE,Positions[0].GetPositionX(),Positions[0].GetPositionY(),Positions[0].GetPositionZ());
-                        case POINT_THERALION_PLACE:
                             me->GetMotionMaster()->Clear(false);
                             me->GetMotionMaster()->MoveIdle();
+                        //case POINT_THERALION_LAND:
+
                     }
                 }
             }
@@ -120,10 +118,10 @@ class boss_theralion : public CreatureScript
                 if (!UpdateVictim())
 					return;
 
-                if(uiPhaseTimer <= uiDiff)
+                if (uiPhaseTimer <= uiDiff)
                 {
                     uiPhaseTimer = 900000;
-                    switch(uiPhase)
+                    switch (uiPhase)
                     {
                         case 1:
                             uiPhase = 2;
@@ -137,40 +135,40 @@ class boss_theralion : public CreatureScript
                     }
                 } else uiPhaseTimer -= uiDiff;
 
-                switch(uiPhase)
+                switch (uiPhase)
                 {
                     case 1:
-                        if(uiEngulfingMagicTimer <= uiDiff && uiEngulfingMagicTimer <=2)
+                        if (uiEngulfingMagicTimer <= uiDiff && uiEngulfingMagicTimer <=2)
                         {
                             uiEngulfingMagicTimer = 180000;
                             uiEngulfingMagicCount++;
                             Unit * Target = SelectTarget(SELECT_TARGET_RANDOM);
                             DoCast(Target,SPELL_ENGULFING_MAGIC);
                         } else uiEngulfingMagicTimer -= uiDiff;
-                        if(uiFabulousFlamesTimer <= uiDiff)
+                        if (uiFabulousFlamesTimer <= uiDiff)
                         {
                             DoCast(SPELL_FABILOUS_FLAMES);
                         } else uiFabulousFlamesTimer -= uiDiff;
                         DoMeleeAttackIfReady();
                     case 2:
-                        if(uiDazzlingDestructionTimer <= uiDiff && uiDazzlingDestructionCount <= MAX_DAZZLIN_DESTRUCTION)
+                        if (uiDazzlingDestructionTimer <= uiDiff && uiDazzlingDestructionCount <= MAX_DAZZLIN_DESTRUCTION)
                         {
                             Unit * Target = SelectTarget(SELECT_TARGET_RANDOM);
                             me->CastSpell(Target->GetPositionX(),Target->GetPositionY(),Target->GetPositionZ(),SPELL_DAZZLING_DESTRUCTION_SUMMON,false);
                             uiDazzlingDestructionTimer = 2000;
                             uiDazzlingDestructionCount++;
                         } else uiDazzlingDestructionTimer -= uiDiff;
-                        if(uiDazzlingDestructionCount == MAX_DAZZLIN_DESTRUCTION)
+                        if (uiDazzlingDestructionCount == MAX_DAZZLIN_DESTRUCTION)
                         {
                             std::list<uint64>::iterator itr;
-                            for(itr=summons.begin();itr!=summons.end();++itr)
+                            for (itr=summons.begin();itr!=summons.end();++itr)
                             {
-                                if(Creature * Destruction = ObjectAccessor::GetCreature(*me,*itr))
+                                if (Creature * Destruction = ObjectAccessor::GetCreature(*me,*itr))
                                     DoCast(Destruction,SPELL_DAZZLING_DESTRUCTION_MISSILE);
                             }
                         }
                     case 3:
-                        if(uiTwilightBlastTimer <= uiDiff)
+                        if (uiTwilightBlastTimer <= uiDiff)
                         {
                             uiTwilightBlastTimer = 3000;
                             me->SummonCreature(NPC_THERALION_FLIGHT_TARGET_STALKER,me->getVictim()->GetPositionX(),me->getVictim()->GetPositionY(),me->getVictim()->GetPositionZ(),0.0f,TEMPSUMMON_MANUAL_DESPAWN);
@@ -209,7 +207,7 @@ class boss_valiona : public CreatureScript
         {
             boss_valionaAI(Creature * pCreature) : BossAI(pCreature,DATA_VALIONA)
             {
-                pInstance = (InstanceScript*)pCreature->GetInstanceScript();               
+                pInstance = (InstanceScript*)pCreature->GetInstanceScript();
             }
 
             void Reset()
@@ -234,7 +232,7 @@ class boss_valiona : public CreatureScript
 
             void DoAction(const uint32 action)
             {
-                switch(action)
+                switch (action)
                 {
                     case ACTION_VALIONA_AIRBORNE:
                         me->GetMotionMaster()->MovePoint(POINT_VALIONA_TAKEOFF,Positions[0]);
@@ -246,13 +244,10 @@ class boss_valiona : public CreatureScript
             {
                 if (type == POINT_MOTION_TYPE)
                 {
-                    switch(id)
+                    switch (id)
                     {
+
                         case POINT_VALIONA_TAKEOFF:
-                            me->SetFlying(true);
-                            me->SetSpeed(MOVE_FLIGHT, 1.0f);
-                            me->GetMotionMaster()->MovePoint(POINT_THERALION_PLACE,Positions[1].GetPositionX(),Positions[1].GetPositionY(),Positions[1].GetPositionZ());
-                        case POINT_VALIONA_PLACE:
                             me->GetMotionMaster()->Clear(false);
                             me->GetMotionMaster()->MoveIdle();
                     }
@@ -263,30 +258,30 @@ class boss_valiona : public CreatureScript
             {
                 Creature * pTheralion = GetTheralion();
                 uiTheralionPhase = pTheralion->AI()->GetData(DATA_PHASE);
-                switch(uiTheralionPhase)
+                switch (uiTheralionPhase)
                 {
                     case 2:
                         if (!UpdateVictim())
 					    return;
 
-                        if(uiBlackoutTimer <= uiDiff && uiBlackoutCount <= 2)
+                        if (uiBlackoutTimer <= uiDiff && uiBlackoutCount <= 2)
                         {
                             uiBlackoutTimer = 122000;
                             uiBlackoutCount++;
                             DoCastAOE(SPELL_BLACKOUT);
                         } else uiBlackoutTimer -= uiDiff;
-                        if(uiDevouringFlamesTimer <= uiDiff)
+                        if (uiDevouringFlamesTimer <= uiDiff)
                         {
                             uiDevouringFlamesTimer = 132000;
                             DoCastAOE(SPELL_DEVOURING_FLAMES);
                         } else uiDevouringFlamesTimer -= uiDiff;
                         DoMeleeAttackIfReady();
                     case 1:
-                        if(pTheralion->AI()->GetData(DATA_ENGULFING_COUNT) == 2)
+                        if (pTheralion->AI()->GetData(DATA_ENGULFING_COUNT) == 2)
                         {
                             DoCast(SPELL_DEEP_BREATH);
                         }
-                        if(uiTwilightMeteoriteTimer <= uiDiff)
+                        if (uiTwilightMeteoriteTimer <= uiDiff)
                         {
                             uiTwilightMeteoriteTimer = 40000;
                             Unit * Target = SelectTarget(SELECT_TARGET_RANDOM,500.0f);
@@ -342,9 +337,9 @@ class spell_dazzling_destruction : public SpellScriptLoader
                 std::list<Unit*> players;
                 std::list<Unit*>::const_iterator itr;
                 GetTargetUnit()->GetRaidMember(players,5.0f);
-                for(itr=players.begin();itr!=players.end();++itr)
+                for (itr=players.begin();itr!=players.end();++itr)
                 {
-                    if((*itr)->GetTypeId() == TYPEID_PLAYER)
+                    if ((*itr)->GetTypeId() == TYPEID_PLAYER)
                     {
                         GetCaster()->CastSpell((*itr),SPELL_DESTRUCTION_PROCS,false);
                     }

@@ -60,7 +60,7 @@ public:
 
     void Register()
     {
-        OnEffectHit += SpellEffectFn(spell_generic_quest_update_entry_SpellScript::HandleDummy, _effIndex, _spellEffect);
+        OnEffectHitTarget += SpellEffectFn(spell_generic_quest_update_entry_SpellScript::HandleDummy, _effIndex, _spellEffect);
     }
 };
 
@@ -652,7 +652,7 @@ public:
                 Unit* target = GetTarget();
                 if (Player* player = caster->GetCharmerOrOwnerPlayerOrPlayerItself())
                 {
-                    switch(target->GetEntry())
+                    switch (target->GetEntry())
                     {
                         case NPC_FROSTWORG:
                             target->CastSpell(player, SPELL_FROSTWORG_CREDIT, true);
@@ -711,7 +711,7 @@ public:
             Unit* pCaster = GetCaster();
             if (Player* player = pCaster->ToPlayer())
             {
-                if(Creature* target = GetHitCreature())
+                if (Creature* target = GetHitCreature())
                 {
                     player->CastSpell(player, SPELL_TRIGGER_AID_OF_THE_EARTHEN, true, NULL);
                     player->KilledMonsterCredit(NPC_FALLEN_EARTHEN_DEFENDER, 0);
@@ -963,7 +963,7 @@ public:
     {
         PrepareSpellScript(spell_q13280_13283_plant_battle_standard_SpellScript)
         void HandleDummy(SpellEffIndex /*effIndex*/)
-        {                 
+        {
             Unit* caster = GetCaster();
             if (caster->IsVehicle())
                 if (Unit* player = caster->GetVehicleKit()->GetPassenger(0))

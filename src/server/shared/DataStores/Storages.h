@@ -76,7 +76,7 @@ class DataStorage
         {
             indexTable.asT = NULL;
         }
- 
+
         ~DataStorage() { Clear(); }
 
         T const* LookupEntry(uint32 id) const
@@ -147,7 +147,7 @@ class DataStorage
                         if (!fields)
                             fields = result->Fetch();
 
-                        if(sql->indexPos >= 0)
+                        if (sql->indexPos >= 0)
                         {
                             uint32 id = fields[sql->sqlIndexPos].GetUInt32();
                             if (indexTable.asT[id])
@@ -166,7 +166,7 @@ class DataStorage
                         {
                             if ((*sql->formatString)[columnNumber] == FT_SQL_ABSENT)
                             {
-                                switch(fmt[columnNumber])
+                                switch (fmt[columnNumber])
                                 {
                                     case FT_FLOAT:
                                         *((float*)(&sqlDataTable[offset]))= 0.0f;
@@ -191,7 +191,7 @@ class DataStorage
                             else if ((*sql->formatString)[columnNumber] == FT_SQL_PRESENT)
                             {
                                 bool validSqlColumn = true;
-                                switch(fmt[columnNumber])
+                                switch (fmt[columnNumber])
                                 {
                                     case FT_FLOAT:
                                         *((float*)(&sqlDataTable[offset]))=fields[sqlColumnNumber].GetFloat();
@@ -247,7 +247,7 @@ class DataStorage
 
             StorageLoader dbc;
             // Check if load was successful, only then continue
-            if(!dbc.LoadDBCStorage(fn, fmt))
+            if (!dbc.LoadDBCStorage(fn, fmt))
                 return false;
 
             stringPoolList.push_back(dbc.AutoProduceStrings(fmt, (char*)dataTable));

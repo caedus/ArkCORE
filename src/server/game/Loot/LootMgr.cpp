@@ -161,7 +161,7 @@ uint32 LootStore::LoadLootTable()
     return count;
 }
 
-bool LootStore::HaveQuestLootFor(uint32 loot_id) const
+bool LootStore::HaveQuestLootfor (uint32 loot_id) const
 {
     LootTemplateMap::const_iterator itr = m_LootTemplates.find(loot_id);
     if (itr == m_LootTemplates.end())
@@ -190,7 +190,7 @@ void LootStore::ResetConditions()
     }
 }
 
-LootTemplate const* LootStore::GetLootFor(uint32 loot_id) const
+LootTemplate const* LootStore::GetLootfor (uint32 loot_id) const
 {
     LootTemplateMap::const_iterator tab = m_LootTemplates.find(loot_id);
 
@@ -418,7 +418,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
     if (!lootOwner)
         return false;
 
-    LootTemplate const* tab = store.GetLootFor(lootId);
+    LootTemplate const* tab = store.GetLootfor (lootId);
 
     if (!tab)
     {
@@ -440,7 +440,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
 
         for (GroupReference *itr = pGroup->GetFirstMember(); itr != NULL; itr = itr->next())
             if (Player* pl = itr->getSource())   // should actually be looted object instead of lootOwner but looter has to be really close so doesnt really matter
-                FillNotNormalLootFor(pl, pl->IsAtGroupRewardDistance(lootOwner));
+                FillNotNormalLootfor (pl, pl->IsAtGroupRewardDistance(lootOwner));
 
         for (uint8 i = 0; i < items.size(); ++i)
         {
@@ -451,12 +451,12 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
     }
     // ... for personal loot
     else
-        FillNotNormalLootFor(lootOwner, true);
+        FillNotNormalLootfor (lootOwner, true);
 
     return true;
 }
 
-void Loot::FillNotNormalLootFor(Player* pl, bool presentAtLooting)
+void Loot::FillNotNormalLootfor (Player* pl, bool presentAtLooting)
 {
     uint32 plguid = pl->GetGUIDLow();
 
@@ -477,7 +477,7 @@ void Loot::FillNotNormalLootFor(Player* pl, bool presentAtLooting)
         return;
 
     // Process currency items
-    uint32 max_slot = GetMaxSlotInLootFor(pl);
+    uint32 max_slot = GetMaxSlotInLootfor (pl);
     LootItem const *item = NULL;
     uint32 itemsSize = uint32(items.size());
     for (uint32 i = 0; i < max_slot; ++i)
@@ -727,14 +727,14 @@ LootItem* Loot::LootItemInSlot(uint32 lootSlot, Player* player, QuestItem **qite
     return item;
 }
 
-uint32 Loot::GetMaxSlotInLootFor(Player* player) const
+uint32 Loot::GetMaxSlotInLootfor (Player* player) const
 {
     QuestItemMap::const_iterator itr = PlayerQuestItems.find(player->GetGUIDLow());
     return items.size() + (itr != PlayerQuestItems.end() ?  itr->second->size() : 0);
 }
 
 // return true if there is any FFA, quest or conditional item for the player.
-bool Loot::hasItemFor(Player* player) const
+bool Loot::hasItemfor (Player* player) const
 {
     QuestItemMap const& lootPlayerQuestItems = GetPlayerQuestItems();
     QuestItemMap::const_iterator q_itr = lootPlayerQuestItems.find(player->GetGUIDLow());
@@ -1165,7 +1165,7 @@ void LootTemplate::LootGroup::CheckLootRefs(LootTemplateMap const& /*store*/, Lo
     {
         if (ieItr->mincountOrRef < 0)
         {
-            if (!LootTemplates_Reference.GetLootFor(-ieItr->mincountOrRef))
+            if (!LootTemplates_Reference.GetLootfor (-ieItr->mincountOrRef))
                 LootTemplates_Reference.ReportNotExistedId(-ieItr->mincountOrRef);
             else if (ref_set)
                 ref_set->erase(-ieItr->mincountOrRef);
@@ -1176,7 +1176,7 @@ void LootTemplate::LootGroup::CheckLootRefs(LootTemplateMap const& /*store*/, Lo
     {
         if (ieItr->mincountOrRef < 0)
         {
-            if (!LootTemplates_Reference.GetLootFor(-ieItr->mincountOrRef))
+            if (!LootTemplates_Reference.GetLootfor (-ieItr->mincountOrRef))
                 LootTemplates_Reference.ReportNotExistedId(-ieItr->mincountOrRef);
             else if (ref_set)
                 ref_set->erase(-ieItr->mincountOrRef);
@@ -1250,7 +1250,7 @@ void LootTemplate::Process(Loot& loot, bool rate, uint16 lootMode, uint8 groupId
 
         if (i->mincountOrRef < 0)                             // References processing
         {
-            LootTemplate const* Referenced = LootTemplates_Reference.GetLootFor(-i->mincountOrRef);
+            LootTemplate const* Referenced = LootTemplates_Reference.GetLootfor (-i->mincountOrRef);
 
             if (!Referenced)
                 continue;                                     // Error message already printed at loading stage
@@ -1349,7 +1349,7 @@ void LootTemplate::CheckLootRefs(LootTemplateMap const& store, LootIdSet* ref_se
     {
         if (ieItr->mincountOrRef < 0)
         {
-            if (!LootTemplates_Reference.GetLootFor(-ieItr->mincountOrRef))
+            if (!LootTemplates_Reference.GetLootfor (-ieItr->mincountOrRef))
                 LootTemplates_Reference.ReportNotExistedId(-ieItr->mincountOrRef);
             else if (ref_set)
                 ref_set->erase(-ieItr->mincountOrRef);

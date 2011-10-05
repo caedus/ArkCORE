@@ -2462,7 +2462,7 @@ void ObjectMgr::LoadItemTemplates()
             else if (itemTemplate.Spells[1].SpellId != -1)
             {
                 SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(itemTemplate.Spells[1].SpellId);
-                if (!spellInfo && !DisableMgr::IsDisabledFor(DISABLE_TYPE_SPELL, itemTemplate.Spells[1].SpellId, NULL))
+                if (!spellInfo && !DisableMgr::IsDisabledfor (DISABLE_TYPE_SPELL, itemTemplate.Spells[1].SpellId, NULL))
                 {
                     sLog->outErrorDb("Item (Entry: %u) has wrong (not existing) spell in spellid_%d (%d)", entry, 1+1, itemTemplate.Spells[1].SpellId);
                     itemTemplate.Spells[0].SpellId = 0;
@@ -2510,7 +2510,7 @@ void ObjectMgr::LoadItemTemplates()
                 if (itemTemplate.Spells[j].SpellId && itemTemplate.Spells[j].SpellId != -1)
                 {
                     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(itemTemplate.Spells[j].SpellId);
-                    if (!spellInfo && !DisableMgr::IsDisabledFor(DISABLE_TYPE_SPELL, itemTemplate.Spells[j].SpellId, NULL))
+                    if (!spellInfo && !DisableMgr::IsDisabledfor (DISABLE_TYPE_SPELL, itemTemplate.Spells[j].SpellId, NULL))
                     {
                         sLog->outErrorDb("Item (Entry: %u) has wrong (not existing) spell in spellid_%d (%d)", entry, j+1, itemTemplate.Spells[j].SpellId);
                         itemTemplate.Spells[j].SpellId = 0;
@@ -3483,7 +3483,7 @@ void ObjectMgr::BuildPlayerLevelInfo(uint8 race, uint8 _class, uint8 level, Play
     // if conversion from uint32 to uint8 causes unexpected behaviour, change lvl to uint32
     for (uint8 lvl = sWorld->getIntConfig(CONFIG_MAX_PLAYER_LEVEL)-1; lvl < level; ++lvl)
     {
-        switch(_class)
+        switch (_class)
         {
             case CLASS_WARRIOR:
                 info->stats[STAT_STRENGTH]  += (lvl > 23 ? 2: (lvl > 1  ? 1: 0));
@@ -3638,7 +3638,7 @@ void ObjectMgr::LoadQuests()
     for (QuestMap::iterator iter = mQuestTemplates.begin(); iter != mQuestTemplates.end(); ++iter)
     {
         // skip post-loading checks for disabled quests
-        if (DisableMgr::IsDisabledFor(DISABLE_TYPE_QUEST, iter->first, NULL))
+        if (DisableMgr::IsDisabledfor (DISABLE_TYPE_QUEST, iter->first, NULL))
             continue;
 
         Quest * qinfo = iter->second;
@@ -4807,7 +4807,7 @@ void ObjectMgr::LoadSpellScriptNames()
                 sLog->outErrorDb("Scriptname:`%s` spell (spell_id:%d) is not first rank of spell.", scriptName, fields[0].GetInt32());
                 continue;
             }
-            while(spellInfo)
+            while (spellInfo)
             {
                 mSpellScripts.insert(SpellScriptsMap::value_type(spellInfo->Id, GetScriptId(scriptName)));
                 spellInfo = sSpellMgr->GetSpellInfo(spellInfo->Id)->GetNextRankSpell();
@@ -6148,7 +6148,7 @@ uint32 ObjectMgr::GenerateMailID()
 
 uint32 ObjectMgr::GenerateLowGuid(HighGuid guidhigh)
 {
-    switch(guidhigh)
+    switch (guidhigh)
     {
         case HIGHGUID_ITEM:
             if (m_hiItemGuid >= 0xFFFFFFFE)
@@ -6370,7 +6370,7 @@ void ObjectMgr::LoadGameObjectTemplate()
 
         // Checks
 
-        switch(got.type)
+        switch (got.type)
         {
         case GAMEOBJECT_TYPE_DOOR:                      //0
             {
@@ -7046,7 +7046,7 @@ void ObjectMgr::LoadQuestPOI()
             int32  x                  = fields[2].GetInt32();
             int32  y                  = fields[3].GetInt32();
 
-            if(POIs[questId].size() <= id + 1)
+            if (POIs[questId].size() <= id + 1)
                 POIs[questId].resize(id + 10);
 
             QuestPOIPoint point(x, y);
@@ -7511,7 +7511,7 @@ enum LanguageType
 
 static LanguageType GetRealmLanguageType(bool create)
 {
-    switch(sWorld->getIntConfig(CONFIG_REALM_ZONE))
+    switch (sWorld->getIntConfig(CONFIG_REALM_ZONE))
     {
         case REALM_ZONE_UNKNOWN:                            // any language
         case REALM_ZONE_DEVELOPMENT:
@@ -7650,7 +7650,7 @@ void ObjectMgr::LoadGameObjectForQuests()
     GameObjectTemplateContainer const* gotc = sObjectMgr->GetGameObjectTemplates();
     for (GameObjectTemplateContainer::const_iterator itr = gotc->begin(); itr != gotc->end(); ++itr)
     {
-        switch(itr->second.type)
+        switch (itr->second.type)
         {
             // scan GO chest with loot including quest items
             case GAMEOBJECT_TYPE_CHEST:
@@ -7658,7 +7658,7 @@ void ObjectMgr::LoadGameObjectForQuests()
                 uint32 loot_id = (itr->second.GetLootId());
 
                 // find quest loot for GO
-                if (itr->second.chest.questId || LootTemplates_Gameobject.HaveQuestLootFor(loot_id))
+                if (itr->second.chest.questId || LootTemplates_Gameobject.HaveQuestLootfor (loot_id))
                 {
                     mGameObjectForQuestSet.insert(itr->second.entry);
                     ++count;
@@ -7882,7 +7882,7 @@ SpellScriptsBounds ObjectMgr::GetSpellScriptsBounds(uint32 spell_id)
 
 SkillRangeType GetSkillRangeType(SkillLineEntry const *pSkill, bool racial)
 {
-    switch(pSkill->categoryId)
+    switch (pSkill->categoryId)
     {
         case SKILL_CATEGORY_LANGUAGES: return SKILL_RANGE_LANGUAGE;
         case SKILL_CATEGORY_WEAPON:
@@ -8628,7 +8628,7 @@ void ObjectMgr::CheckScripts(ScriptsType type, std::set<int32>& ids)
     {
         for (ScriptMap::const_iterator itrM = itrMM->second.begin(); itrM != itrMM->second.end(); ++itrM)
         {
-            switch(itrM->second.command)
+            switch (itrM->second.command)
             {
                 case SCRIPT_COMMAND_TALK:
                 {

@@ -615,7 +615,7 @@ void BattlegroundSA::DestroyGate(Player* player, GameObject* go)
                 UpdateWorldState(uws, GateStatus[i]);
             bool rewardHonor = true;
             gateDestroyed = true;
-            switch(i)
+            switch (i)
             {
                 case BG_SA_GREEN_GATE:
                     if (GateStatus[BG_SA_BLUE_GATE] == BG_SA_GATE_DESTROYED)
@@ -689,7 +689,7 @@ void BattlegroundSA::SendTime()
 
 void BattlegroundSA::EventPlayerClickedOnFlag(Player *Source, GameObject* target_obj)
 {
-    switch(target_obj->GetEntry())
+    switch (target_obj->GetEntry())
     {
         case 191307:
         case 191308:
@@ -724,7 +724,7 @@ void BattlegroundSA::CaptureGraveyard(BG_SA_Graveyards i, Player *Source)
     uint32 npc = 0;
     uint32 flag = 0;
 
-    switch(i)
+    switch (i)
     {
         case BG_SA_LEFT_CAPTURABLE_GY:
             flag = BG_SA_LEFT_FLAG;
