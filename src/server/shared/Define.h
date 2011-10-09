@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -19,8 +19,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRILLIUM_DEFINE_H
-#define TRILLIUM_DEFINE_H
+#ifndef ARKCORE_DEFINE_H
+#define ARKCORE_DEFINE_H
 
 #include <sys/types.h>
 
@@ -29,19 +29,19 @@
 
 #include "CompilerDefs.h"
 
-#define TRILLIUM_LITTLEENDIAN 0
-#define TRILLIUM_BIGENDIAN    1
+#define ARKCORE_LITTLEENDIAN 0
+#define ARKCORE_BIGENDIAN    1
 
-#if !defined(TRILLIUM_ENDIAN)
+#if !defined(ARKCORE_ENDIAN)
 #  if defined (ACE_BIG_ENDIAN)
-#    define TRILLIUM_ENDIAN TRILLIUM_BIGENDIAN
+#    define ARKCORE_ENDIAN ARKCORE_BIGENDIAN
 #  else //ACE_BYTE_ORDER != ACE_BIG_ENDIAN
-#    define TRILLIUM_ENDIAN TRILLIUM_LITTLEENDIAN
+#    define ARKCORE_ENDIAN ARKCORE_LITTLEENDIAN
 #  endif //ACE_BYTE_ORDER
-#endif //TRILLIUM_ENDIAN
+#endif //ARKCORE_ENDIAN
 
 #if PLATFORM == PLATFORM_WINDOWS
-#  define TRILLIUM_PATH_MAX MAX_PATH
+#  define ARKCORE_PATH_MAX MAX_PATH
 #  ifndef DECLSPEC_NORETURN
 #    define DECLSPEC_NORETURN __declspec(noreturn)
 #  endif //DECLSPEC_NORETURN
@@ -49,18 +49,18 @@
 #    define DECLSPEC_DEPRECATED __declspec(deprecated)
 #  endif //DECLSPEC_DEPRECATED
 #else //PLATFORM != PLATFORM_WINDOWS
-#  define TRILLIUM_PATH_MAX PATH_MAX
+#  define ARKCORE_PATH_MAX PATH_MAX
 #  define DECLSPEC_NORETURN
 #  define DECLSPEC_DEPRECATED
 #endif //PLATFORM
 
 #if !defined(COREDEBUG)
-#  define TRILLIUM_INLINE inline
+#  define ARKCORE_INLINE inline
 #else //COREDEBUG
-#  if !defined(TRILLIUM_DEBUG)
-#    define TRILLIUM_DEBUG
-#  endif //TRILLIUM_DEBUG
-#  define TRILLIUM_INLINE
+#  if !defined(ARKCORE_DEBUG)
+#    define ARKCORE_DEBUG
+#  endif //ARKCORE_DEBUG
+#  define ARKCORE_INLINE
 #endif //!COREDEBUG
 
 #if COMPILER == COMPILER_GNU
@@ -82,4 +82,4 @@ typedef ACE_UINT32 uint32;
 typedef ACE_UINT16 uint16;
 typedef ACE_UINT8 uint8;
 
-#endif //TRILLIUM_DEFINE_H
+#endif //ARKCORE_DEFINE_H

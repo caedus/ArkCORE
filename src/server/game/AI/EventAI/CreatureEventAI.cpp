@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -69,7 +69,7 @@ CreatureEventAI::CreatureEventAI(Creature* c) : CreatureAI(c)
         {
 
             //Debug check
-            #ifndef TRILLIUM_DEBUG
+            #ifndef ARKCORE_DEBUG
             if ((*i).event_flags & EFLAG_DEBUG_ONLY)
                 continue;
             #endif
@@ -767,7 +767,7 @@ void CreatureEventAI::ProcessAction(CreatureEventAI_Action const& action, uint32
         }
         break;
 
-        // TRILLIUM ONLY
+        // ARKCORE ONLY
         case ACTION_T_MOVE_RANDOM_POINT: //dosen't work in combat
         {
             float x, y, z;

@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -547,7 +547,7 @@ void CreatureEventAIMgr::LoadCreatureEventAI_Scripts()
                 case ACTION_T_QUEST_EVENT:
                     if (Quest const* qid = sObjectMgr->GetQuestTemplate(action.quest_event.questId))
                     {
-                        if (!qid->HasFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT))
+                        if (!qid->HasFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT))
                             sLog->outErrorDb("CreatureEventAI:  Event %u Action %u. SpecialFlags for quest entry %u does not include |2, Action will not have any effect.", i, j+1, action.quest_event.questId);
                     }
                     else
@@ -589,7 +589,7 @@ void CreatureEventAIMgr::LoadCreatureEventAI_Scripts()
                 case ACTION_T_QUEST_EVENT_ALL:
                     if (Quest const* qid = sObjectMgr->GetQuestTemplate(action.quest_event_all.questId))
                     {
-                        if (!qid->HasFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT))
+                        if (!qid->HasFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT))
                             sLog->outErrorDb("CreatureEventAI:  Event %u Action %u. SpecialFlags for quest entry %u does not include |2, Action will not have any effect.", i, j+1, action.quest_event_all.questId);
                     }
                     else

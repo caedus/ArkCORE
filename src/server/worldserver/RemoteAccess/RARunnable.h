@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -23,8 +23,8 @@
 /// @{
 /// \file
 
-#ifndef _TRILLIUM_RARUNNABLE_H_
-#define _TRILLIUM_RARUNNABLE_H_
+#ifndef _ARKCORE_RARUNNABLE_H_
+#define _ARKCORE_RARUNNABLE_H_
 
 #include "Common.h"
 
@@ -42,5 +42,5 @@ private:
 
 };
 
-#endif /* _TRILLIUM_RARUNNABLE_H_ */
+#endif /* _ARKCORE_RARUNNABLE_H_ */
 /// @}

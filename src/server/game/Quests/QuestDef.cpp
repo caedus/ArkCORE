@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -171,7 +171,7 @@ Quest::Quest(Field * questRecord)
     QuestCompleteScript = questRecord[173].GetUInt32();
 
     QuestFlags |= SpecialFlags << 20;
-    if (QuestFlags & QUEST_TRILLIUM_FLAGS_AUTO_ACCEPT)
+    if (QuestFlags & QUEST_ARKCORE_FLAGS_AUTO_ACCEPT)
         QuestFlags |= QUEST_FLAGS_AUTO_ACCEPT;
 
     m_reqitemscount = 0;

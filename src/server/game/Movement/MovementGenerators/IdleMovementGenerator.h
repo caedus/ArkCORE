@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
 
 
  *
@@ -17,8 +17,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRILLIUM_IDLEMOVEMENTGENERATOR_H
-#define TRILLIUM_IDLEMOVEMENTGENERATOR_H
+#ifndef ARKCORE_IDLEMOVEMENTGENERATOR_H
+#define ARKCORE_IDLEMOVEMENTGENERATOR_H
 
 #include "MovementGenerator.h"
 

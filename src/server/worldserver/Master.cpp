@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -129,13 +129,17 @@ int Master::Run()
     sLog->outString("%s (worldserver-daemon)", _FULLVERSION);
     sLog->outString("<Ctrl-C> to stop.\n");
 
-    sLog->outString("===========================================================" );
-    sLog->outString(" ArkCore" );
-    sLog->outString(" Welcome to ArkCore" );
-    sLog->outString("Based on TrilliumEMU" );
-    sLog->outString(" http://www.arkania.net" );
-    sLog->outString("===========================================================\n" );
-
+    sLog->outString("   ###    ########  ##    ##  ######   #######  ########  ######## ");
+    sLog->outString("  ## ##   ##     ## ##   ##  ##    ## ##     ## ##     ## ##       ");
+    sLog->outString(" ##   ##  ##     ## ##  ##   ##       ##     ## ##     ## ##       ");
+    sLog->outString("##     ## ########  #####    ##       ##     ## ########  ######   ");
+    sLog->outString("######### ##   ##   ##  ##   ##       ##     ## ##   ##   ##       ");
+    sLog->outString("##     ## ##    ##  ##   ##  ##    ## ##     ## ##    ##  ##       ");
+    sLog->outString("##     ## ##     ## ##    ##  ######   #######  ##     ## ######## ");                                   
+	sLog->outString("Cataclysm Emulator Fork of TrilliumEMU ");
+	sLog->outString("Arkania Community 2011 (c) ");
+	sLog->outString("<http://arkania.net> ");
+                                                                                              
 #ifdef USE_SFMT_FOR_RNG
     sLog->outString("\n");
     sLog->outString("SFMT has been enabled as the random number generator, if worldserver");

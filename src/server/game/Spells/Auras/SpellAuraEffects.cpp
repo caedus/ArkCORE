@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -808,7 +808,7 @@ int32 AuraEffect::CalculateAmount(Unit* caster)
                         continue;
                     if (cap->map != -1 && cap->map != map)
                         continue;
-                    if (cap->reqSkillLevel > plrskill || cap->reqSkillLevel <= maxSkill)
+                    if (cap->reqSkillLevel && (cap->reqSkillLevel > plrskill || cap->reqSkillLevel <= maxSkill))
                         continue;
                     if (cap->reqSpell && !plr->HasSpell(cap->reqSpell))
                         continue;

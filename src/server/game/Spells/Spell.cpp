@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -1846,6 +1846,7 @@ void Spell::SearchChainTarget(std::list<Unit*> &TagUnitMap, float max_range, uin
                 && !m_caster->isInFrontInMap(*next, max_range))
                 || !m_caster->canSeeOrDetect(*next)
                 || !cur->IsWithinLOSInMap(*next)
+				|| (*next)->GetCreatureType() == CREATURE_TYPE_CRITTER
                 || ((GetSpellInfo()->AttributesEx6 & SPELL_ATTR6_CANT_TARGET_CROWD_CONTROLLED) && !(*next)->CanFreeMove()))
             {
                 ++next;
@@ -6204,6 +6205,12 @@ bool Spell::CheckEffectTarget(Unit const* target, uint32 eff) const
                 if ((int32)target->getLevel() > damage)
                     return false;
             break;
+        case SPELL_AURA_FLY:                               // Flight Form
+        case SPELL_AURA_MOD_INCREASE_VEHICLE_FLIGHT_SPEED: // Flight Form Passive
+        case SPELL_AURA_MOD_INCREASE_MOUNTED_FLIGHT_SPEED: // Mount Speed Mod
+            if (target->GetTypeId() == TYPEID_PLAYER && !target->ToPlayer()->IsKnowHowFlyIn(target->GetMapId(), target->GetZoneId(), m_spellInfo->Id))
+                return false;
+            break;			
         default:
             break;
     }

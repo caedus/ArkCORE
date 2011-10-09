@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -4453,13 +4453,13 @@ bool Player::resetTalents(bool no_cost)
         return false;
     }
 
-    uint64 cost = 0;
+    uint32 cost = 0;
 
     if (!no_cost && !sWorld->getBoolConfig(CONFIG_NO_RESET_TALENT_COST))
     {
         cost = resetTalentsCost();
 
-        if (!HasEnoughMoney(cost))
+        if (!HasEnoughMoney(uint64(cost)))
         {
             SendBuyError(BUY_ERR_NOT_ENOUGHT_MONEY, 0, 0, 0);
             return false;
@@ -7441,6 +7441,21 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
         sOutdoorPvPMgr->HandlePlayerLeaveZone(this, m_zoneUpdateId);
         sOutdoorPvPMgr->HandlePlayerEnterZone(this, newZone);
         SendInitWorldStates(newZone, newArea);              // only if really enters to new zone, not just area change, works strange...
+
+        // zone changed, check mount
+        bool allowMount = false;
+        if (InstanceTemplate const* mInstance = sObjectMgr->GetInstanceTemplate(GetMapId()))
+            allowMount = mInstance->AllowMount;
+        else if (MapEntry const* mEntry = sMapStore.LookupEntry(GetMapId()))
+            allowMount = !mEntry->IsDungeon() || mEntry->IsBattlegroundOrArena();
+
+        if (!allowMount)
+        {
+            RemoveAurasByType(SPELL_AURA_MOUNTED);
+
+            if (IsInDisallowedMountForm())
+                RemoveAurasByType(SPELL_AURA_MOD_SHAPESHIFT);
+        }		
     }
 
     m_zoneUpdateId    = newZone;
@@ -14208,13 +14223,11 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
     uint64 guid = source->GetGUID();
 
     if (source->GetTypeId() == TYPEID_GAMEOBJECT)
-    {
         if (gossipOptionId > GOSSIP_OPTION_QUESTGIVER)
         {
             sLog->outError("Player guid %u request invalid gossip option for GameObject entry %u", GetGUIDLow(), source->GetEntry());
             return;
         }
-    }
 
     GossipMenuItemData const* menuItemData = gossipMenu.GetItemData(gossipListId);
     if (!menuItemData)
@@ -14643,7 +14656,7 @@ bool Player::CanCompleteQuest(uint32 quest_id)
         if (q_status.m_status == QUEST_STATUS_INCOMPLETE)
         {
 
-            if (qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_DELIVER))
+            if (qInfo->HasFlag(QUEST_ARKCORE_FLAGS_DELIVER))
             {
                 for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; i++)
                 {
@@ -14652,7 +14665,7 @@ bool Player::CanCompleteQuest(uint32 quest_id)
                 }
             }
 
-            if (qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_KILL_OR_CAST | QUEST_TRILLIUM_FLAGS_SPEAKTO))
+            if (qInfo->HasFlag(QUEST_ARKCORE_FLAGS_KILL_OR_CAST | QUEST_ARKCORE_FLAGS_SPEAKTO))
             {
                 for (uint8 i = 0; i < QUEST_OBJECTIVES_COUNT; i++)
                 {
@@ -14664,14 +14677,14 @@ bool Player::CanCompleteQuest(uint32 quest_id)
                 }
             }
 
-            if (qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_PLAYER_KILL))
+            if (qInfo->HasFlag(QUEST_ARKCORE_FLAGS_PLAYER_KILL))
                 if (qInfo->GetPlayersSlain() != 0 && q_status.m_playercount < qInfo->GetPlayersSlain())
                     return false;
 
-            if (qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT) && !q_status.m_explored)
+            if (qInfo->HasFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT) && !q_status.m_explored)
                 return false;
 
-            if (qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_TIMED) && q_status.m_timer == 0)
+            if (qInfo->HasFlag(QUEST_ARKCORE_FLAGS_TIMED) && q_status.m_timer == 0)
                 return false;
 
             if (qInfo->GetRewOrReqMoney() < 0)
@@ -14698,7 +14711,7 @@ bool Player::CanCompleteRepeatableQuest(Quest const *pQuest)
     if (!CanTakeQuest(pQuest, false))
         return false;
 
-    if (pQuest->HasFlag(QUEST_TRILLIUM_FLAGS_DELIVER))
+    if (pQuest->HasFlag(QUEST_ARKCORE_FLAGS_DELIVER))
         for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; i++)
             if (pQuest->ReqItemId[i] && pQuest->ReqItemCount[i] && !HasItemCount(pQuest->ReqItemId[i], pQuest->ReqItemCount[i]))
                 return false;
@@ -14724,7 +14737,7 @@ bool Player::CanRewardQuest(Quest const *pQuest, bool msg)
         return false;
 
     // prevent receive reward with quest items in bank
-    if (pQuest->HasFlag(QUEST_TRILLIUM_FLAGS_DELIVER))
+    if (pQuest->HasFlag(QUEST_ARKCORE_FLAGS_DELIVER))
     {
         for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; i++)
         {
@@ -14799,19 +14812,19 @@ void Player::AddQuest(Quest const *pQuest, Object *questGiver)
     questStatusData.m_status = QUEST_STATUS_INCOMPLETE;
     questStatusData.m_explored = false;
 
-    if (pQuest->HasFlag(QUEST_TRILLIUM_FLAGS_DELIVER))
+    if (pQuest->HasFlag(QUEST_ARKCORE_FLAGS_DELIVER))
     {
         for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; ++i)
             questStatusData.m_itemcount[i] = 0;
     }
 
-    if (pQuest->HasFlag(QUEST_TRILLIUM_FLAGS_KILL_OR_CAST | QUEST_TRILLIUM_FLAGS_SPEAKTO))
+    if (pQuest->HasFlag(QUEST_ARKCORE_FLAGS_KILL_OR_CAST | QUEST_ARKCORE_FLAGS_SPEAKTO))
     {
         for (uint8 i = 0; i < QUEST_OBJECTIVES_COUNT; ++i)
             questStatusData.m_creatureOrGOcount[i] = 0;
     }
 
-    if (pQuest->HasFlag(QUEST_TRILLIUM_FLAGS_PLAYER_KILL))
+    if (pQuest->HasFlag(QUEST_ARKCORE_FLAGS_PLAYER_KILL))
         questStatusData.m_playercount = 0;
 
     GiveQuestSourceItem(pQuest);
@@ -14826,7 +14839,7 @@ void Player::AddQuest(Quest const *pQuest, Object *questGiver)
             GetReputationMgr().SetVisible(factionEntry);
 
     uint32 qtime = 0;
-    if (pQuest->HasFlag(QUEST_TRILLIUM_FLAGS_TIMED))
+    if (pQuest->HasFlag(QUEST_ARKCORE_FLAGS_TIMED))
     {
         uint32 limittime = pQuest->GetLimitTime();
 
@@ -15100,7 +15113,7 @@ void Player::FailQuest(uint32 questId)
             SetQuestSlotState(log_slot, QUEST_STATE_FAIL);
         }
 
-        if (pQuest->HasFlag(QUEST_TRILLIUM_FLAGS_TIMED))
+        if (pQuest->HasFlag(QUEST_ARKCORE_FLAGS_TIMED))
         {
             QuestStatusData& q_status = m_QuestStatus[questId];
 
@@ -15363,7 +15376,7 @@ bool Player::SatisfyQuestConditions(Quest const* qInfo, bool msg)
 
 bool Player::SatisfyQuestTimed(Quest const* qInfo, bool msg)
 {
-    if (!m_timedquests.empty() && qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_TIMED))
+    if (!m_timedquests.empty() && qInfo->HasFlag(QUEST_ARKCORE_FLAGS_TIMED))
     {
         if (msg)
             SendCanTakeQuestResponse(INVALIDREASON_QUEST_ONLY_ONE_TIMED);
@@ -15659,7 +15672,7 @@ uint16 Player::GetReqKillOrCastCurrentCount(uint32 quest_id, int32 entry)
 
 void Player::AdjustQuestReqItemCount(Quest const* pQuest, QuestStatusData& questStatusData)
 {
-    if (pQuest->HasFlag(QUEST_TRILLIUM_FLAGS_DELIVER))
+    if (pQuest->HasFlag(QUEST_ARKCORE_FLAGS_DELIVER))
     {
         for (uint8 i = 0; i < QUEST_ITEM_OBJECTIVES_COUNT; ++i)
         {
@@ -15736,7 +15749,7 @@ void Player::ItemAddedQuestCheck(uint32 entry, uint32 count)
             continue;
 
         Quest const* qInfo = sObjectMgr->GetQuestTemplate(questid);
-        if (!qInfo || !qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_DELIVER))
+        if (!qInfo || !qInfo->HasFlag(QUEST_ARKCORE_FLAGS_DELIVER))
             continue;
 
         for (uint8 j = 0; j < QUEST_ITEM_OBJECTIVES_COUNT; ++j)
@@ -15774,7 +15787,7 @@ void Player::ItemRemovedQuestCheck(uint32 entry, uint32 count)
         Quest const* qInfo = sObjectMgr->GetQuestTemplate(questid);
         if (!qInfo)
             continue;
-        if (!qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_DELIVER))
+        if (!qInfo->HasFlag(QUEST_ARKCORE_FLAGS_DELIVER))
             continue;
 
         for (uint8 j = 0; j < QUEST_ITEM_OBJECTIVES_COUNT; ++j)
@@ -15843,7 +15856,7 @@ void Player::KilledMonsterCredit(uint32 entry, uint64 guid)
         QuestStatusData& q_status = m_QuestStatus[questid];
         if (q_status.m_status == QUEST_STATUS_INCOMPLETE && (!GetGroup() || !GetGroup()->isRaidGroup() || qInfo->IsAllowedInRaid()))
         {
-            if (qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_KILL_OR_CAST))
+            if (qInfo->HasFlag(QUEST_ARKCORE_FLAGS_KILL_OR_CAST))
             {
                 for (uint8 j = 0; j < QUEST_OBJECTIVES_COUNT; ++j)
                 {
@@ -15898,7 +15911,7 @@ void Player::KilledPlayerCredit()
         QuestStatusData& q_status = m_QuestStatus[questid];
         if (q_status.m_status == QUEST_STATUS_INCOMPLETE && (!GetGroup() || !GetGroup()->isRaidGroup() || qInfo->IsAllowedInRaid()))
         {
-            if (qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_PLAYER_KILL))
+            if (qInfo->HasFlag(QUEST_ARKCORE_FLAGS_PLAYER_KILL))
             {
                 uint32 reqkill = qInfo->GetPlayersSlain();
                 uint16 curkill = q_status.m_playercount;
@@ -15940,7 +15953,7 @@ void Player::CastedCreatureOrGO(uint32 entry, uint64 guid, uint32 spell_id)
 
         if (q_status.m_status == QUEST_STATUS_INCOMPLETE)
         {
-            if (qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_KILL_OR_CAST))
+            if (qInfo->HasFlag(QUEST_ARKCORE_FLAGS_KILL_OR_CAST))
             {
                 for (uint8 j = 0; j < QUEST_OBJECTIVES_COUNT; ++j)
                 {
@@ -16017,7 +16030,7 @@ void Player::TalkedToCreature(uint32 entry, uint64 guid)
 
         if (q_status.m_status == QUEST_STATUS_INCOMPLETE)
         {
-            if (qInfo->HasFlag(QUEST_TRILLIUM_FLAGS_KILL_OR_CAST | QUEST_TRILLIUM_FLAGS_SPEAKTO))
+            if (qInfo->HasFlag(QUEST_ARKCORE_FLAGS_KILL_OR_CAST | QUEST_ARKCORE_FLAGS_SPEAKTO))
             {
                 for (uint8 j = 0; j < QUEST_OBJECTIVES_COUNT; ++j)
                 {
@@ -17747,7 +17760,7 @@ void Player::_LoadQuestStatus(PreparedQueryResult result)
 
                 time_t quest_time = time_t(fields[3].GetUInt32());
 
-                if (pQuest->HasFlag(QUEST_TRILLIUM_FLAGS_TIMED) && !GetQuestRewardStatus(quest_id))
+                if (pQuest->HasFlag(QUEST_ARKCORE_FLAGS_TIMED) && !GetQuestRewardStatus(quest_id))
                 {
                     AddTimedQuest(quest_id);
 
@@ -18579,8 +18592,8 @@ void Player::SaveToDB()
     _SaveDailyQuestStatus(trans);
     _SaveWeeklyQuestStatus(trans);
     _SaveTalents(trans);
-    _SaveTalentBranchSpecs(trans);
     _SaveSpells(trans);
+    _SaveTalentBranchSpecs(trans);	
     _SaveSpellCooldowns(trans);
     _SaveActions(trans);
     _SaveAuras(trans);
@@ -21382,7 +21395,7 @@ void Player::UpdateVisibilityOf(WorldObject* target)
             target->DestroyForPlayer(this);
             m_clientGUIDs.erase(target->GetGUID());
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
                 sLog->outDebug(LOG_FILTER_MAPS, "Object %u (Type: %u) out of range for player %u. Distance = %f", target->GetGUIDLow(), target->GetTypeId(), GetGUIDLow(), GetDistance(target));
             #endif
         }
@@ -21397,7 +21410,7 @@ void Player::UpdateVisibilityOf(WorldObject* target)
             target->SendUpdateToPlayer(this);
             m_clientGUIDs.insert(target->GetGUID());
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
                 sLog->outDebug(LOG_FILTER_MAPS, "Object %u (Type: %u) is visible now for player %u. Distance = %f", target->GetGUIDLow(), target->GetTypeId(), GetGUIDLow(), GetDistance(target));
             #endif
 
@@ -21459,7 +21472,7 @@ void Player::UpdateVisibilityOf(T* target, UpdateData& data, std::set<Unit*>& vi
             target->BuildOutOfRangeUpdateBlock(&data);
             m_clientGUIDs.erase(target->GetGUID());
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
                 sLog->outDebug(LOG_FILTER_MAPS, "Object %u (Type: %u, Entry: %u) is out of range for player %u. Distance = %f", target->GetGUIDLow(), target->GetTypeId(), target->GetEntry(), GetGUIDLow(), GetDistance(target));
             #endif
         }
@@ -21474,7 +21487,7 @@ void Player::UpdateVisibilityOf(T* target, UpdateData& data, std::set<Unit*>& vi
             target->BuildCreateUpdateBlockForPlayer(&data, this);
             UpdateVisibilityOf_helper(m_clientGUIDs, target, visibleNow);
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
                 sLog->outDebug(LOG_FILTER_MAPS, "Object %u (Type: %u, Entry: %u) is visible now for player %u. Distance = %f", target->GetGUIDLow(), target->GetTypeId(), target->GetEntry(), GetGUIDLow(), GetDistance(target));
             #endif
         }
@@ -21514,7 +21527,7 @@ void Player::InitPrimaryProfessions()
 void Player::ModifyMoney(int32 d)
 {
     sScriptMgr->OnPlayerMoneyChanged(this, d);
-
+	printf("MONEY: %i", d);
     if (d < 0)
         SetMoney (GetMoney() > uint32(-d) ? GetMoney() + d : 0);
     else
@@ -21529,7 +21542,7 @@ void Player::ModifyMoney(int32 d)
             if (d)
                 SendEquipError(EQUIP_ERR_TOO_MUCH_GOLD, NULL, NULL);
         }
-        SetMoney (newAmount);
+        SetMoney(newAmount);
     }
 }
 
@@ -22723,7 +22736,7 @@ void Player::UpdateAreaDependentAuras(uint32 newArea)
     for (AuraMap::iterator iter = m_ownedAuras.begin(); iter != m_ownedAuras.end();)
     {
         // use m_zoneUpdateId for speed: UpdateArea called from UpdateZone or instead UpdateZone in both cases m_zoneUpdateId up-to-date
-        if (iter->second->GetSpellInfo()->CheckLocation(GetMapId(), m_zoneUpdateId, newArea, this) != SPELL_CAST_OK)
+        if (iter->second->GetSpellInfo()->CheckLocation(GetMapId(), m_zoneUpdateId, newArea, this, iter->second->GetEffectMask()) != SPELL_CAST_OK)
             RemoveOwnedAura(iter);
         else
             ++iter;
@@ -23019,7 +23032,7 @@ bool ItemPosCount::isContainedIn(ItemPosCountVec const& vec) const
 }
 
 // ***********************************
-// -------------TRILLIUM---------------
+// -------------ARKCORE---------------
 // ***********************************
 
 void Player::StopCastingBindSight()
@@ -23221,7 +23234,7 @@ void Player::SetTitle(CharTitlesEntry const* title, bool lost)
     GetSession()->SendPacket(&data);
 }
 
-/*-----------------------TRILLIUM--------------------------*/
+/*-----------------------ARKCORE--------------------------*/
 bool Player::isTotalImmunity()
 {
     AuraEffectList const& immune = GetAuraEffectsByType(SPELL_AURA_SCHOOL_IMMUNITY);
@@ -23508,11 +23521,35 @@ uint32 Player::CalculateTalentsPoints() const
     return uint32(talentPointsForLevel * sWorld->getRate(RATE_TALENT));
 }
 
-bool Player::IsKnowHowFlyIn(uint32 mapid, uint32 zone) const
+bool Player::IsKnowHowFlyIn(uint32 mapid, uint32 zone, uint32 spellId) const
 {
+    // Eye of the Storm is always allowed in Throne of the Four Winds
+    if (zone == 5638 && spellId == 82724) 
+        return true;
+
     // continent checked in SpellInfo::CheckLocation at cast and area update
     uint32 v_map = GetVirtualMapForMapAndZone(mapid, zone);
-    return v_map != 571 || HasSpell(54197); // Cold Weather Flying
+    switch (v_map)
+    {
+    case 0:   // Eastern Kingdoms
+        switch(zone)
+        {
+		// mapid of these zones is 530 but v_map is 0
+        case 3430: // Eversong Woods
+        case 3433: // Ghostlands
+        case 4080: // Isle of Quel'Danas
+            return false;
+        }
+        // no break here
+    case 1:   // Kalimdor
+    case 646: // Deepholm
+        return HasSpell(90267); // Flight Master's License
+    case 571: // Northrend
+        return HasSpell(54197); // Cold Weather Flying
+    case 530: // Outland		
+        return true;
+    }
+    return false;
 }
 
 void Player::learnSpellHighRank(uint32 spellid)
@@ -24768,7 +24805,6 @@ void Player::ActivateSpec(uint8 spec)
             }
         }
     }
-
     for (uint32 i = 0; i < sTalentTreePrimarySpellsStore.GetNumRows(); ++i)
     {
         TalentTreePrimarySpellsEntry const *talentInfo = sTalentTreePrimarySpellsStore.LookupEntry(i);

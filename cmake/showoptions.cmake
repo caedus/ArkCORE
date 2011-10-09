@@ -1,4 +1,4 @@
-# Copyright (C) 2011 TrilliumENCORE <http://www.trilliumemu.org/>
+# Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -10,10 +10,10 @@
 
 # output generic information about the core and buildtype chosen
 message("")
-message("* TrilliumEMU rev. hash  : ${rev_hash}")
-message("* TrilliumEMU rev. date  : ${rev_date}")
+message("* ArkCORE rev. hash  : ${rev_hash}")
+message("* ArkCORE rev. date  : ${rev_date}")
 if( UNIX )
-  message("* TrilliumEMU buildtype  : ${CMAKE_BUILD_TYPE}")
+  message("* ArkCORE buildtype  : ${CMAKE_BUILD_TYPE}")
 endif()
 message("")
 
@@ -75,7 +75,7 @@ endif()
 
 if( WITH_COREDEBUG )
   message("* Use coreside debug     : Yes")
-  add_definitions(-DTRILLIUM_DEBUG)
+  add_definitions(-DARKCORE_DEBUG)
 else()
   message("* Use coreside debug     : No  (default)")
 endif()

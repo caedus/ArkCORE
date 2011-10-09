@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -34,9 +34,9 @@
 #include "Log.h"
 #include "Master.h"
 
-#ifndef _TRILLIUM_CORE_CONFIG
-# define _TRILLIUM_CORE_CONFIG  "worldserver.conf"
-#endif //_TRILLIUM_CORE_CONFIG
+#ifndef _ARKCORE_CORE_CONFIG
+# define _ARKCORE_CORE_CONFIG  "worldserver.conf"
+#endif //_ARKCORE_CORE_CONFIG
 
 #ifdef _WIN32
 #include "ServiceWin32.h"
@@ -76,7 +76,7 @@ void usage(const char *prog)
 extern int main(int argc, char **argv)
 {
     ///- Command line parsing to get the configuration file name
-    char const* cfg_file = _TRILLIUM_CORE_CONFIG;
+    char const* cfg_file = _ARKCORE_CORE_CONFIG;
     int c = 1;
     while ( c < argc )
     {

@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -19,8 +19,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRILLIUM_CHATLEXICSCUTTER_H
-#define TRILLIUM_CHATLEXICSCUTTER_H
+#ifndef ARKCORE_CHATLEXICSCUTTER_H
+#define ARKCORE_CHATLEXICSCUTTER_H
 
 typedef std::vector <std::string> LC_AnalogVector;
 typedef std::map <std::string, LC_AnalogVector> LC_AnalogMap;

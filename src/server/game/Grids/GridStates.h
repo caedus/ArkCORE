@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -19,8 +19,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRILLIUM_GRIDSTATES_H
-#define TRILLIUM_GRIDSTATES_H
+#ifndef ARKCORE_GRIDSTATES_H
+#define ARKCORE_GRIDSTATES_H
 
 #include "Map.h"
 #include "Object.h"
@@ -28,7 +28,7 @@
 class GridState
 {
     public:
-#ifdef TRILLIUM_DEBUG
+#ifdef ARKCORE_DEBUG
 #define MAGIC_TESTVAL 0xFBE823BA
         GridState() { i_Magic = MAGIC_TESTVAL; }
         bool checkMagic()

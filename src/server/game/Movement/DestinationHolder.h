@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
 
 
  *
@@ -17,8 +17,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRILLIUM_DESTINATION_HOLDER_H
-#define TRILLIUM_DESTINATION_HOLDER_H
+#ifndef ARKCORE_DESTINATION_HOLDER_H
+#define ARKCORE_DESTINATION_HOLDER_H
 
 #include "Define.h"
 #include "Timer.h"

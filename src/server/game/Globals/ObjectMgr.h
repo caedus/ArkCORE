@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -380,15 +380,15 @@ typedef UNORDERED_MAP<uint32/*(mapid, spawnMode) pair*/, CellObjectGuidsMap> Map
 typedef UNORDERED_MAP<uint64/*(instance, guid) pair*/, time_t> RespawnTimes;
 
 // Trillium string ranges
-#define MIN_TRILLIUM_STRING_ID           1                    // 'trillium_string'
-#define MAX_TRILLIUM_STRING_ID           2000000000
-#define MIN_DB_SCRIPT_STRING_ID        MAX_TRILLIUM_STRING_ID // 'db_script_string'
+#define MIN_ARKCORE_STRING_ID           1                    // 'trillium_string'
+#define MAX_ARKCORE_STRING_ID           2000000000
+#define MIN_DB_SCRIPT_STRING_ID        MAX_ARKCORE_STRING_ID // 'db_script_string'
 #define MAX_DB_SCRIPT_STRING_ID        2000010000
 #define MIN_CREATURE_AI_TEXT_STRING_ID (-1)                 // 'creature_ai_texts'
 #define MAX_CREATURE_AI_TEXT_STRING_ID (-1000000)
 
 // Trillium Trainer Reference start range
-#define TRILLIUM_TRAINER_START_REF      200000
+#define ARKCORE_TRAINER_START_REF      200000
 
 struct TrilliumStringLocale
 {
@@ -861,7 +861,7 @@ class ObjectMgr
         void ValidateSpellScripts();
 
         bool LoadTrilliumStrings(char const* table, int32 min_value, int32 max_value);
-        bool LoadTrilliumStrings() { return LoadTrilliumStrings("trillium_string", MIN_TRILLIUM_STRING_ID, MAX_TRILLIUM_STRING_ID); }
+        bool LoadTrilliumStrings() { return LoadTrilliumStrings("trillium_string", MIN_ARKCORE_STRING_ID, MAX_ARKCORE_STRING_ID); }
         void LoadDbScriptStrings();
         void LoadCreatureClassLevelStats();
         void LoadCreatureLocales();

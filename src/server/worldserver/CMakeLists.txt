@@ -1,4 +1,4 @@
-# Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+# Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -148,7 +148,7 @@ set(worldserver_LINK_FLAGS "")
 add_executable(worldserver ${worldserver_SRCS})
 
 if( NOT WIN32 )
-  add_definitions(-D_TRILLIUM_CORE_CONFIG='"${CONF_DIR}/worldserver.conf"')
+  add_definitions(-D_ARKCORE_CORE_CONFIG='"${CONF_DIR}/worldserver.conf"')
 endif()
 
 add_dependencies(worldserver revision.h)

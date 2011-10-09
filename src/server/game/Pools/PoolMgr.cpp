@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -263,7 +263,7 @@ void PoolGroup<Quest>::Despawn1Object(uint32 quest_id)
         QuestRelations::iterator lastElement = questMap->upper_bound(itr->second);
         for (; qitr != lastElement; ++qitr)
         {
-            if (qitr->first == itr->second)
+           if (qitr->first == itr->second && qitr->second == itr->first)
             {
                 questMap->erase(qitr);                  // iterator is now no more valid
                 break;                                  // but we can exit loop since the element is found
@@ -282,7 +282,7 @@ void PoolGroup<Quest>::Despawn1Object(uint32 quest_id)
         QuestRelations::iterator lastElement = questMap->upper_bound(itr->second);
         for (; qitr != lastElement; ++qitr)
         {
-            if (qitr->first == itr->second)
+           if (qitr->first == itr->second && qitr->second == itr->first)
             {
                 questMap->erase(qitr);                  // iterator is now no more valid
                 break;                                  // but we can exit loop since the element is found

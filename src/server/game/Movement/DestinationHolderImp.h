@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
 
 
  *
@@ -17,8 +17,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRILLIUM_DESTINATIONHOLDERIMP_H
-#define TRILLIUM_DESTINATIONHOLDERIMP_H
+#ifndef ARKCORE_DESTINATIONHOLDERIMP_H
+#define ARKCORE_DESTINATIONHOLDERIMP_H
 
 #include "MapManager.h"
 #include "DestinationHolder.h"

@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -155,7 +155,7 @@ public:
             if (creature->GetOwner() && creature->GetOwner()->GetTypeId() == TYPEID_PLAYER)
                 Start(false, false, creature->GetOwner()->GetGUID());
             else
-                sLog->outError("TRILLIUM: npc_ancestral_wolf can not obtain owner or owner is not a player.");
+                sLog->outError("ARKCORE: npc_ancestral_wolf can not obtain owner or owner is not a player.");
 
             creature->SetSpeed(MOVE_WALK, 1.5f);
             Reset();

@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -79,12 +79,12 @@ BEGIN
         BLOCK "080004b0"
         BEGIN
             VALUE "CompanyName",        VER_COMPANYNAME_STR
-            VALUE "FileDescription",    "TrilliumEMU World Server Daemon"
+            VALUE "FileDescription",    "ArkCORE World Server Daemon"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "worldserver"
             VALUE "LegalCopyright",     VER_LEGALCOPYRIGHT_STR
             VALUE "OriginalFilename",   "worldserver.exe"
-            VALUE "ProductName",        "TrilliumEMU World Server"
+            VALUE "ProductName",        "ArkCORE World Server"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -159,7 +159,7 @@ void WorldSession::SendPacket(WorldPacket const *packet)
         return;
     }
 
-#ifdef TRILLIUM_DEBUG
+#ifdef ARKCORE_DEBUG
     // Code for network use statistic
     static uint64 sendPacketCount = 0;
     static uint64 sendPacketBytes = 0;
@@ -191,7 +191,7 @@ void WorldSession::SendPacket(WorldPacket const *packet)
         sendLastPacketCount = 1;
         sendLastPacketBytes = packet->wpos();               // wpos is real written size
     }
-#endif                                                      // !TRILLIUM_DEBUG
+#endif                                                      // !ARKCORE_DEBUG
 
     if (m_Socket->SendPacket (*packet) == -1)
         m_Socket->CloseSocket ();

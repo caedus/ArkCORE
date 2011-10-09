@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __TRILLIUM_VEHICLEDEFINES_H
-#define __TRILLIUM_VEHICLEDEFINES_H
+#ifndef __ARKCORE_VEHICLEDEFINES_H
+#define __ARKCORE_VEHICLEDEFINES_H
 
 #include "Define.h"
 #include <vector>

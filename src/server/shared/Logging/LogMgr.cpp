@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -190,7 +190,7 @@ void LogMgr::PhysicalLogFile::Open()
         if (_dateSplit)
             _lastDay = aTm->tm_mday;
         // Format time
-        char szDate[TRILLIUM_PATH_MAX];
+        char szDate[ARKCORE_PATH_MAX];
         if (strftime(szDate, sizeof(szDate), _fileName.c_str(), aTm) == 0)
             path += _fileName;
         else
@@ -680,7 +680,7 @@ void LogMgr::WriteGmCommand(uint32 accountId, const char* fmt, ...)
             time_t t = time(NULL);
             tm* aTm = localtime(&t);
             // Replace time format specifiers (may not exist)
-            char sz[TRILLIUM_PATH_MAX];
+            char sz[ARKCORE_PATH_MAX];
             if (strftime(sz, sizeof(sz), _gmFilePath.c_str(), aTm) == 0)
                 path = _gmFilePath;
             else
@@ -839,7 +839,7 @@ uint32 LogMgr::OutTimestamp(FILE* file, const std::string& timeStampFmt)
 {
     time_t t = time(NULL);
     tm* aTm = localtime(&t);
-    char sz[TRILLIUM_PATH_MAX];
+    char sz[ARKCORE_PATH_MAX];
     strftime(sz, sizeof(sz), timeStampFmt.c_str(), aTm);
     return fprintf(file, "%s ", sz);
 }

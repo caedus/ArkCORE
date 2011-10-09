@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -86,7 +86,7 @@ void MapManager::checkAndCorrectGridStatesArray()
             ok = false;
             si_GridStates[i] = i_GridStates[i];
         }
-        #ifdef TRILLIUM_DEBUG
+        #ifdef ARKCORE_DEBUG
         // inner class checking only when compiled with debug
         if (!si_GridStates[i]->checkMagic())
         {

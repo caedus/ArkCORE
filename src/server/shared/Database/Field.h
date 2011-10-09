@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -44,7 +44,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetUInt8() on non-numeric field.");
@@ -61,7 +61,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GeInt8() on non-numeric field.");
@@ -78,7 +78,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetUInt16() on non-numeric field.");
@@ -95,7 +95,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetInt16() on non-numeric field.");
@@ -112,7 +112,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetUInt32() on non-numeric field.");
@@ -129,7 +129,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetInt32() on non-numeric field.");
@@ -146,7 +146,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetUInt64() on non-numeric field.");
@@ -163,7 +163,7 @@ class Field
             if (!data.value)
                 return 0;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetInt64() on non-numeric field.");
@@ -180,7 +180,7 @@ class Field
             if (!data.value)
                 return 0.0f;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetFloat() on non-numeric field.");
@@ -197,7 +197,7 @@ class Field
             if (!data.value)
                 return 0.0f;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (!IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetDouble() on non-numeric field.");
@@ -214,7 +214,7 @@ class Field
             if (!data.value)
                 return NULL;
 
-            #ifdef TRILLIUM_DEBUG
+            #ifdef ARKCORE_DEBUG
             if (IsNumeric())
             {
                 sLogMgr->WriteLn(SQLDRIVER_LOG, "Error: GetCString() on numeric field.");

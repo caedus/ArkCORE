@@ -1,14 +1,14 @@
-= TrilliumENCORE -- Linux installation =
-Copyright (C) 2011 TrilliumENCORE (http://www.trilliumemu.org)
+= ArkCORE -- Linux installation =
+Copyright (C) 2011 ArkCORE (http://www.arkania.net)
 
 =========================================================
 WARNING: THIS DOCUMENTATION IS NOT ALWAYS UP TO DATE.
-FOR MORE UP-TO-DATE INFORMATION, CHECK THE TRILLIUM WIKI.
+FOR MORE UP-TO-DATE INFORMATION, CHECK THE ARKCORE WIKI.
 =========================================================
 
-CHECK http://www.trilliumemu.org FOR FURTHER HELP
+CHECK http://www.arkania.net FOR FURTHER HELP
 
-Installing TrilliumENCORE is fairly simple on a Linux machine, assuming you 
+Installing ArkCORE is fairly simple on a Linux machine, assuming you 
 have all required applications
 
 The most important ones are:
@@ -64,9 +64,9 @@ flags like
                         Release, MinSizeRel, RelWithDebInfo, Debug
 
 Of course, replace the paths in prefix, conf_dir with the directories 
-you wish to install TrilliumENCORE to. The datadir is where maps, DBCs, and 
+you wish to install ArkCORE to. The datadir is where maps, DBCs, and 
 SQLs are stored. The sysconfdir is where configuration files are stored.
 
-Once TrilliumENCORE is installed you will need to apply database updates 
+Once ArkCORE is installed you will need to apply database updates 
 where necessary. Furthermore, you must configure your installation by 
 editing the config files in the sysconfdir.

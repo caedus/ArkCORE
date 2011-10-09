@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -308,7 +308,7 @@ bool AuthSocket::_HandleLogonChallenge()
 
     socket().recv((char *)&buf[0], 4);
 
-#if TRILLIUM_ENDIAN == TRILLIUM_BIGENDIAN
+#if ARKCORE_ENDIAN == ARKCORE_BIGENDIAN
     EndianConvert(*((uint16*)(buf[0])));
 #endif
 
@@ -330,7 +330,7 @@ bool AuthSocket::_HandleLogonChallenge()
 
     // BigEndian code, nop in little endian case
     // size already converted
-#if TRILLIUM_ENDIAN == TRILLIUM_BIGENDIAN
+#if ARKCORE_ENDIAN == ARKCORE_BIGENDIAN
     EndianConvert(*((uint32*)(&ch->gamename[0])));
     EndianConvert(ch->build);
     EndianConvert(*((uint32*)(&ch->platform[0])));
@@ -703,7 +703,7 @@ bool AuthSocket::_HandleReconnectChallenge()
 
     socket().recv((char *)&buf[0], 4);
 
-#if TRILLIUM_ENDIAN == TRILLIUM_BIGENDIAN
+#if ARKCORE_ENDIAN == ARKCORE_BIGENDIAN
     EndianConvert(*((uint16*)(buf[0])));
 #endif
 

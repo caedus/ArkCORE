@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -120,7 +120,7 @@ std::string GetScriptCommandName(ScriptCommands command)
         case SCRIPT_COMMAND_LOAD_PATH: res = "SCRIPT_COMMAND_LOAD_PATH"; break;
         case SCRIPT_COMMAND_CALLSCRIPT_TO_UNIT: res = "SCRIPT_COMMAND_CALLSCRIPT_TO_UNIT"; break;
         case SCRIPT_COMMAND_KILL: res = "SCRIPT_COMMAND_KILL"; break;
-        // TrilliumEMU only
+        // ArkCORE only
         case SCRIPT_COMMAND_ORIENTATION: res = "SCRIPT_COMMAND_ORIENTATION"; break;
         case SCRIPT_COMMAND_EQUIP: res = "SCRIPT_COMMAND_EQUIP"; break;
         case SCRIPT_COMMAND_MODEL: res = "SCRIPT_COMMAND_MODEL"; break;
@@ -3650,11 +3650,11 @@ void ObjectMgr::LoadQuests()
             sLog->outErrorDb("Quest %u has `Method` = %u, expected values are 0, 1 or 2.", qinfo->GetQuestId(), qinfo->GetQuestMethod());
         }
 
-        if (qinfo->QuestFlags & ~QUEST_TRILLIUM_FLAGS_DB_ALLOWED)
+        if (qinfo->QuestFlags & ~QUEST_ARKCORE_FLAGS_DB_ALLOWED)
         {
             sLog->outErrorDb("Quest %u has `SpecialFlags` = %u > max allowed value. Correct `SpecialFlags` to value <= %u",
-                qinfo->GetQuestId(), qinfo->QuestFlags  >> 20, QUEST_TRILLIUM_FLAGS_DB_ALLOWED >> 20);
-            qinfo->QuestFlags &= QUEST_TRILLIUM_FLAGS_DB_ALLOWED;
+                qinfo->GetQuestId(), qinfo->QuestFlags  >> 20, QUEST_ARKCORE_FLAGS_DB_ALLOWED >> 20);
+            qinfo->QuestFlags &= QUEST_ARKCORE_FLAGS_DB_ALLOWED;
         }
 
         if (qinfo->QuestFlags & QUEST_FLAGS_DAILY && qinfo->QuestFlags & QUEST_FLAGS_WEEKLY)
@@ -3665,19 +3665,19 @@ void ObjectMgr::LoadQuests()
 
         if (qinfo->QuestFlags & QUEST_FLAGS_DAILY)
         {
-            if (!(qinfo->QuestFlags & QUEST_TRILLIUM_FLAGS_REPEATABLE))
+            if (!(qinfo->QuestFlags & QUEST_ARKCORE_FLAGS_REPEATABLE))
             {
                 sLog->outErrorDb("Daily Quest %u not marked as repeatable in `SpecialFlags`, added.", qinfo->GetQuestId());
-                qinfo->QuestFlags |= QUEST_TRILLIUM_FLAGS_REPEATABLE;
+                qinfo->QuestFlags |= QUEST_ARKCORE_FLAGS_REPEATABLE;
             }
         }
 
         if (qinfo->QuestFlags & QUEST_FLAGS_WEEKLY)
         {
-            if (!(qinfo->QuestFlags & QUEST_TRILLIUM_FLAGS_REPEATABLE))
+            if (!(qinfo->QuestFlags & QUEST_ARKCORE_FLAGS_REPEATABLE))
             {
                 sLog->outErrorDb("Weekly Quest %u not marked as repeatable in `SpecialFlags`, added.", qinfo->GetQuestId());
-                qinfo->QuestFlags |= QUEST_TRILLIUM_FLAGS_REPEATABLE;
+                qinfo->QuestFlags |= QUEST_ARKCORE_FLAGS_REPEATABLE;
             }
         }
 
@@ -3904,7 +3904,7 @@ void ObjectMgr::LoadQuests()
                     // no changes, quest can't be done for this requirement
                 }
 
-                qinfo->SetFlag(QUEST_TRILLIUM_FLAGS_DELIVER);
+                qinfo->SetFlag(QUEST_ARKCORE_FLAGS_DELIVER);
 
                 if (!sObjectMgr->GetItemTemplate(id))
                 {
@@ -3972,12 +3972,12 @@ void ObjectMgr::LoadQuests()
 
                     if (found)
                     {
-                        if (!qinfo->HasFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT))
+                        if (!qinfo->HasFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT))
                         {
-                            sLog->outErrorDb("Spell (id: %u) have SPELL_EFFECT_QUEST_COMPLETE or SPELL_EFFECT_SEND_EVENT for quest %u and ReqCreatureOrGOId%d = 0, but quest not have flag QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT. Quest flags or ReqCreatureOrGOId%d must be fixed, quest modified to enable objective.", spellInfo->Id, qinfo->QuestId, j+1, j+1);
+                            sLog->outErrorDb("Spell (id: %u) have SPELL_EFFECT_QUEST_COMPLETE or SPELL_EFFECT_SEND_EVENT for quest %u and ReqCreatureOrGOId%d = 0, but quest not have flag QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT. Quest flags or ReqCreatureOrGOId%d must be fixed, quest modified to enable objective.", spellInfo->Id, qinfo->QuestId, j+1, j+1);
 
                             // this will prevent quest completing without objective
-                            const_cast<Quest*>(qinfo)->SetFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT);
+                            const_cast<Quest*>(qinfo)->SetFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT);
                         }
                     }
                     else
@@ -4011,7 +4011,7 @@ void ObjectMgr::LoadQuests()
             {
                 // In fact SpeakTo and Kill are quite same: either you can speak to mob:SpeakTo or you can't:Kill/Cast
 
-                qinfo->SetFlag(QUEST_TRILLIUM_FLAGS_KILL_OR_CAST | QUEST_TRILLIUM_FLAGS_SPEAKTO);
+                qinfo->SetFlag(QUEST_ARKCORE_FLAGS_KILL_OR_CAST | QUEST_ARKCORE_FLAGS_SPEAKTO);
 
                 if (!qinfo->ReqCreatureOrGOCount[j])
                 {
@@ -4221,12 +4221,12 @@ void ObjectMgr::LoadQuests()
         if (qinfo->ExclusiveGroup)
             mExclusiveQuestGroups.insert(std::pair<int32, uint32>(qinfo->ExclusiveGroup, qinfo->GetQuestId()));
         if (qinfo->LimitTime)
-            qinfo->SetFlag(QUEST_TRILLIUM_FLAGS_TIMED);
+            qinfo->SetFlag(QUEST_ARKCORE_FLAGS_TIMED);
         if (qinfo->PlayersSlain)
-            qinfo->SetFlag(QUEST_TRILLIUM_FLAGS_PLAYER_KILL);
+            qinfo->SetFlag(QUEST_ARKCORE_FLAGS_PLAYER_KILL);
     }
 
-    // check QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT for spell with SPELL_EFFECT_QUEST_COMPLETE
+    // check QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT for spell with SPELL_EFFECT_QUEST_COMPLETE
     for (uint32 i = 0; i < sSpellMgr->GetSpellInfoStoreSize(); ++i)
     {
         SpellInfo const *spellInfo = sSpellMgr->GetSpellInfo(i);
@@ -4246,12 +4246,12 @@ void ObjectMgr::LoadQuests()
             if (!quest)
                 continue;
 
-            if (!quest->HasFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT))
+            if (!quest->HasFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT))
             {
-                sLog->outErrorDb("Spell (id: %u) have SPELL_EFFECT_QUEST_COMPLETE for quest %u , but quest not have flag QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT. Quest flags must be fixed, quest modified to enable objective.", spellInfo->Id, quest_id);
+                sLog->outErrorDb("Spell (id: %u) have SPELL_EFFECT_QUEST_COMPLETE for quest %u , but quest not have flag QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT. Quest flags must be fixed, quest modified to enable objective.", spellInfo->Id, quest_id);
 
                 // this will prevent quest completing without objective
-                const_cast<Quest*>(quest)->SetFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT);
+                const_cast<Quest*>(quest)->SetFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT);
             }
         }
     }
@@ -4427,13 +4427,13 @@ void ObjectMgr::LoadScripts(ScriptsType type)
                     continue;
                 }
 
-                if (!quest->HasFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT))
+                if (!quest->HasFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT))
                 {
-                    sLog->outErrorDb("Table `%s` has quest (ID: %u) in SCRIPT_COMMAND_QUEST_EXPLORED in `datalong` for script id %u, but quest not have flag QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT in quest flags. Script command or quest flags wrong. Quest modified to require objective.",
+                    sLog->outErrorDb("Table `%s` has quest (ID: %u) in SCRIPT_COMMAND_QUEST_EXPLORED in `datalong` for script id %u, but quest not have flag QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT in quest flags. Script command or quest flags wrong. Quest modified to require objective.",
                         tableName.c_str(), tmp.QuestExplored.QuestID, tmp.id);
 
                     // this will prevent quest completing without objective
-                    const_cast<Quest*>(quest)->SetFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT);
+                    const_cast<Quest*>(quest)->SetFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT);
 
                     // continue; - quest objective requirement set and command can be allowed
                 }
@@ -5373,12 +5373,12 @@ void ObjectMgr::LoadQuestAreaTriggers()
             continue;
         }
 
-        if (!quest->HasFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT))
+        if (!quest->HasFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT))
         {
-            sLog->outErrorDb("Table `areatrigger_involvedrelation` has record (id: %u) for not quest %u, but quest not have flag QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT. Trigger or quest flags must be fixed, quest modified to require objective.", trigger_ID, quest_ID);
+            sLog->outErrorDb("Table `areatrigger_involvedrelation` has record (id: %u) for not quest %u, but quest not have flag QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT. Trigger or quest flags must be fixed, quest modified to require objective.", trigger_ID, quest_ID);
 
             // this will prevent quest completing without objective
-            const_cast<Quest*>(quest)->SetFlag(QUEST_TRILLIUM_FLAGS_EXPLORATION_OR_EVENT);
+            const_cast<Quest*>(quest)->SetFlag(QUEST_ARKCORE_FLAGS_EXPLORATION_OR_EVENT);
 
             // continue; - quest modified to required objective and trigger can be allowed.
         }
@@ -7735,7 +7735,7 @@ bool ObjectMgr::LoadTrilliumStrings(char const* table, int32 min_value, int32 ma
     if (!result)
     {
 
-        if (min_value == MIN_TRILLIUM_STRING_ID)              // error only in case internal strings
+        if (min_value == MIN_ARKCORE_STRING_ID)              // error only in case internal strings
             sLog->outErrorDb(">> Loaded 0 trillium strings. DB table `%s` is empty. Cannot continue.", table);
         else
             sLog->outString(">> Loaded 0 string templates. DB table `%s` is empty.", table);
@@ -7777,7 +7777,7 @@ bool ObjectMgr::LoadTrilliumStrings(char const* table, int32 min_value, int32 ma
             AddLocaleString(fields[i + 1].GetString(), LocaleConstant(i), data.Content);
     } while (result->NextRow());
 
-    if (min_value == MIN_TRILLIUM_STRING_ID)
+    if (min_value == MIN_ARKCORE_STRING_ID)
         sLog->outString(">> Loaded %u Trillium strings from table %s in %u ms", count, table, GetMSTimeDiffToNow(oldMSTime));
     else
         sLog->outString(">> Loaded %u string templates from %s in %u ms", count, table, GetMSTimeDiffToNow(oldMSTime));
@@ -8101,7 +8101,7 @@ void ObjectMgr::LoadMailLevelRewards()
 
 void ObjectMgr::AddSpellToTrainer(uint32 entry, uint32 spell, uint32 spellCost, uint32 reqSkill, uint32 reqSkillValue, uint32 reqLevel)
 {
-    if (entry >= TRILLIUM_TRAINER_START_REF)
+    if (entry >= ARKCORE_TRAINER_START_REF)
         return;
 
     CreatureTemplate const* cInfo = GetCreatureTemplate(entry);

@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -150,8 +150,7 @@ void WorldSession::HandleMoveWorldportAckOpcode()
             GetPlayer()->SpawnCorpseBones();
         }
     }
-
-    bool allowMount = !mEntry->IsDungeon() || mEntry->IsBattlegroundOrArena();
+    
     if (mInstance)
     {
         Difficulty diff = GetPlayer()->GetDifficulty(mEntry->IsRaid());
@@ -166,12 +165,7 @@ void WorldSession::HandleMoveWorldportAckOpcode()
                 }
             }
         }
-        allowMount = mInstance->AllowMount;
     }
-
-    // mount allow check
-    if (!allowMount)
-        _player->RemoveAurasByType(SPELL_AURA_MOUNTED);
 
     // update zone immediately, otherwise leave channel will cause crash in mtmap
     uint32 newzone, newarea;

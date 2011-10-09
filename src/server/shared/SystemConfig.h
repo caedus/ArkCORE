@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -21,15 +21,15 @@
 
 // THIS FILE IS DEPRECATED
 
-#ifndef TRILLIUM_SYSTEMCONFIG_H
-#define TRILLIUM_SYSTEMCONFIG_H
+#ifndef ARKCORE_SYSTEMCONFIG_H
+#define ARKCORE_SYSTEMCONFIG_H
 
 #include "Define.h"
 #include "revision.h"
 
 #define _PACKAGENAME "ArkCore based on Trillium"
 
-#if TRILLIUM_ENDIAN == TRILLIUM_BIGENDIAN
+#if ARKCORE_ENDIAN == ARKCORE_BIGENDIAN
 # define _ENDIAN_STRING "big-endian"
 #else
 # define _ENDIAN_STRING "little-endian"

@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -19,8 +19,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRILLIUM_GRIDNOTIFIERSIMPL_H
-#define TRILLIUM_GRIDNOTIFIERSIMPL_H
+#ifndef ARKCORE_GRIDNOTIFIERSIMPL_H
+#define ARKCORE_GRIDNOTIFIERSIMPL_H
 
 #include "GridNotifiers.h"
 #include "WorldPacket.h"
@@ -463,4 +463,4 @@ void Trillium::LocalizedPacketListDo<Builder>::operator()(Player* p)
         p->SendDirectMessage((*data_list)[i]);
 }
 
-#endif                                                      // TRILLIUM_GRIDNOTIFIERSIMPL_H
+#endif                                                      // ARKCORE_GRIDNOTIFIERSIMPL_H

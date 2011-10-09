@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2008 - 2011 TrinityCore <http://www.trinitycore.org/>
  *
- * Copyright (C) 2011 TrilliumEMU <http://www.trilliumemu.org/>
+ * Copyright (C) 2011 ArkCORE <http://www.arkania.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -2362,7 +2362,7 @@ class Player : public Unit, public GridObject<Player>
         }
         void HandleFall(MovementInfo const& movementInfo);
 
-        bool IsKnowHowFlyIn(uint32 mapid, uint32 zone) const;
+        bool IsKnowHowFlyIn(uint32 mapid, uint32 zone, uint32 spellId = 0) const;
 
         void SetClientControl(Unit* target, uint8 allowMove);
 

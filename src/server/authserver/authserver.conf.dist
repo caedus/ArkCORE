@@ -1,5 +1,5 @@
 ##################################################
-# Trillium ENCORE Auth Server configuration file #
+# ArkCORE Auth Server configuration file #
 ##################################################
 [authserver]
 
@@ -112,7 +112,7 @@ WrongPass.BanType = 0
 #        Example:     "./authserver.pid"  - (Enabled)
 #        Default:     ""                  - (Disabled)
 
-PidFile = ""
+PidFile = "pids/auth.pid"
 
 #
 #    Log.Directory
@@ -120,7 +120,7 @@ PidFile = ""
 #        Important:   Value needs to be quoted, as the string might contain space characters.
 #        Default:     "" - (Log files will be stored in the current path)
 
-Log.Directory = ""
+Log.Directory = "logs"
 
 #
 #    Log.Console.Level
@@ -153,7 +153,7 @@ Log.Console.Level = 0
 #        Default:     ""          - (Disabled)
 #                     "13 8 10 5" - (Enabled)
 
-Log.Console.Colors = ""
+Log.Console.Colors = "13 8 10 5"
 
 #
 #    Log.DB.Enable
@@ -310,9 +310,9 @@ Log.SqlDriver.FlushBytes = 0
 #                                                                 section my.ini)
 #                     ".;/path/to/unix_socket;username;password;database" - (use Unix sockets on
 #                                                                           Unix/Linux)
-#        Default:     "127.0.0.1;3306;trillium;trillium;auth"
+#        Default:     "127.0.0.1;3306;arkcore;arkcore;auth"
 
-LoginDatabaseInfo = "127.0.0.1;3306;trillium;trillium;auth"
+LoginDatabaseInfo = "127.0.0.1;3306;arkcore;arkcore;auth"
 
 #
 #    LoginDatabase.WorkerThreads
